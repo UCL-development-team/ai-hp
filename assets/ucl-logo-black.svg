@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 70" width="400" height="70" role="img" aria-label="UCL Corporation">
+  <defs>
+    <linearGradient id="ucl-top-d" x1="32" y1="2" x2="32" y2="51" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#eff4fb"/>
+      <stop offset="1" stop-color="#ccdbee"/>
+    </linearGradient>
+    <linearGradient id="ucl-right-d" x1="62" y1="25" x2="32" y2="61" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c0d3eb"/>
+      <stop offset="1" stop-color="#a2bbdc"/>
+    </linearGradient>
+    <linearGradient id="ucl-left-d" x1="2" y1="25" x2="32" y2="61" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#71aadc"/>
+      <stop offset="1" stop-color="#6b96b7"/>
+    </linearGradient>
+  </defs>
+
+  <g>
+    <polygon points="32,2 62,25 32,51 2,25" fill="url(#ucl-top-d)"/>
+    <polygon points="62,25 62,35 32,61 32,51" fill="url(#ucl-right-d)"/>
+    <polygon points="2,25 32,51 32,61 2,35" fill="url(#ucl-left-d)"/>
+    <path d="M 26.07 26.57 A 11 11 0 1 1 10.57 27.93" fill="none" stroke="#e3edf7" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="16" cy="47" r="3.4" fill="#e3edf7"/>
+  </g>
+
+  <text x="82" y="46" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="37" fill="#6fa5ce">UCL Corporation</text>
+</svg>
