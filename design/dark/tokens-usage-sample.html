@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tokens.css 使用サンプル</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:var(--font-family-base);
+    background:var(--bg);
+    color:var(--txt);
+    line-height:var(--line-height-base);
+  }
+  .wrap{max-width:var(--content-max-width);margin:0 auto;padding:0 var(--content-padding-x)}
+  section{padding:var(--section-padding-y) 0}
+  section:nth-of-type(even){background:var(--bg2)}
+
+  h1{
+    font-size:clamp(28px,5vw,44px);
+    line-height:var(--line-height-heading);
+    font-weight:800;
+    background:var(--gradient-accent);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:8px;
+  }
+  h2{font-size:22px;font-weight:800;margin-bottom:24px}
+  p.desc{color:var(--muted);margin-bottom:12px;font-size:14px}
+  code{color:var(--accent);font-size:13px}
+
+  /* --- カラートークン --- */
+  .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--gap-stats)}
+  .swatch{border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden}
+  .swatch .fill{height:64px}
+  .swatch .label{padding:10px 12px;background:var(--panel);font-size:12px}
+  .swatch .label b{display:block;font-size:13px}
+
+  /* --- 角丸スケール --- */
+  .radius-row{display:flex;flex-wrap:wrap;gap:var(--gap-grid)}
+  .radius-box{
+    width:96px;height:96px;background:var(--panel);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);
+  }
+
+  /* --- グラデーション --- */
+  .gradient-row{display:flex;flex-wrap:wrap;gap:var(--gap-grid)}
+  .gradient-box{
+    width:220px;height:96px;border:1px solid var(--line);border-radius:var(--radius-2xl);
+    display:flex;align-items:end;padding:12px;font-size:12px;color:var(--txt);
+  }
+  .g-accent{background:var(--gradient-accent)}
+  .g-card{background:var(--gradient-card)}
+  .g-cta{background:var(--gradient-cta)}
+
+  /* --- スペーシング --- */
+  .space-demo{border:1px dashed var(--line);border-radius:var(--radius-md)}
+  .space-demo .inner{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);
+    padding:var(--content-padding-x);
+  }
+  .gap-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-grid);margin-top:16px}
+  .gap-demo div{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);height:48px}
+
+  /* --- モーション --- */
+  .motion-row{display:flex;gap:var(--gap-grid);flex-wrap:wrap}
+  .btn-demo{
+    padding:11px 22px;border-radius:var(--radius-md);font-size:14px;font-weight:700;
+    background:var(--gradient-accent);color:#04121a;
+    box-shadow:0 6px 24px var(--glow);
+    transition:transform var(--transition-fast);
+    cursor:pointer;border:none;
+  }
+  .btn-demo:hover{transform:translateY(-2px)}
+  .card-demo{
+    padding:24px;background:var(--gradient-card);border:1px solid var(--line);
+    border-radius:var(--radius-2xl);transition:transform var(--transition-base),border-color var(--transition-base);
+    width:220px;font-size:13px;color:var(--muted);
+  }
+  .card-demo:hover{transform:translateY(-4px);border-color:var(--accent)}
+
+  /* --- タイポグラフィ --- */
+  .type-row{display:flex;flex-direction:column;gap:14px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header style="padding:var(--hero-padding-y)">
+    <h1>tokens.css 使用サンプル</h1>
+    <p class="desc">design-system.md とは独立して、<code>tokens.css</code> のカスタムプロパティを直接参照した最小デモです。トークンが実際にどう使えるかの動作確認用途。</p>
+  </header>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>カラートークン</h2>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="fill" style="background:var(--bg)"></div><div class="label"><b>--bg</b><code>#0a0e17</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--bg2)"></div><div class="label"><b>--bg2</b><code>#0e1420</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--panel)"></div><div class="label"><b>--panel</b><code>#121a2b</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--line)"></div><div class="label"><b>--line</b><code>#1f2b42</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--txt)"></div><div class="label"><b>--txt</b><code>#e8edf6</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--muted)"></div><div class="label"><b>--muted</b><code>#9aa9c4</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--accent)"></div><div class="label"><b>--accent</b><code>#38e1c0</code></div></div>
+      <div class="swatch"><div class="fill" style="background:var(--accent2)"></div><div class="label"><b>--accent2</b><code>#5b8cff</code></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>グラデーション</h2>
+    <div class="gradient-row">
+      <div class="gradient-box g-accent">--gradient-accent</div>
+      <div class="gradient-box g-card">--gradient-card</div>
+      <div class="gradient-box g-cta">--gradient-cta</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>角丸スケール</h2>
+    <div class="radius-row">
+      <div class="radius-box" style="border-radius:var(--radius-sm)">--radius-sm<br>6px</div>
+      <div class="radius-box" style="border-radius:var(--radius-md)">--radius-md<br>10px</div>
+      <div class="radius-box" style="border-radius:var(--radius-lg)">--radius-lg<br>14px</div>
+      <div class="radius-box" style="border-radius:var(--radius-xl)">--radius-xl<br>16px</div>
+      <div class="radius-box" style="border-radius:var(--radius-2xl)">--radius-2xl<br>18px</div>
+      <div class="radius-box" style="border-radius:var(--radius-3xl)">--radius-3xl<br>24px</div>
+      <div class="radius-box" style="border-radius:var(--radius-pill)">--radius-pill<br>999px</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>スペーシング</h2>
+    <p class="desc"><code>--content-padding-x</code> / <code>--gap-grid</code> / <code>--gap-stats</code> の適用例</p>
+    <div class="space-demo">
+      <div class="inner">この内側paddingは <code>var(--content-padding-x)</code>（24px）です。</div>
+    </div>
+    <div class="gap-demo">
+      <div></div><div></div><div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>タイポグラフィ</h2>
+    <div class="type-row">
+      <div style="font-family:var(--font-family-base);font-size:32px;font-weight:800;line-height:var(--line-height-heading)">見出し（--line-height-heading / --font-family-base）</div>
+      <div style="font-family:var(--font-family-base);line-height:var(--line-height-base);color:var(--muted);max-width:640px">
+        本文テキストは <code>--line-height-base</code>（1.75）を使用します。AI Innovation 部は、生成AIをはじめとする先端技術を、開発とチームのあらゆる場面に実装していく専門部門です。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>モーション &amp; コンポーネント例</h2>
+    <div class="motion-row">
+      <button class="btn-demo">--transition-fast（ホバーで確認）</button>
+      <div class="card-demo">--transition-base（ホバーで確認）</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
