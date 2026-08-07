@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Innovation 部</title>
+<style>
+  :root{
+    --ink:#0d0b1f; --paper:#ffffff; --soft:#f4f2ff; --muted:#5b5776; --line:#e7e3f7;
+    --p1:#7c3aed; --p2:#ec4899; --p3:#f59e0b; --p4:#06b6d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Helvetica Neue","Hiragino Sans","Noto Sans JP",-apple-system,sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  .gr{background:linear-gradient(100deg,var(--p1),var(--p2) 55%,var(--p3));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{font-weight:900;font-size:20px;letter-spacing:-.5px}
+  .logo span{color:var(--p1)}
+  .nav-links{display:flex;gap:30px;font-size:15px;font-weight:600;color:var(--muted)}
+  .nav-links a:hover{color:var(--ink)}
+  .btn{display:inline-block;padding:13px 26px;border-radius:999px;font-size:15px;font-weight:800;transition:.2s}
+  .btn-p{background:linear-gradient(100deg,var(--p1),var(--p2));color:#fff;box-shadow:0 10px 30px rgba(124,58,237,.35)}
+  .btn-p:hover{transform:translateY(-2px) scale(1.02)}
+  .btn-o{border:2px solid var(--ink);color:var(--ink)}
+  .btn-o:hover{background:var(--ink);color:#fff}
+
+  .hero{position:relative;padding:110px 0 90px;overflow:hidden;background:
+    radial-gradient(720px 420px at 82% -6%,rgba(236,72,153,.18),transparent 62%),
+    radial-gradient(680px 420px at -6% 60%,rgba(124,58,237,.16),transparent 60%),
+    radial-gradient(540px 360px at 60% 120%,rgba(6,182,212,.14),transparent 62%);}
+  .pill{display:inline-block;font-size:14px;font-weight:800;color:var(--p1);background:var(--soft);
+    border:1px solid var(--line);padding:8px 16px;border-radius:999px;margin-bottom:28px}
+  h1{font-size:clamp(42px,8vw,88px);line-height:.98;font-weight:900;letter-spacing:-2px}
+  .lede{margin-top:28px;font-size:clamp(16px,2vw,21px);color:var(--muted);max-width:620px;font-weight:500}
+  .hero-cta{margin-top:40px;display:flex;gap:16px;flex-wrap:wrap}
+  .marquee{margin-top:70px;display:flex;gap:14px;flex-wrap:wrap}
+  .mtag{font-weight:800;font-size:15px;padding:10px 20px;border-radius:999px;color:#fff}
+  .m1{background:var(--p1)} .m2{background:var(--p2)} .m3{background:var(--p3)} .m4{background:var(--p4)}
+
+  section{padding:100px 0}
+  .eyebrow{font-size:14px;font-weight:900;letter-spacing:1px;color:var(--p2);text-transform:uppercase}
+  .s-title{font-size:clamp(30px,5vw,52px);font-weight:900;letter-spacing:-1px;margin-top:10px;line-height:1.05}
+  .s-sub{color:var(--muted);margin-top:16px;max-width:640px;font-size:17px}
+
+  .cards{margin-top:56px;display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+  .card{border-radius:26px;padding:40px 34px;color:#fff;position:relative;overflow:hidden;transition:.25s}
+  .card:hover{transform:translateY(-6px)}
+  .c1{background:linear-gradient(150deg,#7c3aed,#a855f7)}
+  .c2{background:linear-gradient(150deg,#ec4899,#f472b6)}
+  .c3{background:linear-gradient(150deg,#f59e0b,#fbbf24)}
+  .c4{background:linear-gradient(150deg,#06b6d4,#22d3ee)}
+  .card .n{font-size:15px;font-weight:900;opacity:.75}
+  .card h3{font-size:26px;font-weight:900;margin-top:8px;letter-spacing:-.5px}
+  .card p{margin-top:12px;font-size:15.5px;opacity:.95}
+  .card .k{margin-top:20px;font-size:13px;font-weight:800;opacity:.9}
+
+  .big{background:var(--ink);color:#fff;border-radius:32px;padding:70px 48px;text-align:center;margin-top:20px}
+  .big .num{font-size:clamp(48px,9vw,92px);font-weight:900;letter-spacing:-2px;line-height:1}
+  .bigrow{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .big small{display:block;color:#b7b2d6;font-size:15px;font-weight:600;margin-top:10px}
+
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px}
+  .why .w{background:var(--soft);border:1px solid var(--line);border-radius:22px;padding:32px}
+  .why .w .e{font-size:34px}
+  .why .w h4{font-size:20px;font-weight:900;margin:14px 0 8px;letter-spacing:-.3px}
+  .why .w p{color:var(--muted);font-size:15px}
+
+  .cta{background:linear-gradient(110deg,var(--p1),var(--p2));border-radius:34px;padding:72px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
+  .cta h2{font-size:clamp(30px,5vw,52px);font-weight:900;letter-spacing:-1px;line-height:1.05}
+  .cta p{margin-top:16px;font-size:18px;opacity:.95}
+  .cta .hero-cta{justify-content:center;margin-top:34px}
+  .btn-w{background:#fff;color:var(--p1)}
+  .btn-wo{border:2px solid rgba(255,255,255,.8);color:#fff}
+
+  footer{padding:50px 0;color:var(--muted);font-size:15px;border-top:1px solid var(--line)}
+  .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px}
+
+  @media(max-width:820px){
+    .nav-links{display:none}
+    .cards,.why,.bigrow{grid-template-columns:1fr}
+    .bigrow{gap:36px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo">AI <span>Innovation</span> 部</div>
+    <div class="nav-links">
+      <a href="#service">領域</a>
+      <a href="#impact">インパクト</a>
+      <a href="#why">強み</a>
+      <a href="#contact">お問い合わせ</a>
+    </div>
+    <a href="#contact" class="btn btn-p">相談する</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pill">✦ 2026年 新設 &mdash; AI Innovation Division</span>
+    <h1>AIで、<br><span class="gr">次を、つくる。</span></h1>
+    <p class="lede">タスク支援から、自律開発、そして人材として現場へ。AI Innovation 部は、先端技術を"実際に使える形"に変えていく部隊です。試すだけで終わらせず、成果まで走り切ります。</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-p">一緒に始める →</a>
+      <a href="#service" class="btn btn-o">取り組みを見る</a>
+    </div>
+    <div class="marquee">
+      <span class="mtag m1">AI支援型開発</span>
+      <span class="mtag m2">AI自律型開発</span>
+      <span class="mtag m4">AI人材支援</span>
+    </div>
+  </div>
+</header>
+
+<section id="service">
+  <div class="wrap">
+    <div class="eyebrow">Focus Areas</div>
+    <h2 class="s-title">やることは、3つ。</h2>
+    <p class="s-sub">AI Innovation 部が担う領域。単独でも、掛け合わせても。お客様・社内のフェーズに合わせて動きます。</p>
+    <div class="cards" style="grid-template-columns:repeat(3,1fr)">
+      <div class="card c1">
+        <div class="n">01</div>
+        <h3>AI支援型開発</h3>
+        <p>ドキュメント作成、コード補完、テストなど、特定タスクをAIが強化。既存の開発フローを保ったまま、生産性を底上げします。</p>
+        <div class="k"># コード補完　# テスト　# ドキュメント</div>
+      </div>
+      <div class="card c2">
+        <div class="n">02</div>
+        <h3>AI自律型開発</h3>
+        <p>AIがより広い範囲を自律的に開発。自社FW「SDD-KIT」を核に、設計＝コードの一貫性を保ちながら、仕様から実装まで一気に。</p>
+        <div class="k"># SDD-KIT　# 自律開発　# 成果ベース</div>
+      </div>
+      <div class="card c4">
+        <div class="n">03</div>
+        <h3>AI人材支援</h3>
+        <p>AI活用に強い人材が、SES的に現場へ。チームに入り込み、AIを前提とした開発を回しながら、内製化まで伴走します。</p>
+        <div class="k"># SES　# 常駐/伴走　# 内製化</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="impact" style="padding-top:0">
+  <div class="wrap">
+    <div class="big">
+      <div class="bigrow">
+        <div><div class="num gr">3</div><small>支援型・自律型・人材支援の領域</small></div>
+        <div><div class="num gr">実装</div><small>PoCで終わらせず現場に定着</small></div>
+        <div><div class="num gr">Secure</div><small>閉域網・非SaaSでも導入可能</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="eyebrow">Why us</div>
+    <h2 class="s-title">なぜ、私たちなのか。</h2>
+    <div class="why">
+      <div class="w"><div class="e">🎯</div><h4>実装まで、やり切る</h4><p>デモやPoCで満足しません。実際の開発・業務に組み込み、成果として残るところまで責任を持ちます。</p></div>
+      <div class="w"><div class="e">🔒</div><h4>セキュリティ前提</h4><p>お客様の環境内・ローカルで完結する構成が得意。機密データを外部に出さない設計で、厳しい現場でも導入可能。</p></div>
+      <div class="w"><div class="e">📈</div><h4>成果で語る</h4><p>人月ではなく、実現した価値で評価いただく。AIによる加速効果を、そのままメリットとして還元します。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta">
+      <h2>AIの一歩目、<br>今日から。</h2>
+      <p>ご相談・簡易ご提案は無料。オンライン30分から、気軽にどうぞ。</p>
+      <div class="hero-cta">
+        <a href="mailto:contact@example.com" class="btn btn-w">相談を申し込む</a>
+        <a href="#" class="btn btn-wo">資料をダウンロード</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="logo" style="font-size:17px">AI <span>Innovation</span> 部</div>
+    <div>&copy; 2026 AI Innovation Division. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
