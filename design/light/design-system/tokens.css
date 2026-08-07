@@ -1,0 +1,64 @@
+/*
+  AI Innovation 部 — Light Design Tokens
+  design/dark/design-system/tokens.css のライト版。
+  レイアウト系トークン（radius/spacing/typography/motion）は
+  ダーク版と同一の値を維持し、色トークンのみライト背景向けに再設計。
+  詳細な用途・使用ルールは design-system.md を参照。
+  このファイルは参照用トークン定義であり、サイト本体（docs/index.html。
+  現状ダークテーマ）には自動的には反映されません。
+*/
+
+:root {
+  /* --- Color: base --- */
+  --bg: #f6f8fb;      /* ページ背景（基調） */
+  --bg2: #eef1f7;     /* セクション背景（ゼブラ配置の2色目） */
+  --panel: #ffffff;   /* カード・チップ・stat等の面背景 */
+  --line: #dde3ee;    /* ボーダー・区切り線・グリッド線 */
+
+  /* --- Color: text --- */
+  --txt: #10182b;     /* 基本テキスト */
+  --muted: #5b6478;   /* 補助テキスト */
+
+  /* --- Color: accent --- */
+  --accent: #0f766e;  /* アクセント1（ティール）。白背景でAA相当のコントラストを確保するため濃色化 */
+  --accent2: #2563eb; /* アクセント2（ブルー）。同上 */
+  --glow: rgba(15, 118, 110, .18); /* アクセントのグロー（ダーク版より弱め） */
+
+  /* --- Gradients --- */
+  --gradient-accent: linear-gradient(120deg, var(--accent), var(--accent2));
+  --gradient-card: linear-gradient(180deg, var(--panel), var(--bg2));
+  --gradient-cta: linear-gradient(120deg, rgba(15, 118, 110, .10), rgba(37, 99, 235, .10));
+
+  /* --- Radius scale（ダーク版と同一） --- */
+  --radius-sm: 6px;    /* tag */
+  --radius-md: 10px;   /* button, chip */
+  --radius-lg: 14px;   /* stat */
+  --radius-xl: 16px;   /* feature item */
+  --radius-2xl: 18px;  /* card */
+  --radius-3xl: 24px;  /* cta section */
+  --radius-pill: 999px; /* badge */
+
+  /* --- Spacing（ダーク版と同一） --- */
+  --content-max-width: 1120px;
+  --content-padding-x: 24px;
+  --section-padding-y: 96px;
+  --hero-padding-y: 120px 96px;
+  --gap-grid: 22px;
+  --gap-stats: 18px;
+
+  /* --- Typography（ダーク版と同一） --- */
+  --font-family-base: "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", -apple-system, sans-serif;
+  --line-height-base: 1.75;
+  --line-height-heading: 1.12;
+
+  /* --- Motion（ダーク版と同一） --- */
+  --transition-fast: .2s;
+  --transition-base: .25s;
+
+  /* --- ライト版固有: ボタン/バッジ等のコントラスト反転用テキスト色 --- */
+  --btn-primary-text: #ffffff; /* ダーク版は#04121a（濃色）。ライト版はアクセントが濃色化したため白文字に反転 */
+}
+
+/* --- Breakpoints (参考: メディアクエリ内で直接数値指定) ---
+   md: max-width 820px — nav-links非表示、cards/feat/statsを1カラム化
+*/
