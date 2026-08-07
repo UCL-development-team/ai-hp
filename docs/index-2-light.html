@@ -5,57 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Innovation 部 | AIで、次を、つくる。</title>
 <meta name="description" content="AI Innovation 部（AI Innovation Division）は、AI支援型開発・仕様駆動型開発・AI人材支援の3領域で、先端技術を“実際に使える形”に変えていく新設部門です。">
+
+<!-- Design tokens（ライトテーマ）— 色・角丸・スペーシング・タイポグラフィ・モーションの
+     各カスタムプロパティはすべてこの外部CSSで定義。以下の <style> では値をハードコードせず
+     var(--*) 経由で参照する。仕様は docs/light/design-system.md を参照。 -->
+<link rel="stylesheet" href="light/tokens.css">
+
 <style>
-  /* =========================================================
-     Design tokens — design/light/design-system/tokens.css の
-     ライトテーマ版トークンをインライン化（単一HTMLファイル構成を維持するため）。
-     値を変更する際は tokens.css 側と同期させること。
-     ========================================================= */
-  :root{
-    /* --- Color: base --- */
-    --bg:#f6f8fb;      /* ページ背景（基調） */
-    --bg2:#eef1f7;     /* セクション背景（ゼブラ配置の2色目） */
-    --panel:#ffffff;   /* カード・チップ・stat等の面背景 */
-    --line:#dde3ee;    /* ボーダー・区切り線・グリッド線 */
-
-    /* --- Color: text --- */
-    --txt:#10182b;     /* 基本テキスト */
-    --muted:#5b6478;   /* 補助テキスト */
-
-    /* --- Color: accent --- */
-    --accent:#0f766e;  /* アクセント1（ティール） */
-    --accent2:#2563eb; /* アクセント2（ブルー） */
-    --glow:rgba(15,118,110,.18);
-
-    /* --- Gradients --- */
-    --gradient-accent:linear-gradient(120deg,var(--accent),var(--accent2));
-    --gradient-card:linear-gradient(180deg,var(--panel),var(--bg2));
-    --gradient-cta:linear-gradient(120deg,rgba(15,118,110,.10),rgba(37,99,235,.10));
-
-    /* --- Radius scale --- */
-    --radius-sm:6px; --radius-md:10px; --radius-lg:14px;
-    --radius-xl:16px; --radius-2xl:18px; --radius-3xl:24px; --radius-pill:999px;
-
-    /* --- Spacing --- */
-    --content-max-width:1120px;
-    --content-padding-x:24px;
-    --section-padding-y:96px;
-    --gap-grid:22px;
-    --gap-stats:18px;
-
-    /* --- Typography --- */
-    --font-family-base:"Helvetica Neue","Hiragino Sans","Noto Sans JP",-apple-system,sans-serif;
-    --line-height-base:1.75;
-    --line-height-heading:1.12;
-
-    /* --- Motion --- */
-    --transition-fast:.2s;
-    --transition-base:.25s;
-
-    /* --- ライト版固有 --- */
-    --btn-primary-text:#ffffff;
-  }
-
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
