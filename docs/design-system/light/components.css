@@ -167,6 +167,10 @@ a.mtag:hover{transform:translateY(-2px)}
 }
 .figure img{display:block;width:100%;height:auto;border-radius:var(--radius-sm)}
 .figure figcaption{margin-top:18px;color:var(--muted);font-size:14px;font-weight:600;text-align:center}
+/* 枠なし版: 図版自身が面と余白を持つ場合に使う。枠・背景を外し、
+   padding 分だけ図版をコンテンツ幅いっぱいに広げる */
+.figure-flush{background:none;border:0;border-radius:0;padding:0}
+.figure-flush img{border-radius:0}
 
 /* =========================================================
    6.8 CTA セクション
@@ -196,5 +200,6 @@ footer{padding:50px 0;color:var(--muted);font-size:15px;border-top:1px solid var
   .bigrow{gap:36px}
   .big{padding:48px 28px}
   .figure{padding:16px}
+  .figure-flush{padding:0}
   .cta{padding:56px 24px}
 }

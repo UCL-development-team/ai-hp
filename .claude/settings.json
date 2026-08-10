@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Bash(npx -v)",
+      "Bash(cd r:/__Source_github_ucl/ai-hp/docs && mv assets/ai-evolution-light/plan-4-timeline.html plan-4-timeline.html && ls plan-4-timeline.*)"
+    ],
+    "additionalDirectories": [
+      "r:\\__Source_github_ucl\\ai-hp\\docs\\assets\\ai-evolution-light"
+    ]
+  }
+}

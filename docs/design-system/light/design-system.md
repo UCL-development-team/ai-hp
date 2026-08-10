@@ -189,7 +189,7 @@
 | 6.8 | CTA | `.cta` |
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
-| 6.12 | Figure（図版パネル） | `.figure`（`img` `figcaption`） |
+| 6.12 | Figure（図版パネル） | `.figure`（`.figure-flush` / `img` / `figcaption`） |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
 | — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
 
@@ -252,6 +252,7 @@
 - 説明を添える場合は `figcaption`（14px/800、`--muted`、中央揃え）を `img` の後ろに置く
 - `alt` は必須。図が伝える内容を文章で説明する
 - 6.10 のセクション見出しパターンの直下に置く想定（`margin-top:56px`）
+- `.figure-flush` を併記すると枠・背景・角丸・padding を外す。図版自身が面（背景色）と余白を持っていて、セクション背景と地続きに見せたい場合に使う。padding が無くなる分、図版はコンテンツ幅いっぱいに広がる
 
 ---
 

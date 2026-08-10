@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Innovation 部 | AIで、次を、つくる。</title>
+<meta name="description" content="AI Innovation 部（AI Innovation Division）は、AI支援型開発・仕様駆動型開発・AI人材支援の3領域で、先端技術を“実際に使える形”に変えていく新設部門です。">
+
+<!-- Light Design System — 読み込み順は tokens.css → components.css
+     tokens.css     : 色・角丸・スペーシング・タイポグラフィ・モーションのトークン定義
+     components.css : nav / btn / card / big / figure / why / cta 等のコンポーネント実装
+     仕様書         : design-system/light/design-system.md -->
+<link rel="stylesheet" href="design-system/light/tokens.css">
+<link rel="stylesheet" href="design-system/light/components.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo">AI <span>Innovation</span> 部</div>
+    <div class="nav-links">
+      <a href="#service">領域</a>
+      <a href="#values">価値観</a>
+      <a href="#why">強み</a>
+      <a href="#contact">お問い合わせ</a>
+    </div>
+    <a href="#contact" class="btn btn-p">相談する</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="pill">✦ 2026年 新設 &mdash; AI Innovation Division</span>
+    <h1>AIで、次を、<br><span class="gr">つくる。</span></h1>
+    <p class="lede">AIによる支援から、仕様駆動型による自律開発、そして人材として現場へ。AI Innovation 部は、先端技術を“実際に使える形”に変えていく部隊です。アジャイルの価値観を重視し、試すだけで終わらせず、成果まで走り切ります。</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-p">一緒に始める →</a>
+      <a href="#service" class="btn btn-o">取り組みを見る</a>
+    </div>
+    <div class="marquee">
+      <a href="#service" class="mtag m1">AI支援型開発（AI-assisted）</a>
+      <a href="#service" class="mtag m2">仕様駆動型開発（AI-driven）</a>
+      <a href="#service" class="mtag m4">AI人材支援</a>
+    </div>
+  </div>
+</header>
+
+<section id="service">
+  <div class="wrap">
+    <div class="eyebrow">Focus Areas</div>
+    <h2 class="s-title">やることは、3つ。</h2>
+    <p class="s-sub">AI Innovation 部が担う領域。単独でも、掛け合わせても。お客様・社内のフェーズに合わせて動きます。</p>
+    <div class="cards cards-3">
+      <div class="card c1">
+        <div class="n">01</div>
+        <h3>AI支援型開発</h3>
+        <p>コード生成、ドキュメント出力、自動テストなど、特定タスクをAIが強化。<strong>既存の開発フローを保ったまま</strong>、生産性を底上げします。</p>
+        <div class="k"># コード生成　# ドキュメント出力　# 自動テスト(E2E)</div>
+      </div>
+      <div class="card c2">
+        <div class="n">02</div>
+        <h3>仕様駆動型開発</h3>
+        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-KIT」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
+        <div class="k"># 弊社オリジナルFramework SDD-KIT　# GitHub Spec Kit　# AWS Kiro</div>
+      </div>
+      <div class="card c4">
+        <div class="n">03</div>
+        <h3>AI人材支援</h3>
+        <p>AI活用に強い人材が、SES的に現場へ。チームに入り込み、AIを前提とした開発を回しながら、内製化まで伴走します。</p>
+        <div class="k"># SES　# 常駐・伴走　# 内製化</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="evolution" class="section-alt">
+  <div class="wrap">
+    <div class="eyebrow">Evolution</div>
+    <h2 class="s-title">AI開発の世代と私たちの立ち位置</h2>
+    <p class="s-sub">プロンプト → コンテキスト → ハーネス → ループ。世代ごとに移り変わる主戦場の中で、私たちの3領域がどこを担っているかを整理しました。</p>
+    <figure class="figure figure-flush">
+      <!-- 図版の原本: docs/plan-4-timeline.drawio ／ HTML版: docs/plan-4-timeline.html -->
+      <img src="assets/ai-evolution-light/plan-4-timeline.png" alt="AI開発の4世代（プロンプト／コンテキスト／ハーネス／ループ）と、AI支援型開発・仕様駆動型開発の位置づけを示すタイムライン図">
+    </figure>
+  </div>
+</section>
+
+<section id="values">
+  <div class="wrap">
+    <div class="big">
+      <div class="eyebrow">Values</div>
+      <h2 class="s-title">大事にするもの</h2>
+      <p class="s-sub">私たちは、アジャイルの価値観を軸に開発を進めます。作り込んでから一度に出すのではなく、小さく動くものを積み重ね、実物で対話しながら正解に近づけていきます。</p>
+      <div class="bigrow">
+        <div>
+          <div class="num gr">01</div>
+          <b>インクリメント</b>
+          <small>全部を一度に作らず、動く単位で少しずつ届ける。早く価値を出し、得たフィードバックを次の一手に活かします。</small>
+        </div>
+        <div>
+          <div class="num gr">02</div>
+          <b>動くものが正</b>
+          <small>計画書や議論よりも、動くコードで判断する。プロトタイプと実物をベースに意思決定します。</small>
+        </div>
+        <div>
+          <div class="num gr">03</div>
+          <b>変化を歓迎</b>
+          <small>要件もAI技術も変わる前提で、方向転換できる余地を残して設計します。</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="section-alt">
+  <div class="wrap">
+    <div class="eyebrow">Why us</div>
+    <h2 class="s-title">なぜ、私たちなのか。</h2>
+    <div class="why">
+      <div class="w">
+        <div class="e">🎯</div>
+        <h4>実装まで、やり切る</h4>
+        <p>デモやPoCで満足しません。実際の開発・業務に組み込み、成果として残るところまで責任を持ちます。</p>
+      </div>
+      <div class="w">
+        <div class="e">🔒</div>
+        <h4>セキュリティ前提</h4>
+        <p>機密データをAIに学習させない設計で、セキュリティーに厳しい現場でも導入可能。</p>
+      </div>
+      <div class="w">
+        <div class="e">📈</div>
+        <h4>成果で語る</h4>
+        <p>人月ではなく、実現した価値で評価いただく。AIによる加速効果を、そのままメリットとして還元します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta">
+      <h2>AIの一歩目、<br>今日から。</h2>
+      <p>ご相談・簡易ご提案は無料。気軽にどうぞ。</p>
+      <div class="hero-cta">
+        <a href="https://www.ucl-group.co.jp/contact" class="btn btn-w" target="_blank" rel="noopener">相談を申し込む</a>
+        <a href="#service" class="btn btn-wo">SDD-Kitを詳しく見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="logo logo-sm">AI <span>Innovation</span> 部</div>
+    <div><a href="https://www.ucl-group.co.jp/" target="_blank" rel="noopener">UCL グループ</a> &nbsp;/&nbsp; &copy; 2026 AI Innovation Division. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
