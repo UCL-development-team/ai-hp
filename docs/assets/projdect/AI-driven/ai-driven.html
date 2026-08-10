@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>仕様駆動型開発 — 体制イメージ（Light / plan-4）</title>
+<!-- ------------------------------------------------------------------
+     plan-4-timeline.html の FOCUS AREA 02「仕様駆動型開発」カードに差し込む
+     コンパクト図版。配色は docs/design-system/light/tokens.css の
+     ピンク（--p2 = #ec4899）系に揃える。
+     ループの中に人（承認）が入っているのが、AI-loop 版との違い。
+     ------------------------------------------------------------------ -->
+<style>
+  html,body{margin:0;padding:0;background:transparent}
+  svg{display:block}
+</style>
+</head>
+<body>
+<svg width="520" height="172" viewBox="0 0 520 172" xmlns="http://www.w3.org/2000/svg"
+     style="font-family:'Helvetica Neue','Hiragino Sans','Noto Sans JP','Yu Gothic UI',sans-serif;font-feature-settings:'palt' 1">
+  <defs>
+    <g id="person">
+      <circle cx="0" cy="-8" r="6.2"/>
+      <path d="M-9.5,9 a9.5,9.5 0 0 1 19,0 z"/>
+    </g>
+    <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f472b6"/>
+    </marker>
+  </defs>
+
+  <!-- ===== 左：アーキテクト（少数） ===== -->
+  <!-- 人アイコンの中心を、右のチップ列の中心（y=54）に揃えて矢印を水平にする -->
+  <use href="#person" x="46" y="54" fill="#ec4899"/>
+  <text x="46" y="82" text-anchor="middle" font-size="11" font-weight="800" fill="#0d0b1f">アーキテクト</text>
+  <rect x="22" y="90" width="48" height="19" rx="9.5" fill="#ffffff" stroke="#ec4899" stroke-opacity=".32"/>
+  <text x="46" y="103.5" text-anchor="middle" font-size="10" font-weight="800" fill="#b3266e">1〜2名</text>
+  <line x1="64" y1="54" x2="100" y2="54" stroke="#f472b6" stroke-width="1.6" marker-end="url(#ar2)"/>
+
+  <!-- ===== 中：仕様 → 実装 → 検証 の一巡 ===== -->
+  <rect x="104" y="28" width="120" height="52" rx="13" fill="#ffffff" stroke="#ec4899" stroke-opacity=".34"/>
+  <text x="164" y="49" text-anchor="middle" font-size="12" font-weight="800" fill="#0d0b1f">仕様・ルール</text>
+  <text x="164" y="66" text-anchor="middle" font-size="12" font-weight="800" fill="#0d0b1f">検証ゲート</text>
+
+  <line x1="226" y1="54" x2="246" y2="54" stroke="#f472b6" stroke-width="1.6" marker-end="url(#ar2)"/>
+
+  <rect x="248" y="28" width="110" height="52" rx="13" fill="#ffffff" stroke="#ec4899" stroke-opacity=".34"/>
+  <text x="303" y="59" text-anchor="middle" font-size="13" font-weight="800" fill="#0d0b1f">AI が実装</text>
+
+  <line x1="360" y1="54" x2="380" y2="54" stroke="#f472b6" stroke-width="1.6" marker-end="url(#ar2)"/>
+
+  <rect x="382" y="28" width="122" height="52" rx="13" fill="#ffffff" stroke="#ec4899" stroke-opacity=".34"/>
+  <text x="443" y="49" text-anchor="middle" font-size="12" font-weight="800" fill="#0d0b1f">ゲートで</text>
+  <text x="443" y="66" text-anchor="middle" font-size="12" font-weight="800" fill="#0d0b1f">自動検証</text>
+
+  <!-- ===== 戻り：人の承認を挟んで次の一周へ ===== -->
+  <path d="M443,80 V112 H164 V86" fill="none" stroke="#f472b6" stroke-width="1.6" marker-end="url(#ar2)"/>
+  <circle cx="303" cy="112" r="11.5" fill="#ffffff" stroke="#ec4899" stroke-opacity=".6" stroke-width="1.6"/>
+  <path d="M297.5,112.5 l4,4 l7,-8" fill="none" stroke="#ec4899" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="303" y="140" text-anchor="middle" font-size="11.5" fill="#5b5776">増分ごとに<tspan font-weight="800" fill="#b3266e">人が承認</tspan>して、次の一周へ</text>
+</svg>
+</body>
+</html>
