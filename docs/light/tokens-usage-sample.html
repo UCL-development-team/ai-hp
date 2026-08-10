@@ -3,31 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>tokens.css 使用サンプル（Light）</title>
-<link rel="stylesheet" href="tokens.css">
-<style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    font-family:var(--font-family-base);
-    background:var(--bg);
-    color:var(--txt);
-    line-height:var(--line-height-base);
-  }
-  .wrap{max-width:var(--content-max-width);margin:0 auto;padding:0 var(--content-padding-x)}
-  section{padding:var(--section-padding-y) 0}
-  section:nth-of-type(even){background:var(--bg2)}
+<title>デザインシステム 使用サンプル（Light）</title>
 
-  h1{
-    font-size:clamp(28px,5vw,44px);
-    line-height:var(--line-height-heading);
-    font-weight:800;
-    background:var(--gradient-accent);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    margin-bottom:8px;
-  }
-  h2{font-size:22px;font-weight:800;margin-bottom:24px}
-  p.desc{color:var(--muted);margin-bottom:12px;font-size:14px}
+<!-- Light Design System — 読み込み順は tokens.css → components.css -->
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="components.css">
+
+<style>
+  /* ===== このサンプル専用のスタイル =====
+     base / layout / 各コンポーネントは components.css 側で定義済み。
+     ここではトークンを可視化するためのデモ用要素のみを定義する。 */
+  section:nth-of-type(even){background:var(--bg2)}
+  section{padding:64px 0}
+
+  .sample-title{font-size:22px;font-weight:800;margin-bottom:8px}
+  p.desc{color:var(--muted);margin-bottom:24px;font-size:14px;max-width:660px}
   code{color:var(--accent);font-size:13px}
+  .demo-row{display:flex;flex-wrap:wrap;gap:var(--gap-grid);align-items:center}
+  .demo-block + .demo-block{margin-top:40px}
+  .demo-label{font-size:12px;color:var(--muted);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase}
 
   /* --- カラートークン --- */
   .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--gap-stats)}
@@ -36,15 +30,7 @@
   .swatch .label{padding:10px 12px;background:var(--panel);font-size:12px}
   .swatch .label b{display:block;font-size:13px}
 
-  /* --- 角丸スケール --- */
-  .radius-row{display:flex;flex-wrap:wrap;gap:var(--gap-grid)}
-  .radius-box{
-    width:96px;height:96px;background:var(--panel);border:1px solid var(--line);
-    display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);
-  }
-
   /* --- グラデーション --- */
-  .gradient-row{display:flex;flex-wrap:wrap;gap:var(--gap-grid)}
   .gradient-box{
     width:220px;height:96px;border:1px solid var(--line);border-radius:var(--radius-2xl);
     display:flex;align-items:end;padding:12px;font-size:12px;color:#fff;
@@ -52,6 +38,12 @@
   .g-accent{background:var(--gradient-accent)}
   .g-card{background:var(--gradient-card);color:var(--txt)}
   .g-cta{background:var(--gradient-cta);color:var(--txt)}
+
+  /* --- 角丸スケール --- */
+  .radius-box{
+    width:96px;height:96px;background:var(--panel);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--muted);text-align:center;
+  }
 
   /* --- スペーシング --- */
   .space-demo{border:1px dashed var(--line);border-radius:var(--radius-md)}
@@ -62,40 +54,45 @@
   .gap-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-grid);margin-top:16px}
   .gap-demo div{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);height:48px}
 
-  /* --- モーション --- */
-  .motion-row{display:flex;gap:var(--gap-grid);flex-wrap:wrap}
-  .btn-demo{
-    padding:11px 22px;border-radius:var(--radius-md);font-size:14px;font-weight:700;
-    background:var(--gradient-accent);color:var(--btn-primary-text);
-    box-shadow:0 6px 20px rgba(15,118,110,.25);
-    transition:transform var(--transition-fast);
-    cursor:pointer;border:none;
-  }
-  .btn-demo:hover{transform:translateY(-2px)}
-  .card-demo{
-    padding:24px;background:var(--gradient-card);border:1px solid var(--line);
-    border-radius:var(--radius-2xl);transition:transform var(--transition-base),border-color var(--transition-base);
-    width:220px;font-size:13px;color:var(--muted);
-  }
-  .card-demo:hover{transform:translateY(-4px);border-color:var(--accent)}
-
   /* --- タイポグラフィ --- */
   .type-row{display:flex;flex-direction:column;gap:14px}
+
+  /* サンプルのヒーロー見出しは h1 のコンポーネント定義をそのまま使う */
+  .sample-head{padding:64px 0 32px}
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header style="padding:var(--hero-padding-y)">
-    <h1>tokens.css 使用サンプル（Light）</h1>
-    <p class="desc">design-system.md とは独立して、<code>tokens.css</code> のカスタムプロパティを直接参照した最小デモです。トークンが実際にどう使えるかの動作確認用途。</p>
-  </header>
-</div>
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo"><span class="dot"></span>Light Design System<span class="sub">サンプル</span></div>
+    <div class="nav-links">
+      <a href="#tokens">トークン</a>
+      <a href="#components">コンポーネント</a>
+    </div>
+    <a href="#components" class="btn btn-primary">.btn-primary</a>
+  </div>
+</nav>
 
-<section>
+<header class="sample-head">
   <div class="wrap">
-    <h2>カラートークン</h2>
-    <div class="swatch-grid">
+    <h1><span class="grad">デザインシステム</span> 使用サンプル</h1>
+    <p class="desc">
+      <code>tokens.css</code>（トークン定義）と <code>components.css</code>（コンポーネント実装）の動作確認用ページです。
+      仕様は <a href="design-system.md" style="color:var(--accent)">design-system.md</a> を参照してください。
+    </p>
+  </div>
+</header>
+
+<!-- =========================================================
+     Part 1 — tokens.css
+     ========================================================= -->
+<section id="tokens">
+  <div class="wrap">
+    <div class="eyebrow">Tokens</div>
+    <h2 class="s-title">カラートークン</h2>
+    <p class="s-sub">色は必ずこの変数経由で参照し、ハードコードしない。</p>
+    <div class="swatch-grid" style="margin-top:24px">
       <div class="swatch"><div class="fill" style="background:var(--bg)"></div><div class="label"><b>--bg</b><code>#f6f8fb</code></div></div>
       <div class="swatch"><div class="fill" style="background:var(--bg2)"></div><div class="label"><b>--bg2</b><code>#eef1f7</code></div></div>
       <div class="swatch"><div class="fill" style="background:var(--panel)"></div><div class="label"><b>--panel</b><code>#ffffff</code></div></div>
@@ -110,8 +107,9 @@
 
 <section>
   <div class="wrap">
-    <h2>グラデーション</h2>
-    <div class="gradient-row">
+    <div class="sample-title">グラデーション</div>
+    <p class="desc"><code>--gradient-accent</code> / <code>--gradient-card</code> / <code>--gradient-cta</code></p>
+    <div class="demo-row">
       <div class="gradient-box g-accent">--gradient-accent</div>
       <div class="gradient-box g-card">--gradient-card</div>
       <div class="gradient-box g-cta">--gradient-cta</div>
@@ -121,8 +119,9 @@
 
 <section>
   <div class="wrap">
-    <h2>角丸スケール</h2>
-    <div class="radius-row">
+    <div class="sample-title">角丸スケール</div>
+    <p class="desc">用途別の <code>--radius-*</code>。</p>
+    <div class="demo-row">
       <div class="radius-box" style="border-radius:var(--radius-sm)">--radius-sm<br>6px</div>
       <div class="radius-box" style="border-radius:var(--radius-md)">--radius-md<br>10px</div>
       <div class="radius-box" style="border-radius:var(--radius-lg)">--radius-lg<br>14px</div>
@@ -136,7 +135,7 @@
 
 <section>
   <div class="wrap">
-    <h2>スペーシング</h2>
+    <div class="sample-title">スペーシング</div>
     <p class="desc"><code>--content-padding-x</code> / <code>--gap-grid</code> / <code>--gap-stats</code> の適用例</p>
     <div class="space-demo">
       <div class="inner">この内側paddingは <code>var(--content-padding-x)</code>（24px）です。</div>
@@ -149,25 +148,134 @@
 
 <section>
   <div class="wrap">
-    <h2>タイポグラフィ</h2>
+    <div class="sample-title">タイポグラフィ</div>
+    <p class="desc"><code>--font-family-base</code> / <code>--line-height-base</code> / <code>--line-height-heading</code></p>
     <div class="type-row">
-      <div style="font-family:var(--font-family-base);font-size:32px;font-weight:800;line-height:var(--line-height-heading)">見出し（--line-height-heading / --font-family-base）</div>
-      <div style="font-family:var(--font-family-base);line-height:var(--line-height-base);color:var(--muted);max-width:640px">
+      <div style="font-size:32px;font-weight:800;line-height:var(--line-height-heading)">見出し（--line-height-heading: 1.12）</div>
+      <div style="line-height:var(--line-height-base);color:var(--muted);max-width:660px">
         本文テキストは <code>--line-height-base</code>（1.75）を使用します。AI Innovation 部は、生成AIをはじめとする先端技術を、開発とチームのあらゆる場面に実装していく専門部門です。
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<!-- =========================================================
+     Part 2 — components.css
+     ========================================================= -->
+<section id="components">
   <div class="wrap">
-    <h2>モーション &amp; コンポーネント例</h2>
-    <div class="motion-row">
-      <button class="btn-demo">--transition-fast（ホバーで確認）</button>
-      <div class="card-demo">--transition-base（ホバーで確認）</div>
+    <div class="eyebrow">Components</div>
+    <h2 class="s-title">コンポーネント一覧</h2>
+    <p class="s-sub">
+      <code>components.css</code> の実装サンプル。番号は design-system.md「6. コンポーネント仕様」の節番号に対応します。
+      ページ上部の <code>nav</code>、下部の <code>footer</code> も同ファイルの実装です。
+    </p>
+
+    <div class="demo-block" style="margin-top:48px">
+      <div class="demo-label">6.10 Section header — .eyebrow / .s-title / .s-sub</div>
+      <div class="eyebrow">Focus Areas</div>
+      <h3 class="s-title">セクション見出しの3点セット</h3>
+      <p class="s-sub">eyebrow（英字ラベル）→ s-title（主見出し）→ s-sub（補足）の順で構成します。</p>
     </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.2 Buttons — .btn-primary / .btn-ghost</div>
+      <div class="demo-row">
+        <a href="#components" class="btn btn-primary">.btn-primary</a>
+        <a href="#components" class="btn btn-ghost">.btn-ghost</a>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.3 Badge — .badge / .pulse</div>
+      <span class="badge" style="margin-bottom:0"><span class="pulse"></span>2026年 始動 &mdash; 新設部門</span>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.6 Tag / Chip — .tag / .chip</div>
+      <div class="tags" style="margin-top:0">
+        <span class="tag">コード生成</span><span class="tag">自動テスト</span><span class="tag"><em>強調</em> SDD-KIT</span>
+      </div>
+      <div class="stack" style="margin-top:16px">
+        <div class="chip">生成AI <small>/ LLM</small></div>
+        <div class="chip">TypeScript / React</div>
+        <div class="chip">SDD-KIT <small>自社FW</small></div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.4 Stat — .stats / .stat</div>
+      <div class="stats" style="margin-top:0">
+        <div class="stat"><b>3領域</b><span>支援型 / 仕様駆動型 / 人材支援</span></div>
+        <div class="stat"><b>実装重視</b><span>PoCで終わらせず現場に定着</span></div>
+        <div class="stat"><b>Secure</b><span>機密データを学習させない設計</span></div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.5 Card — .cards.cards-3 / .card（ホバーで浮き上がり）</div>
+      <div class="cards cards-3" style="margin-top:0">
+        <div class="card">
+          <div class="ico">🛠️</div>
+          <div class="num">01</div>
+          <h3>カードタイトル</h3>
+          <p>アイコン → 採番 → タイトル → 説明文 → タグ群の縦構成。<strong>強調</strong>は <code>strong</code> で。</p>
+          <div class="tags"><span class="tag">タグA</span><span class="tag">タグB</span></div>
+        </div>
+        <div class="card">
+          <div class="ico">⚡</div>
+          <div class="num">02</div>
+          <h3>カードタイトル</h3>
+          <p>背景は <code>--gradient-card</code>、ホバーでボーダーが <code>--accent</code> に変化します。</p>
+          <div class="tags"><span class="tag">タグC</span></div>
+        </div>
+        <div class="card">
+          <div class="ico">🤝</div>
+          <div class="num">03</div>
+          <h3>カードタイトル</h3>
+          <p>820px以下では1カラムに折り返します。</p>
+          <div class="tags"><span class="tag">タグD</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.7 Feature item — .feat / .f（採番版・絵文字版）</div>
+      <div class="feat" style="margin-top:0">
+        <div class="f"><div class="num">01</div><h4>採番ラベル版</h4><p>「01」「STEP 1」のように連番・ステップ表現に使用します。</p></div>
+        <div class="f"><div class="e">🎯</div><h4>絵文字アイコン版</h4><p>外部アイコンライブラリに依存せず絵文字を使用します。</p></div>
+        <div class="f"><div class="num">STEP 3</div><h4>ステップ表現</h4><p>同じ <code>.num</code> をステップ表記にも流用できます。</p></div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.8 CTA — .cta</div>
+      <div class="cta">
+        <h2>CTA セクションの見出し</h2>
+        <p>薄いグラデーション背景・中央揃え・ボタン列（<code>.hero-cta</code> を再利用）。</p>
+        <div class="hero-cta">
+          <a href="#components" class="btn btn-primary">プライマリ</a>
+          <a href="#components" class="btn btn-ghost">ゴースト</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-block">
+      <div class="demo-label">6.11 ゼブラ配色 — .section-alt</div>
+      <p class="desc" style="margin-bottom:0">
+        セクションに <code>.section-alt</code> を付けると背景が <code>--bg2</code> になります。単調な同色の連続を避けるため、交互に付与します。
+      </p>
+    </div>
+
   </div>
 </section>
+
+<footer>
+  <div class="wrap foot-in">
+    <div class="logo logo-sm"><span class="dot"></span>Light Design System</div>
+    <div>6.9 Footer &mdash; footer / .foot-in</div>
+  </div>
+</footer>
 
 </body>
 </html>

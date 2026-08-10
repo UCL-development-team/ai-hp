@@ -1,8 +1,27 @@
 # AI Innovation 部 — Light Design System
 
-[design/dark/design-system](../../dark/design-system/design-system.md) を参照元とし、同一のレイアウト・コンポーネント構造を保ったまま、色トークンのみをライト背景向けに再設計したデザインシステムです。
-このファイル自体は仕様書であり、既存のサンプルHTML（`docs/index.html`、`design/dark/index-dark-1.html`、`design/light/index-light-1.html`）は変更していません。
-実装時の共有トークンは [tokens.css](tokens.css) を参照してください。
+ダーク版デザインシステム（`design-system/dark/`）を参照元とし、同一のレイアウト・コンポーネント構造を保ったまま、色トークンのみをライト背景向けに再設計したデザインシステムです。
+実装時の共有トークンは [tokens.css](tokens.css) を、コンポーネントの実装は [components.css](components.css) を参照してください。
+
+> このフォルダは `design-system/light/` を正とし、使用するサイト側（例: `docs/light/`）へフォルダごとコピーして利用します。内容を変更した場合は、コピー先も同期してください。
+
+### ファイル構成
+
+| ファイル | 役割 |
+|---|---|
+| [tokens.css](tokens.css) | 色・角丸・スペーシング・タイポグラフィ・モーションのCSSカスタムプロパティ定義 |
+| [components.css](components.css) | 本仕様書「6. コンポーネント仕様」のCSS実装。値はすべて `var(--*)` でトークンを参照 |
+| [design-system.md](design-system.md) | 本仕様書 |
+| [tokens-usage-sample.html](tokens-usage-sample.html) | トークンとコンポーネントの動作確認用デモ（全コンポーネントのカタログ） |
+
+読み込み順は **tokens.css → components.css** の順（後者が前者の変数に依存）。
+
+```html
+<link rel="stylesheet" href="light/tokens.css">
+<link rel="stylesheet" href="light/components.css">
+```
+
+適用例: `docs/index-2-light.html`（`<style>` を持たず、この2ファイルのみで構成）
 
 ---
 
@@ -122,7 +141,25 @@
 
 ## 6. コンポーネント仕様
 
-構成・構造はダーク版と同一。以下は色運用のみを補足する。
+構成・構造はダーク版と同一。以下は色運用のみを補足する。実装は [components.css](components.css) にあり、各節の番号がファイル内のコメント見出しと対応している。
+
+### クラス一覧
+
+| 節 | コンポーネント | 主なクラス |
+|---|---|---|
+| 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.dot` `.sub` `.logo-sm`） |
+| 6.2 | Buttons | `.btn` / `.btn-primary` / `.btn-ghost` |
+| 6.3 | Badge | `.badge`（`.pulse`） |
+| 6.4 | Stat | `.stats` / `.stat` |
+| 6.5 | Card | `.cards`（`.cards-3` で3カラム）/ `.card`（`.ico` `.num`） |
+| 6.6 | Tag / Chip | `.tags` / `.tag` / `.stack` / `.chip` |
+| 6.7 | Feature item | `.feat` / `.feat .f`（`.num` `.e`） |
+| 6.8 | CTA | `.cta` |
+| 6.9 | Footer | `footer` / `.foot-in` |
+| 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
+| 6.11 | ゼブラ配色 | `.section-alt`（`--bg2` 背景） |
+| &mdash; | Hero | `.hero` / `.grid-bg` / `.hero-in` / `.lede` / `.hero-cta` / `.kws` / `.kw` |
+| &mdash; | Utility | `.wrap` / `.grad` |
 
 ### 6.1 Navigation (`nav`)
 - position:sticky, top:0, z-index:50
