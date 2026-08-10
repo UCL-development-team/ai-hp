@@ -95,9 +95,11 @@
   }
 
   /* 左：年次 */
+  /* 右の領域カードが図版ぶん高くなるため、年次・ノード・世代カードは
+     行の高さに対して縦センターで揃える（上寄せだと下に大きな空白が出る） */
   .when{
-    display:flex; flex-direction:column; justify-content:flex-start;
-    text-align:right; padding-top:22px;
+    display:flex; flex-direction:column; justify-content:center;
+    text-align:right;
   }
   .when .d{font-size:21px; font-weight:900; letter-spacing:-.5px; color:var(--muted)}
   .when .t{
@@ -116,7 +118,7 @@
     background:var(--line2);
   }
   .rail::after{
-    content:""; position:absolute; left:50%; top:26px; transform:translateX(-50%);
+    content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
     width:12px; height:12px; border-radius:50%;
     background:var(--bg); border:2px solid var(--line2);
   }
@@ -131,6 +133,7 @@
     background:var(--bg);
     box-shadow:var(--shadow-sm);
     padding:18px 22px 20px;
+    display:flex; flex-direction:column; justify-content:center;
   }
   .gen .no{
     display:flex; align-items:center; gap:8px;
@@ -163,6 +166,11 @@
   .area .cap{font-size:11px; font-weight:900; letter-spacing:.14em}
   .area h2{margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-.8px; line-height:1.25}
   .area .note{margin-top:8px; font-size:13.5px; color:var(--muted); max-width:560px}
+  /* 体制イメージ図（docs/assets/projdect/ の透過PNG）。
+     元画像は 1040×344px＝表示 520×172px なので、等倍のとき最も鮮明になる。
+     .extend の中では左パディングぶん幅が足りないため width:100% 側で縮む。 */
+  .viz{display:block; width:100%; max-width:520px; height:auto; margin-top:16px}
+
   .chips{margin-top:auto; padding-top:20px; display:flex; flex-wrap:wrap; gap:8px}
   .chip{
     display:inline-flex; align-items:center; gap:6px;
@@ -221,7 +229,8 @@
     h1{font-size:29px}
     .tl{grid-template-columns:1fr; row-gap:14px}
     .rail{display:none}
-    .when{text-align:left; padding-top:0; flex-direction:row; align-items:baseline; gap:10px}
+    .when{text-align:left; flex-direction:row; justify-content:flex-start; align-items:baseline; gap:10px}
+    .gen{justify-content:flex-start}
     .area,.extend{grid-row:auto !important}
     .extend{padding-left:24px}
     .extend::before,.extend::after{display:none}
@@ -265,6 +274,7 @@
       <span class="cap">FOCUS AREA 01</span>
       <h2>AI支援型開発</h2>
       <p class="note">既存の開発フローを保ったまま、コード生成・ドキュメント出力・自動テストといった特定タスクをAIで底上げする領域。</p>
+      <img class="viz" src="assets/projdect/AI-assisted/ai-assisted.png" alt="">
       <div class="chips">
         <span class="chip">Claude Code</span>
         <span class="chip">Codex</span>
@@ -285,6 +295,7 @@
       <span class="cap">FOCUS AREA 02</span>
       <h2>仕様駆動型開発</h2>
       <p class="note">仕様から実装まで一気に。設計とコードを双方向で同期させ、乖離しない状態を仕組みで担保する領域。</p>
+      <img class="viz" src="assets/projdect/AI-driven/ai-driven.png" alt="">
       <div class="chips">
         <span class="chip own">SDD-KIT</span>
         <span class="chip">GitHub Spec Kit</span>
@@ -305,6 +316,7 @@
     <aside class="extend" style="grid-row:4">
       <span class="cap">NEXT — EXTENDING</span>
       <p><b>SDD-KIT</b> は ループエンジニアリング対応できるように拡張を続けます。</p>
+      <img class="viz" src="assets/projdect/AI-loop/ai-loop.png" alt="">
     </aside>
 
   </section>
