@@ -1,6 +1,8 @@
 # AI Innovation 部 — Light Design System
 
-ダーク版デザインシステム（`design-system/dark/`）を参照元とし、同一のレイアウト・コンポーネント構造を保ったまま、色トークンのみをライト背景向けに再設計したデザインシステムです。
+白ベースに、パープル／ピンク／アンバー／シアンの4色パレットをグラデーションで効かせたビビッドなライトテーマです。
+**原本デザインは `docs/index-1-light.html`** で、本デザインシステムはその見た目をトークン化・コンポーネント化したものです。原本の色・サイズ・余白の値をそのまま採用しているため、本システムで組んだページは原本と同じ見た目になります。
+
 実装時の共有トークンは [tokens.css](tokens.css) を、コンポーネントの実装は [components.css](components.css) を参照してください。
 
 > このフォルダは `design-system/light/` を正とし、使用するサイト側（例: `docs/light/`）へフォルダごとコピーして利用します。内容を変更した場合は、コピー先も同期してください。
@@ -27,9 +29,7 @@
 
 ## 0. ダーク版との関係
 
-- **レイアウト・スペーシング・角丸・タイポグラフィ・モーションの各トークンはダーク版と完全に同一の値**を採用しています。ライト/ダークは配色だけが異なるテーマバリエーションという位置づけです。
-- **色トークンのみ**、白系背景でのWCAG AA相当のコントラストを確保するために再設計しています。ダーク版のアクセント（`#38e1c0` / `#5b8cff`）は暗背景での視認性を優先した明るいトーンのため、そのまま白背景のテキスト色に転用すると輝度が高すぎてコントラスト比が不足します（本文サイズでAA基準の4.5:1を満たせない）。ライト版では同系色相を保ったまま彩度・明度を下げ、`--accent: #0f766e` / `--accent2: #2563eb` として、地色 `--bg`（`#f6f8fb`）に対して概ね5:1以上のコントラストを確保しています。
-- ボタン等でアクセントのグラデーションを背景に敷く場合、ダーク版は濃色テキスト（`#04121a`）でコントラストを取っていましたが、ライト版はアクセント自体が濃色になったため**白文字**（`--btn-primary-text: #ffffff`）に反転しています。
+`design-system/dark/` のダーク版とは**別系統のデザイン**です。ダーク版はティール＋ブルーの2色アクセント・小さめの角丸・控えめなタイポグラフィを採用しているのに対し、ライト版は白背景に4色パレット・大きな角丸・900ウェイトの大見出しという構成をとります。したがってトークンは色だけでなく、角丸・スペーシング・タイポグラフィの各スケールも異なります。
 
 ---
 
@@ -37,197 +37,229 @@
 
 `:root` で定義されているCSSカスタムプロパティ。色は必ずこの変数経由で参照し、ハードコードしない。
 
+### ベース
+
 | 変数名 | 値 | 用途 |
 |---|---|---|
-| `--bg` | `#f6f8fb` | ページ背景（基調） |
-| `--bg2` | `#eef1f7` | セクション背景（濃淡差をつける2色目。ゼブラ配置に使用） |
-| `--panel` | `#ffffff` | カード・チップ・statなどの面（パネル）背景 |
-| `--line` | `#dde3ee` | ボーダー・区切り線・グリッド線 |
-| `--txt` | `#10182b` | 基本テキスト色 |
-| `--muted` | `#5b6478` | 補助テキスト（本文説明・キャプション） |
-| `--accent` | `#0f766e` | アクセント1（ティール系、濃色化）。CTA・ロゴドット・eyebrow・数値強調 |
-| `--accent2` | `#2563eb` | アクセント2（ブルー系、濃色化）。グラデーション終端に使用 |
-| `--glow` | `rgba(15,118,110,.18)` | アクセントのグロー（box-shadow・背景放射光）。ダーク版より弱め |
+| `--bg` | `#ffffff` | ページ背景（基調） |
+| `--bg2` | `#f4f2ff` | セクション背景・pill背景（淡いラベンダー） |
+| `--panel` | `#f4f2ff` | feature panel（`.w`）の面背景（= `--bg2`） |
+| `--line` | `#e7e3f7` | ボーダー・区切り線 |
+| `--ink` | `#0d0b1f` | 反転ブロック（`.big`）の背景 |
+
+### テキスト
+
+| 変数名 | 値 | 用途 |
+|---|---|---|
+| `--txt` | `#0d0b1f` | 基本テキスト |
+| `--muted` | `#5b5776` | 補助テキスト |
+| `--txt-on-ink` | `#ffffff` | `--ink` 背景上のテキスト |
+| `--muted-on-ink` | `#b7b2d6` | `--ink` 背景上の補助テキスト |
+| `--txt-on-accent` | `#ffffff` | カラーカード・CTA・`.btn-p` 上のテキスト |
+
+### パレット（4色アクセント）
+
+| 変数名 | 値 | 主な用途 |
+|---|---|---|
+| `--p1` | `#7c3aed` | パープル。主アクセント（ロゴ強調・pill文字・btn-p起点・カード1） |
+| `--p2` | `#ec4899` | ピンク。eyebrow文字・グラデーション終端・カード2 |
+| `--p3` | `#f59e0b` | アンバー。グラデーション文字の3色目・カード3 |
+| `--p4` | `#06b6d4` | シアン。カード4 |
+| `--p1-light` 〜 `--p4-light` | `#a855f7` `#f472b6` `#fbbf24` `#22d3ee` | 各色の明側。カードグラデーションの終端 |
+
+`--accent` は `--p1`、`--accent2` は `--p2` のセマンティックな別名です。
 
 ### グラデーション
-- **テキスト/ボタン用グラデーション**: `linear-gradient(120deg, var(--accent), var(--accent2))`
-  - `.grad`（テキストにグラデーションをかける、`background-clip:text`）
-  - `.btn-primary`（プライマリボタン背景。文字色は `--btn-primary-text`（白）で反転）
-- **CTAセクション背景**: `linear-gradient(120deg, rgba(15,118,110,.10), rgba(37,99,235,.10))`
-- **カード背景**: `linear-gradient(180deg, var(--panel), var(--bg2))`
 
-### 背景の装飾（放射グラデーション）
-- Hero背景: `radial-gradient(600px 340px at 78% 8%, rgba(37,99,235,.10), transparent 60%)` と `radial-gradient(560px 320px at 8% 88%, rgba(15,118,110,.08), transparent 60%)` を重ねる（ダーク版より不透明度を落とし、白背景での過度な色被りを防ぐ）
-- グリッド背景（`.grid-bg`）: `--line` 色の1pxライン格子（52px間隔）を `opacity:.5` + 放射マスクでフェードアウト（白背景では`--line`自体が淡いため、ダーク版の`.25`より不透明度を上げて視認性を確保）
+| 変数名 | 値 | 用途 |
+|---|---|---|
+| `--gradient-text` | `linear-gradient(100deg, p1, p2 55%, p3)` | `.gr`（`background-clip:text` の文字グラデーション） |
+| `--gradient-btn` | `linear-gradient(100deg, p1, p2)` | `.btn-p` の面 |
+| `--gradient-cta` | `linear-gradient(110deg, p1, p2)` | `.cta` の面 |
+| `--gradient-card-1`〜`-4` | `linear-gradient(150deg, pN, pN-light)` | `.c1`〜`.c4` のカード面 |
+
+### 背景の装飾
+
+| 変数名 | 用途 |
+|---|---|
+| `--hero-bg` | ヒーローの3層放射グラデーション（右上=ピンク18%、左中=パープル16%、下中=シアン14%） |
 
 ---
 
-## 2. タイポグラフィ（ダーク版と同一）
+## 2. タイポグラフィ
 
 - **フォントファミリー**: `"Helvetica Neue","Hiragino Sans","Noto Sans JP",-apple-system,sans-serif`
-- **基本行間**: `line-height:1.75`（body）
-- **見出し行間**: `1.12`（h1）
-- **文字間隔**: 見出しは負のletter-spacing（`-.5px`〜`-.3px`）で締める。eyebrowラベルは`letter-spacing:2px`で広げる。
+- **基本行間**: `1.7`（body / `--line-height-base`）
+- **見出し行間**: h1 は `.98`（`--line-height-h1`）、セクション見出し・CTA見出しは `1.05`（`--line-height-heading`）
+- **文字間隔**: 大見出しは強い負のletter-spacing（`-2px`／`-1px`）で締める。eyebrowは `1px` で広げる。
+- **ウェイト**: 見出し・ボタン・タグは基本 `900`（`.lede` のみ `500`）。ダーク版（800中心）より一段太い。
 
 | 要素 | サイズ | ウェイト | 備考 |
 |---|---|---|---|
-| `h1`（ヒーロー見出し） | `clamp(34px, 5.6vw, 62px)` | 800 | `letter-spacing:-.5px` |
-| `.s-title`（セクション見出し） | `clamp(26px, 3.4vw, 38px)` | 800 | `letter-spacing:-.3px` |
-| `.lede`（リード文） | `clamp(15px, 1.8vw, 19px)` | 400 | color: `--muted` |
-| `.eyebrow`（ラベル） | `13px` | 700 | `uppercase`, `letter-spacing:2px`, color: `--accent` |
-| `.s-sub`（セクション補足） | 標準 | 400 | color: `--muted` |
-| `.card h3` | `20px` | 800 | |
-| `.card p` | `15px` | 400 | color: `--muted` |
-| `.feat h4` | `17px` | 800 | |
-| `.feat p` | `14px` | 400 | color: `--muted` |
-| `.stat b`（統計数値） | `26px` | 800 | color: `--accent` |
-| `.stat span` | `13px` | 400 | color: `--muted` |
-| `.chip` | `14px` | 600 | `.chip small`は`--muted`・400 |
-| `.nav-links a` | `14px` | 400 | color: `--muted` |
-| `.btn` | `14px` | 700 | |
+| `h1`（ヒーロー見出し） | `clamp(42px, 8vw, 88px)` | 900 | `letter-spacing:-2px` |
+| `.s-title`（セクション見出し） | `clamp(30px, 5vw, 52px)` | 900 | `letter-spacing:-1px` |
+| `.cta h2` | `clamp(30px, 5vw, 52px)` | 900 | `letter-spacing:-1px` |
+| `.big .num`（大数値） | `clamp(48px, 9vw, 92px)` | 900 | `letter-spacing:-2px`, `line-height:1` |
+| `.lede`（リード文） | `clamp(16px, 2vw, 21px)` | 500 | color: `--muted`, max-width 620px |
+| `.s-sub`（セクション補足） | `17px` | 400 | color: `--muted`, max-width 640px |
+| `.eyebrow`（ラベル） | `14px` | 900 | `uppercase`, `letter-spacing:1px`, color: `--p2` |
+| `.card h3` | `26px` | 900 | `letter-spacing:-.5px` |
+| `.card p` | `15.5px` | 400 | `opacity:.95` |
+| `.card .n` / `.card .k` | `15px` / `13px` | 900 / 800 | `opacity:.75` / `.9` |
+| `.big b` | `20px` | 900 | 反転ブロック内の見出し |
+| `.big small` | `15px` | 600 | color: `--muted-on-ink` |
+| `.why .w h4` | `20px` | 900 | `letter-spacing:-.3px` |
+| `.why .w p` | `15px` | 400 | color: `--muted` |
+| `.nav-links a` | `15px` | 600 | color: `--muted` |
+| `.logo` | `20px` | 900 | `letter-spacing:-.5px`（footerは `.logo-sm` で17px） |
+| `.btn` / `.mtag` / `.pill` | `15px` / `15px` / `14px` | 800 | |
 
-すべての見出しにグラデーション文字（`.grad`）を部分適用できる（h1内の強調語など）。
+見出し内の強調語には `.gr`（グラデーション文字）を部分適用できる。
 
 ---
 
-## 3. スペーシング & レイアウト（ダーク版と同一）
+## 3. スペーシング & レイアウト
 
-- **コンテンツ幅**: `.wrap { max-width:1120px; margin:0 auto; padding:0 24px }`
-- **セクション垂直パディング**: `section { padding:96px 0 }`
-- **ヒーロー**: `padding:120px 0 96px`
-- **カードグリッド間隔**: `gap:22px`
-- **統計(stats)グリッド間隔**: `gap:18px`
-- **CTA内側パディング**: `56px`
-- **ボタン内側パディング**: `11px 22px`
+- **コンテンツ幅**: `.wrap { max-width:1140px; margin:0 auto; padding:0 24px }`
+- **セクション垂直パディング**: `section { padding:100px 0 }`
+- **ヒーロー**: `padding:110px 0 90px`
+- **ナビ高さ**: `70px`
+- **グリッド間隔**: `.cards` = 24px（`--gap-grid`） / `.why` = 26px（`--gap-feat`） / `.bigrow` = 40px（`--gap-stats`）
+- **内側パディング**: card `40px 34px` / `.big` `70px 48px` / `.why .w` `32px` / `.cta` `72px 40px` / `.btn` `13px 26px`
 
 ### グリッドパターン
-- `.stats`: `repeat(3, 1fr)`, max-width 760px
-- `.cards`: 標準は `repeat(2, 1fr)`。3カードセクション（取り組み領域）では `repeat(3, 1fr)` に上書き
-- `.feat`: `repeat(3, 1fr)`
+
+- `.cards`: 標準は `repeat(2, 1fr)`。`.cards-3` を併記すると `repeat(3, 1fr)`
+- `.why`: `repeat(3, 1fr)`
+- `.bigrow`: `repeat(3, 1fr)`
 
 ### ブレークポイント
-- `@media (max-width:820px)` の単一ブレークポイントのみ:
-  - `.nav-links` を非表示（ハンバーガー等は未実装）
-  - `.stats` / `.cards` / `.feat` を `1fr`（縦積み）に変更
+
+`@media (max-width:820px)` の単一ブレークポイントのみ:
+- `.nav-links` を非表示（ハンバーガー等は未実装）
+- `.cards` / `.cards-3` / `.why` / `.bigrow` を `1fr`（縦積み）に変更、`.bigrow` の gap を 36px に
+- `.big` / `.cta` の内側パディングを縮小
 
 ---
 
-## 4. 角丸 (Radius) スケール（ダーク版と同一）
+## 4. 角丸 (Radius) スケール
 
-| 用途 | 値 |
-|---|---|
-| ボタン | `10px` |
-| stat / chip | `10px`〜`14px` |
-| feature card (`.f`) | `16px` |
-| card / cta アイコン | `12px` |
-| card (`.card`) | `18px` |
-| CTAセクション | `24px` |
-| ロゴドット・pulse・バッジ | `50%` / `999px`（完全な円/ピル） |
+| 変数名 | 値 | 用途 |
+|---|---|---|
+| `--radius-sm` | `14px` | 小さい面 |
+| `--radius-md` | `22px` | feature panel（`.w`） |
+| `--radius-lg` | `26px` | card |
+| `--radius-xl` | `32px` | 反転ブロック（`.big`） |
+| `--radius-2xl` | `34px` | CTA |
+| `--radius-pill` | `999px` | button / pill / mtag |
+
+角丸が全体的に大きいのが本テーマの特徴です（ダーク版は 6〜24px）。
 
 ---
 
 ## 5. シャドウ & エフェクト
 
-- **アクセントグロー**: `box-shadow:0 0 12px var(--glow)`（ロゴドット）、`0 0 8px var(--accent)`（pulseドット）— ダーク版より弱め（白背景ではグローが強すぎると濁った印象になるため）
-- **プライマリボタンの浮遊感**: `box-shadow:0 6px 20px rgba(15,118,110,.25)`
-- **ホバー時の浮き上がり**:
-  - `.btn-primary:hover { transform:translateY(-2px) }`
-  - `.card:hover { transform:translateY(-4px); border-color:var(--accent) }`
-- **backdrop blur**: `nav { background:rgba(246,248,251,.78); backdrop-filter:blur(12px) }`
-- **トランジション速度**: ボタン `.2s`、カード `.25s`（ダーク版と同一）
-- **アニメーション**: `@keyframes pulse`（opacity 1→.35、1.8s infinite）— ダーク版と同一
+- **プライマリボタンの浮遊感**: `--shadow-btn: 0 10px 30px rgba(124,58,237,.35)`（`--p1` の35%）
+- **ホバー時の動き**:
+  - `.btn-p:hover { transform:translateY(-2px) scale(1.02) }`
+  - `.btn-o:hover { background:var(--txt); color:var(--bg) }`（反転）
+  - `.card:hover { transform:translateY(-6px) }`
+  - `a.mtag:hover { transform:translateY(-2px) }`
+- **backdrop blur**: `nav { background:rgba(255,255,255,.8); backdrop-filter:blur(12px) }`
+- **トランジション速度**: ボタン `.2s`（`--transition-fast`）／カード `.25s`（`--transition-base`）
+- 本テーマにグロー（`box-shadow` による発光）やアニメーションはありません（ダーク版の `pulse` に相当するものは持たない）。
 
 ---
 
 ## 6. コンポーネント仕様
 
-構成・構造はダーク版と同一。以下は色運用のみを補足する。実装は [components.css](components.css) にあり、各節の番号がファイル内のコメント見出しと対応している。
+実装は [components.css](components.css) にあり、各節の番号がファイル内のコメント見出しと対応しています。
 
 ### クラス一覧
 
 | 節 | コンポーネント | 主なクラス |
 |---|---|---|
-| 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.dot` `.sub` `.logo-sm`） |
-| 6.2 | Buttons | `.btn` / `.btn-primary` / `.btn-ghost` |
-| 6.3 | Badge | `.badge`（`.pulse`） |
-| 6.4 | Stat | `.stats` / `.stat` |
-| 6.5 | Card | `.cards`（`.cards-3` で3カラム）/ `.card`（`.ico` `.num`） |
-| 6.6 | Tag / Chip | `.tags` / `.tag` / `.stack` / `.chip` |
-| 6.7 | Feature item | `.feat` / `.feat .f`（`.num` `.e`） |
+| 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.logo-sm`） |
+| 6.2 | Buttons | `.btn` / `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` |
+| 6.3 | Pill | `.pill` |
+| 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `b` `small`） |
+| 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k`） |
+| 6.6 | Marquee tag | `.marquee` / `.mtag` + `.m1`〜`.m4` |
+| 6.7 | Feature panel | `.why` / `.w`（`.e` `.n`） |
 | 6.8 | CTA | `.cta` |
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
-| 6.11 | ゼブラ配色 | `.section-alt`（`--bg2` 背景） |
-| &mdash; | Hero | `.hero` / `.grid-bg` / `.hero-in` / `.lede` / `.hero-cta` / `.kws` / `.kw` |
-| &mdash; | Utility | `.wrap` / `.grad` |
+| — | Hero | `.hero` / `.lede` / `.hero-cta` |
+| — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
 
 ### 6.1 Navigation (`nav`)
-- position:sticky, top:0, z-index:50
-- 半透明の白背景 + blur、下ボーダーのみ（`--line`）
-- 高さ66px、左ロゴ／中央リンク／右CTAボタンの3分割
-- ロゴ: アクセントカラーのドット + テキスト（部門名の「部」だけmutedカラー・normalウェイトで軽く）
+- position:sticky, top:0, z-index:50、高さ70px
+- 半透明の白背景（80%）+ blur、下ボーダーのみ（`--line`）
+- 左ロゴ／中央リンク／右CTAボタンの3分割
+- ロゴ: 900ウェイトのテキストのみ。`<span>` で囲んだ語だけ `--p1` に着色（例: `AI <span>Innovation</span> 部`）。フッターでは `.logo-sm` で17pxに縮小
 
 ### 6.2 Buttons
-- `.btn`: 基本形（padding, radius, weight, transition）
-- `.btn-primary`: グラデーション背景・**白文字**(`var(--btn-primary-text)`)・弱めのグロー影。ホバーで上に2px移動
-- `.btn-ghost`: 透明背景・`--line`ボーダー・`--txt`文字。ホバーで`--accent`ボーダーに変化
+- `.btn`: 基本形（padding `13px 26px`、`--radius-pill`、15px/800）
+- `.btn-p`: グラデーション面（`--gradient-btn`）・白文字・紫の影。ホバーで2px上昇＋1.02倍
+- `.btn-o`: 2pxの `--txt` ボーダー。ホバーで地色と文字色が反転
+- `.btn-w` / `.btn-wo`: CTA（濃色面）上で使う白ボタン／白アウトラインボタン
 
-### 6.3 Badge（ステータスバッジ）
-- ピル型（`border-radius:999px`）、`--panel`背景+`--line`ボーダー
-- 左に鼓動する小ドット（`.pulse`、アニメーション付き）
-- テキスト色は`--accent`
+### 6.3 Pill（ステータスラベル）
+- ピル型、`--bg2` 背景 + `--line` ボーダー、文字は `--p1`（14px/800）
+- ヒーロー冒頭に配置し、下に28pxのマージン
 
-### 6.4 Stat（統計カード）
-- `--panel`背景 + `--line`ボーダー、radius 14px、padding 22px
-- 数値（`b`）: 26px/800/accent色、ラベル（`span`）: 13px/muted
+### 6.4 Inverted block (`.big`)
+- `--ink` の濃色面、`--radius-xl`、padding `70px 48px`、中央揃え
+- `.bigrow` で3カラム。各カラムは `.num`（大数値、`.gr` を併用してグラデーション化）→ `b`（見出し・任意）→ `small`（説明）の縦構成
+- 内部に 6.10 のセクション見出しパターンを置く場合、`.eyebrow` は `--p3`、`.s-sub` は `--muted-on-ink` に自動で切り替わる
 
-### 6.5 Card（取り組み領域カード等）
-- 縦グラデーション背景（panel→bg2、白→薄グレー）、`--line`ボーダー、radius 18px、padding 32px
-- 上部にアイコンバッジ（46×46、radius 12px、accentの薄い背景8%、`--line`ボーダー）
-- タイトル→説明文→タグ群（`.tag`）の縦構成
-- ホバーで4px浮き上がり + ボーダーがaccent化
+### 6.5 Card（カラーカード）
+- 4色のグラデーション面（`.c1`〜`.c4`）に白文字。ボーダーなし、`--radius-lg`、padding `40px 34px`
+- `.n`（採番）→ `h3`（タイトル）→ `p`（説明）→ `.k`（メタ情報）の縦構成
+- `.k` は `# タグA　# タグB` のように `#` 区切りの1行テキストで表現する
+- ホバーで6px浮き上がり
+- 3枚構成のときは `.cards.cards-3`。色は連続を避けて `c1 / c2 / c4` のように選ぶ
 
-### 6.6 Tag / Chip
-- `.tag`: インラインの小ラベル。`--accent`テキスト、`--line`ボーダー、radius 6px、小さめpadding。カードのメタ情報に使用
-- `.chip`: より大きめのピル状ボックス。`--panel`背景、`--line`ボーダー、radius 10px。技術スタック表示に使用。`small`子要素で補足テキストをmuted化
+### 6.6 Marquee tag (`.mtag`)
+- ピル型の塗りタグ。`.m1`〜`.m4` でパレット4色を割り当てる
+- ヒーロー下部のキーワード列に使用。`<a>` にするとホバーで2px上昇
 
-### 6.7 Feature item (`.f` / `.feat`)
-- `--panel`背景、`--line`ボーダー、radius 16px、padding 28px
-- 上部に採番ラベル（`.num`: 13px/700/accent2色、letter-spacing 1px）— 「01」「STEP 1」のように連番・ステップ表現の両方に流用
-- その下に見出し(h4)と説明(p)
+### 6.7 Feature panel (`.why` / `.w`)
+- `--panel` 背景 + `--line` ボーダー、`--radius-md`、padding 32px
+- 先頭に絵文字アイコン（`.e`、34px）または採番ラベル（`.n`、`--p1`）、その下に `h4` と `p`
 
 ### 6.8 CTA セクション
-- 2色の薄いグラデーション背景、`--line`ボーダー、radius 24px、padding 56px、中央揃え
-- 内部に見出し・補足文・ボタン列（`.hero-cta`を中央寄せで再利用）
+- `--gradient-cta` の濃色面に白文字、`--radius-2xl`、padding `72px 40px`、中央揃え
+- 内部に見出し・補足文・ボタン列（`.hero-cta` を中央寄せで再利用）。ボタンは `.btn-w` / `.btn-wo`
 
 ### 6.9 Footer
-- 上ボーダーのみ（`--line`）、padding 44px 0
-- 左にロゴ（小さめ）、右にコピーライト。`space-between`でレスポンシブに折り返し
+- 上ボーダーのみ（`--line`）、padding `50px 0`、15px/`--muted`
+- 左にロゴ（`.logo-sm`）、右にコピーライト。`space-between` でレスポンシブに折り返し
 
-### 6.10 Section header pattern（共通見出しパターン）
+### 6.10 Section header pattern
 全セクション共通で以下の3点セット構成:
-1. `.eyebrow` — 小さいラベル（英語・uppercase・accent色）
+1. `.eyebrow` — 小さいラベル（英語・uppercase・`--p2`）
 2. `.s-title` — セクションの主見出し
-3. `.s-sub` — 補足説明（muted色、max-width制限で読みやすい行長に）
+3. `.s-sub` — 補足説明（`--muted`、max-width制限で読みやすい行長に）
 
-### 6.11 セクション背景のゼブラパターン
-奇数セクション（mission, why, flow）は `background:var(--bg2)` を明示指定し、偶数セクション（hero, service, stack, contact）は`--bg`のまま。単調な同色の連続を避けるための交互配色ルール（ダーク版と同一のルール、色のみ反転）。
+### 6.11 セクション背景のパターン
+ヒーローは `--hero-bg`、通常セクションは `--bg`。変化をつけたいセクションに `.section-alt`（`--bg2`）を付与します。`.big`（濃色ブロック）を挟むセクションには `.section-flush` を付けて上パディングを詰め、直前のセクションと地続きに見せます。
 
 ---
 
-## 7. アイコン運用（ダーク版と同一）
+## 7. アイコン運用
 
 絵文字をアイコンとして直接使用（外部アイコンライブラリ非依存）:
-- 🛠️ AI支援型開発 / ⚡ AI自律型開発 / 🤝 AI人材支援
+- 🎯 実装まで、やり切る / 🔒 セキュリティ前提 / 📈 成果で語る
 
-軽量な単一HTMLファイル構成を維持する方針と一致する（[CLAUDE.md](../../../CLAUDE.md)参照）。
+軽量な単一HTMLファイル構成を維持する方針と一致します（[CLAUDE.md](../../CLAUDE.md) 参照）。
 
 ---
 
-## 8. 既知の未定義領域（サンプルに含まれないもの）
+## 8. 既知の未定義領域
 
 デザインシステムとして今後定義が必要な可能性がある要素:
 - モバイル用ナビゲーション（ハンバーガーメニュー等）— 現状820px以下で単純非表示
 - フォームコンポーネント（input, textarea, select等）
 - エラー/成功などのステータスカラー
-- OSのライト/ダーク設定に応じた `prefers-color-scheme` での自動切り替え実装（現状はダーク版・ライト版とも静的な単一テーマファイルとして分離管理）
+- OSのライト/ダーク設定に応じた `prefers-color-scheme` での自動切り替え（現状はライト版・ダーク版とも静的な単一テーマとして分離管理）
