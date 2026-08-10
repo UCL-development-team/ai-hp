@@ -76,8 +76,11 @@
   --gap-grid: 24px;   /* .cards */
   --gap-feat: 26px;   /* .why */
   --gap-stats: 40px;  /* .bigrow */
-  --modal-max-width: 1180px;  /* .modal の最大幅 */
-  --modal-max-height: 860px;  /* .modal の最大高 */
+  /* .modal の寸法上限。none は「四方 --modal-gap を除いた全面」を意味する。
+     幅は読みやすさのため固定し、広い画面では左右の余白が増える。
+     高さは縦に長い内容（iframe）を使い切るため制限しない */
+  --modal-max-width: 1180px;
+  --modal-max-height: none;
 
   /* --- Typography --- */
   --font-family-base: "Helvetica Neue", "Hiragino Sans", "Noto Sans JP", -apple-system, sans-serif;

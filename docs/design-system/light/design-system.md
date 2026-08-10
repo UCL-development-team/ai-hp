@@ -133,6 +133,7 @@
 - **ナビ高さ**: `70px`
 - **グリッド間隔**: `.cards` = 24px（`--gap-grid`） / `.why` = 26px（`--gap-feat`） / `.bigrow` = 40px（`--gap-stats`）
 - **内側パディング**: card `40px 34px` / `.big` `70px 48px` / `.why .w` `32px` / `.cta` `72px 40px` / `.btn` `13px 26px`
+- **モーダル**: 四方 `24px`（`--modal-gap` = `--content-padding-x`）を空けた領域に、幅上限 `1180px`（`--modal-max-width`）。高さは無制限（`--modal-max-height: none`）で縦を使い切る。詳細は [6.13 Modal](#613-modaldialog)
 
 ### グリッドパターン
 
@@ -266,23 +267,55 @@
 
 別ページを離脱せずに見せるためのオーバーレイ。ネイティブの `<dialog>` を `showModal()` で開き、中身は `<iframe>`（`.modal-frame`）で対象ページをそのまま表示します。挙動は [../components.js](../components.js)（light / dark 共用）が担当し、このファイルはCSS側の見た目だけを定義します。
 
-- `.modal`（= `<dialog>`）: 最大 `--modal-max-width` × `--modal-max-height`、ビューポートからは `--content-padding-x` 分だけ内側。`--radius-lg`、`--bg` 面、`--shadow-modal`
-  - `components.css` 冒頭の `*{margin:0}` reset がブラウザ標準の `margin:auto` を打ち消すため、中央寄せは `position:fixed; inset:0; margin:auto` で明示している
+- `.modal`（= `<dialog>`）: `--radius-lg`、`--bg` 面、`--shadow-modal`
   - `::backdrop` は `--overlay` + `blur(3px)`。`body:has(dialog[open])` で背後のページのスクロールを止める
-  - md以下では全画面（`100vw` × `100dvh`、角丸なし）になり、`.modal-link` は非表示
-- **サイズを表示箇所ごとに変える**: 寸法は `min(var(--modal-max-width), calc(100vw - 2 * var(--content-padding-x)))` の形でトークンを参照しているため、`.modal` の定義を書き換えず、**その `<dialog>` 要素の上でトークンだけを上書きすれば**箇所ごとに変えられる。1箇所だけならインラインで、複数ページで使い回すなら修飾クラスで指定する。
+  - md以下では全画面（`inset:0`、角丸なし）になり、`.modal-link` は非表示
 
-  ```html
-  <!-- 1箇所だけ小さくする -->
-  <dialog id="sddkit-modal" class="modal" style="--modal-max-width:820px; --modal-max-height:520px">
-  ```
+#### 寸法（inset モデル）
 
-  ```css
-  /* 使い回す場合は修飾クラスを足す（基底クラスは書き換えない） */
-  .modal-narrow{--modal-max-width:720px;--modal-max-height:480px}
-  ```
+幅・高さを直接指定せず、**四方を `--modal-gap` だけ内側に寄せた領域**を上限トークンで切り取って決めます。
 
-  上書きするのは**上限値だけ**なので、狭いビューポートでは従来どおり `100vw - 余白` に収まりレスポンシブ性は保たれる。md以下の全画面化は `width`/`height` を直接指定しているルールのため、上限トークンを上書きしてもモバイルの全画面表示は維持される。
+```css
+--modal-gap: var(--content-padding-x); /* 四方の余白 */
+position:fixed; inset:var(--modal-gap); margin:auto;
+width:auto; height:auto;
+max-width:var(--modal-max-width);   /* 1180px — 読みやすさのため幅は固定 */
+max-height:var(--modal-max-height); /* none  — 高さは制限しない */
+```
+
+軸ごとに方針が違います。
+
+- **幅**は `--modal-max-width`（1180px）で固定。広い画面では左右の余白が増える（`margin:auto` で中央寄せ）
+- **高さ**は `--modal-max-height: none` で制限しない。`<iframe>` の中身が縦に長いことを前提に、上下は `--modal-gap` だけ空けて縦を使い切る
+- `margin:auto` は上限で縮んだときの中央寄せ用。`components.css` 冒頭の `*{margin:0}` reset がブラウザ標準の `margin:auto` を打ち消すため明示している
+- 実測値:
+
+  | ビューポート | サイズ | 左右マージン | 上下マージン |
+  |---|---|---|---|
+  | 1440 × 900 | 1180 × 852 | 130 | 24 |
+  | 1920 × 1080 | 1180 × 1032 | 370 | 24 |
+  | 2560 × 1440 | 1180 × 1392 | 690 | 24 |
+  | 1200 × 800（幅キャップ未達） | 1152 × 752 | 24 | 24 |
+  | 1440 × 620（低い画面） | 1180 × 572 | 130 | 24 |
+  | 390 × 844（md以下） | 390 × 844 | 0 | 0（全画面） |
+
+#### サイズを表示箇所ごとに変える
+
+上限トークンを、`.modal` の定義ではなく**その `<dialog>` 要素の上で上書き**します。1箇所だけならインライン、複数ページで使い回すなら修飾クラスで指定します。縦を短くしたい箇所では `--modal-max-height` に値を入れます（既定は `none`）。
+
+```html
+<!-- 1箇所だけ小さくする（上限で縮んだ分は margin:auto で中央寄せされる） -->
+<dialog id="sddkit-modal" class="modal" style="--modal-max-width:820px; --modal-max-height:520px">
+```
+
+```css
+/* 使い回す場合は修飾クラスを足す（基底クラスは書き換えない） */
+.modal-narrow{--modal-max-width:720px;--modal-max-height:480px}
+```
+
+- 余白そのものを変えたい場合は `--modal-gap` を上書きする（四方に等しく効く）
+- 上書きするのは**上限値だけ**なので、狭いビューポートでは従来どおり余白を除いた全面に収まり、レスポンシブ性は保たれる
+- md以下の全画面化は `width`/`height` を直接指定しているルールのため、上限トークンを上書きしてもモバイルの全画面表示は維持される
 - 内部構成: `.modal-in`（縦フレックス）→ `.modal-head`（`.modal-title` ／ `.modal-actions` = `.modal-link` + `.modal-close`）＋ `.modal-body`（残り高さいっぱい、`.modal-frame` を敷く）
 - マークアップと属性:
 

@@ -187,7 +187,7 @@ CSSだけで完結しない挙動（現状は Modal の開閉のみ）は [../co
 
 デザインシステムとして今後定義が必要な可能性がある要素（サンプルHTMLには存在しない）:
 - `components.css` 全体 — ダーク版は未整備。ライト版の [components.css](../light/components.css) 相当をトークン差し替えで用意する想定
-- Modal（`.modal` 系クラス）— 挙動は共用の [../components.js](../components.js) で動くが、ダーク版のCSSが無い。ライト版 design-system.md「6.13 Modal」を参照し、`--overlay` / `--shadow-modal` / `--modal-max-width` / `--modal-max-height` のトークン追加から始める
+- Modal（`.modal` 系クラス）— 挙動は共用の [../components.js](../components.js) で動くが、ダーク版のCSSが無い。ライト版 design-system.md「6.13 Modal」を参照し、`--overlay` / `--shadow-modal` のトークン追加から始める（寸法は inset モデルで `--content-padding-x` から決まるため、寸法トークンの追加は不要）
 - モバイル用ナビゲーション（ハンバーガーメニュー等）— 現状820px以下で単純非表示
 - フォームコンポーネント（input, textarea, select等）
 - エラー/成功などのステータスカラー
