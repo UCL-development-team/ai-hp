@@ -189,6 +189,7 @@
 | 6.8 | CTA | `.cta` |
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
+| 6.12 | Figure（図版パネル） | `.figure`（`img` `figcaption`） |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
 | — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
 
@@ -244,6 +245,13 @@
 
 ### 6.11 セクション背景のパターン
 ヒーローは `--hero-bg`、通常セクションは `--bg`。変化をつけたいセクションに `.section-alt`（`--bg2`）を付与します。`.big`（濃色ブロック）を挟むセクションには `.section-flush` を付けて上パディングを詰め、直前のセクションと地続きに見せます。
+
+### 6.12 Figure（図版パネル）
+- 図版（PNG/SVG）をページ内に置くための枠。`--panel` 背景 + `--line` ボーダー、`--radius-lg`、padding 28px（md以下は16px）
+- `<figure class="figure">` に `img` を入れる。`img` は `width:100%` / `height:auto` で枠に追従し、`--radius-sm` で角を丸める
+- 説明を添える場合は `figcaption`（14px/800、`--muted`、中央揃え）を `img` の後ろに置く
+- `alt` は必須。図が伝える内容を文章で説明する
+- 6.10 のセクション見出しパターンの直下に置く想定（`margin-top:56px`）
 
 ---
 
