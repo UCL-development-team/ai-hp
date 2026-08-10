@@ -270,6 +270,19 @@
   - `components.css` 冒頭の `*{margin:0}` reset がブラウザ標準の `margin:auto` を打ち消すため、中央寄せは `position:fixed; inset:0; margin:auto` で明示している
   - `::backdrop` は `--overlay` + `blur(3px)`。`body:has(dialog[open])` で背後のページのスクロールを止める
   - md以下では全画面（`100vw` × `100dvh`、角丸なし）になり、`.modal-link` は非表示
+- **サイズを表示箇所ごとに変える**: 寸法は `min(var(--modal-max-width), calc(100vw - 2 * var(--content-padding-x)))` の形でトークンを参照しているため、`.modal` の定義を書き換えず、**その `<dialog>` 要素の上でトークンだけを上書きすれば**箇所ごとに変えられる。1箇所だけならインラインで、複数ページで使い回すなら修飾クラスで指定する。
+
+  ```html
+  <!-- 1箇所だけ小さくする -->
+  <dialog id="sddkit-modal" class="modal" style="--modal-max-width:820px; --modal-max-height:520px">
+  ```
+
+  ```css
+  /* 使い回す場合は修飾クラスを足す（基底クラスは書き換えない） */
+  .modal-narrow{--modal-max-width:720px;--modal-max-height:480px}
+  ```
+
+  上書きするのは**上限値だけ**なので、狭いビューポートでは従来どおり `100vw - 余白` に収まりレスポンシブ性は保たれる。md以下の全画面化は `width`/`height` を直接指定しているルールのため、上限トークンを上書きしてもモバイルの全画面表示は維持される。
 - 内部構成: `.modal-in`（縦フレックス）→ `.modal-head`（`.modal-title` ／ `.modal-actions` = `.modal-link` + `.modal-close`）＋ `.modal-body`（残り高さいっぱい、`.modal-frame` を敷く）
 - マークアップと属性:
 

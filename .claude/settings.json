@@ -11,7 +11,9 @@
       "Bash(TMPDIR_PROFILE=\"$\\(pwd\\)/chrome-profile\" node cdp-check.mjs \"file:///R:/__Source_github_ucl/ai-hp/docs/plan-4-light.html\" \"$\\(pwd\\)/modal2.png\")",
       "Bash(rm -rf ps)",
       "Bash(TMPDIR_PROFILE=\"$\\(pwd\\)/ps\" node cdp-check.mjs \"file:///R:/__Source_github_ucl/ai-hp/docs/design-system/light/tokens-usage-sample.html\" \"$\\(pwd\\)/sample.png\")",
-      "Bash(node --check docs/design-system/components.js)"
+      "Bash(node --check docs/design-system/components.js)",
+      "Bash(rm -rf sp)",
+      "Bash(TMPDIR_PROFILE=\"$\\(pwd\\)/sp\" node size-check.mjs)"
     ],
     "additionalDirectories": [
       "r:\\__Source_github_ucl\\ai-hp\\docs\\assets\\ai-evolution-light"
