@@ -53,7 +53,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
    ```sh
    chrome --headless=new --hide-scrollbars --force-device-scale-factor=2 \
      --window-size=1200,838 --virtual-time-budget=3000 \
-     --screenshot=docs/assets/ai-evolution-light/plan-4-timeline.png \
+     --screenshot=docs/plan-4-timeline.png \
      docs/plan-4-timeline.html
    ```
    Windows の Chrome に渡すパスは絶対パス。URLフラグメント（`#evolution`）を付ける場合は `file:///R:/...` 形式にする。
