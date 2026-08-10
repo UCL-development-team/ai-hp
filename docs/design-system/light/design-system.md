@@ -13,6 +13,7 @@
 |---|---|
 | [tokens.css](tokens.css) | 色・角丸・スペーシング・タイポグラフィ・モーションのCSSカスタムプロパティ定義 |
 | [components.css](components.css) | 本仕様書「6. コンポーネント仕様」のCSS実装。値はすべて `var(--*)` でトークンを参照 |
+| [../components.js](../components.js) | CSSだけで完結しない挙動（現状は 6.13 Modal の開閉のみ）。使うページだけ `</body>` 直前で読み込む。**dark と共用**のため `design-system/` 直下に置いている |
 | [design-system.md](design-system.md) | 本仕様書 |
 | [tokens-usage-sample.html](tokens-usage-sample.html) | トークンとコンポーネントの動作確認用デモ（全コンポーネントのカタログ） |
 
@@ -24,6 +25,12 @@
 ```
 
 適用例: `docs/index-2-light.html`（`<style>` を持たず、この2ファイルのみで構成）
+
+6.13 Modal を使うページは、加えて `</body>` の直前で [components.js](../components.js) を読み込みます。こちらは配色・寸法を持たない挙動のみのファイルで、`light/` ではなく **`design-system/` 直下**（dark と共用）にあります。
+
+```html
+<script src="design-system/components.js" defer></script>
+```
 
 ---
 
@@ -190,6 +197,7 @@
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
 | 6.12 | Figure（図版パネル） | `.figure`（`.figure-flush` / `img` / `figcaption`） |
+| 6.13 | Modal（`<dialog>`） | `.modal` / `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
 | — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
 
@@ -253,6 +261,47 @@
 - `alt` は必須。図が伝える内容を文章で説明する
 - 6.10 のセクション見出しパターンの直下に置く想定（`margin-top:56px`）
 - `.figure-flush` を併記すると枠・背景・角丸・padding を外す。図版自身が面（背景色）と余白を持っていて、セクション背景と地続きに見せたい場合に使う。padding が無くなる分、図版はコンテンツ幅いっぱいに広がる
+
+### 6.13 Modal（`<dialog>`）
+
+別ページを離脱せずに見せるためのオーバーレイ。ネイティブの `<dialog>` を `showModal()` で開き、中身は `<iframe>`（`.modal-frame`）で対象ページをそのまま表示します。挙動は [../components.js](../components.js)（light / dark 共用）が担当し、このファイルはCSS側の見た目だけを定義します。
+
+- `.modal`（= `<dialog>`）: 最大 `--modal-max-width` × `--modal-max-height`、ビューポートからは `--content-padding-x` 分だけ内側。`--radius-lg`、`--bg` 面、`--shadow-modal`
+  - `components.css` 冒頭の `*{margin:0}` reset がブラウザ標準の `margin:auto` を打ち消すため、中央寄せは `position:fixed; inset:0; margin:auto` で明示している
+  - `::backdrop` は `--overlay` + `blur(3px)`。`body:has(dialog[open])` で背後のページのスクロールを止める
+  - md以下では全画面（`100vw` × `100dvh`、角丸なし）になり、`.modal-link` は非表示
+- 内部構成: `.modal-in`（縦フレックス）→ `.modal-head`（`.modal-title` ／ `.modal-actions` = `.modal-link` + `.modal-close`）＋ `.modal-body`（残り高さいっぱい、`.modal-frame` を敷く）
+- マークアップと属性:
+
+  ```html
+  <!-- 開くきっかけ。href はJS無効時のフォールバック先（＝モーダルで見せるページ） -->
+  <a href="SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
+
+  <dialog id="sddkit-modal" class="modal" aria-labelledby="sddkit-modal-title">
+    <div class="modal-in">
+      <div class="modal-head">
+        <div class="modal-title" id="sddkit-modal-title">SDD-Kit</div>
+        <div class="modal-actions">
+          <a class="modal-link" href="SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
+          <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <iframe class="modal-frame" data-src="SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
+      </div>
+    </div>
+  </dialog>
+  ```
+
+  - `data-modal-open="<dialogのid>"` — クリックで対象を開く。`<a>` に付けるのが基本（`.btn` の見た目をそのまま使え、JS無効時は `href` の遷移にフォールバックする）
+  - `data-modal-close` — クリックで、自分が属する `<dialog>` を閉じる
+  - `<iframe>` の `src` は書かず `data-src` に置く。初回オープン時にだけ `src` へ移されるので、ページ表示時に読み込まれない
+  - `aria-labelledby` で `.modal-title` を参照し、`<iframe>` には `title` を必ず付ける
+  - `.modal-close` に `autofocus` を付ける。付けないと `showModal()` の初期フォーカスが `.modal-link` に落ち、リンクに既定のフォーカスリング（角枠）が出てしまう。`:focus-visible` のリングは `--p1` の2px アウトラインに整えている
+- 閉じ方は3通り: `.modal-close` のクリック／背景（`::backdrop`）のクリック／Esc キー（`<dialog>` の標準挙動）
+- `<dialog>` 非対応ブラウザでは components.js が何もしないため、きっかけの `<a href>` がそのまま効いて同じページへ遷移する
+
+適用例: `docs/plan-2-light.html` / `plan-3-light.html` / `plan-4-light.html` の CTA（`docs/SDD-Kit/index.html` を表示）
 
 ---
 

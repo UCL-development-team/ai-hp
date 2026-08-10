@@ -4,6 +4,12 @@
 このファイル自体は仕様書であり、元のサンプルHTMLは変更していません。
 実装時の共有トークンは [tokens.css](tokens.css) を参照してください。
 
+CSSだけで完結しない挙動（現状は Modal の開閉のみ）は [../components.js](../components.js) にあり、**light版と共用**です。配色・寸法を持たずデータ属性とDOM操作だけで動くため、ダーク版のページからもそのまま読み込めます。ただし見た目（`.modal` 系クラス）を定義する `components.css` はダーク版では未整備なので、使う場合はCSSを先に用意する必要があります（[8. 既知の未定義領域](#8-既知の未定義領域サンプルに含まれないもの) 参照）。
+
+```html
+<script src="design-system/components.js" defer></script>
+```
+
 ---
 
 ## 1. カラートークン
@@ -180,6 +186,8 @@
 ## 8. 既知の未定義領域（サンプルに含まれないもの）
 
 デザインシステムとして今後定義が必要な可能性がある要素（サンプルHTMLには存在しない）:
+- `components.css` 全体 — ダーク版は未整備。ライト版の [components.css](../light/components.css) 相当をトークン差し替えで用意する想定
+- Modal（`.modal` 系クラス）— 挙動は共用の [../components.js](../components.js) で動くが、ダーク版のCSSが無い。ライト版 design-system.md「6.13 Modal」を参照し、`--overlay` / `--shadow-modal` / `--modal-max-width` / `--modal-max-height` のトークン追加から始める
 - モバイル用ナビゲーション（ハンバーガーメニュー等）— 現状820px以下で単純非表示
 - フォームコンポーネント（input, textarea, select等）
 - エラー/成功などのステータスカラー

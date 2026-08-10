@@ -29,16 +29,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - `light/` — ライト版（`tokens.css` / `components.css` / `design-system.md` / `tokens-usage-sample.html`）
 - `dark/` — ダーク版（`tokens.css` / `design-system.md` / `tokens-usage-sample.html`）。`components.css` は未整備。
+- `components.js` — CSSだけで完結しない挙動（現状は Modal の開閉のみ）。配色・寸法を持たないため **light / dark 共用**で、テーマ別ディレクトリではなく `design-system/` 直下に置く。
 - `light-target.html` / `dark-target.html` — トークン化の元になった目標デザイン
 
 ### ルール
 
-- `docs/` 内のHTMLからの読み込みパスは `design-system/light/...`（`docs/` を基準とした相対パス）。
+- `docs/` 内のHTMLからの読み込みパスは `design-system/light/...`（`docs/` を基準とした相対パス）。挙動が必要なページは、加えて `</body>` 直前で共用の `components.js` を読む。
   ```html
   <link rel="stylesheet" href="design-system/light/tokens.css">
   <link rel="stylesheet" href="design-system/light/components.css">
+  <!-- Modal 等を使うページだけ、</body> の直前で -->
+  <script src="design-system/components.js" defer></script>
   ```
 - 読み込み順は **tokens.css → components.css**（後者が前者のカスタムプロパティに依存）。
+- 挙動を足すときは、テーマ別の値を `components.js` に持ち込まない。見た目は各テーマの `components.css`、JSはデータ属性（`data-modal-open` 等）でのフックに留めることで共用を保つ。
 - `components.css` は複数のページが共有している。**既存クラスの定義を変えると他の案にも波及する。** 1ページだけの見た目を変えたいときは、既存クラスを書き換えるのではなく修飾クラスを追加する（例: `.figure` に対する `.figure-flush`）。
 - コンポーネントを追加・変更したら、同じディレクトリの `design-system.md`（仕様書）も更新する。
 - ブレークポイントは md（`max-width:820px`）のみ。修飾クラスを足すときは、メディアクエリ内で基底クラスが上書きしている値がないか確認する。

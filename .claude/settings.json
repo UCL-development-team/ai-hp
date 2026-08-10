@@ -3,7 +3,15 @@
     "allow": [
       "Read(//c/Program Files/Google/Chrome/Application/**)",
       "Bash(npx -v)",
-      "Bash(cd r:/__Source_github_ucl/ai-hp/docs && mv assets/ai-evolution-light/plan-4-timeline.html plan-4-timeline.html && ls plan-4-timeline.*)"
+      "Bash(cd r:/__Source_github_ucl/ai-hp/docs && mv assets/ai-evolution-light/plan-4-timeline.html plan-4-timeline.html && ls plan-4-timeline.*)",
+      "Bash(node -e \"1\" 2>&1 | head -2; node --version 2>&1 | head -1; which chrome; ls \"/c/Program Files/Google/Chrome/Application/chrome.exe\" 2>/dev/null)",
+      "Bash(node --check docs/design-system/light/components.js)",
+      "Bash(TMPDIR_PROFILE=\"$\\(pwd\\)/chrome-profile\" node cdp-check.mjs \"file:///R:/__Source_github_ucl/ai-hp/docs/plan-4-light.html\" \"$\\(pwd\\)/modal.png\")",
+      "Bash(rm -rf chrome-profile)",
+      "Bash(TMPDIR_PROFILE=\"$\\(pwd\\)/chrome-profile\" node cdp-check.mjs \"file:///R:/__Source_github_ucl/ai-hp/docs/plan-4-light.html\" \"$\\(pwd\\)/modal2.png\")",
+      "Bash(rm -rf ps)",
+      "Bash(TMPDIR_PROFILE=\"$\\(pwd\\)/ps\" node cdp-check.mjs \"file:///R:/__Source_github_ucl/ai-hp/docs/design-system/light/tokens-usage-sample.html\" \"$\\(pwd\\)/sample.png\")",
+      "Bash(node --check docs/design-system/components.js)"
     ],
     "additionalDirectories": [
       "r:\\__Source_github_ucl\\ai-hp\\docs\\assets\\ai-evolution-light"

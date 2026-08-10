@@ -289,12 +289,37 @@
   </div>
 </section>
 
+<section class="section-alt">
+  <div class="wrap">
+    <div class="demo-label" style="margin-bottom:14px">6.13 Modal — .modal（&lt;dialog&gt; + iframe）</div>
+    <p class="desc">クリックで <code>&lt;dialog&gt;</code> をモーダル表示し、中身に別ページを <code>&lt;iframe&gt;</code> で読み込みます。閉じるのは ✕／背景クリック／Esc。ここでは <code>../light-target.html</code> を表示しています。</p>
+    <a href="../light-target.html" class="btn btn-p" data-modal-open="demo-modal">目標デザインをモーダルで開く</a>
+  </div>
+</section>
+
 <footer>
   <div class="wrap foot-in">
     <div class="logo logo-sm">Light <span>Design System</span></div>
     <div>6.9 Footer &mdash; footer / .foot-in</div>
   </div>
 </footer>
+
+<dialog id="demo-modal" class="modal" aria-labelledby="demo-modal-title">
+  <div class="modal-in">
+    <div class="modal-head">
+      <div class="modal-title" id="demo-modal-title">light-target.html</div>
+      <div class="modal-actions">
+        <a class="modal-link" href="../light-target.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
+        <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe class="modal-frame" data-src="../light-target.html" title="トークン化の元になった目標デザイン"></iframe>
+    </div>
+  </div>
+</dialog>
+
+<script src="../components.js" defer></script>
 
 </body>
 </html>

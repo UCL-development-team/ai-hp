@@ -144,7 +144,8 @@
       <p>ご相談・簡易ご提案は無料。気軽にどうぞ。</p>
       <div class="hero-cta">
         <a href="https://www.ucl-group.co.jp/contact" class="btn btn-w" target="_blank" rel="noopener">相談を申し込む</a>
-        <a href="#service" class="btn btn-wo">SDD-Kitを詳しく見る</a>
+        <!-- モーダル（#sddkit-modal）で開く。JS無効時は href の遷移にフォールバック -->
+        <a href="SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
       </div>
     </div>
   </div>
@@ -156,6 +157,25 @@
     <div><a href="https://www.ucl-group.co.jp/" target="_blank" rel="noopener">UCL グループ</a> &nbsp;/&nbsp; &copy; 2026 AI Innovation Division. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- 6.13 Modal — CTAの「SDD-Kitを詳しく見る」から開き、SDD-Kit/index.html を iframe で表示する。
+     iframe の src は初回オープン時に data-src から設定される（components.js） -->
+<dialog id="sddkit-modal" class="modal" aria-labelledby="sddkit-modal-title">
+  <div class="modal-in">
+    <div class="modal-head">
+      <div class="modal-title" id="sddkit-modal-title">SDD-Kit</div>
+      <div class="modal-actions">
+        <a class="modal-link" href="SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
+        <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe class="modal-frame" data-src="SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
+    </div>
+  </div>
+</dialog>
+
+<script src="design-system/components.js" defer></script>
 
 </body>
 </html>

@@ -185,6 +185,52 @@ a.mtag:hover{transform:translateY(-2px)}
 .cta .hero-cta{justify-content:center;margin-top:34px}
 
 /* =========================================================
+   6.13 Modal（<dialog> + iframe のオーバーレイ）
+   挙動は light/dark 共用の ../components.js（data-modal-open / data-modal-close）
+   ========================================================= */
+/* 上の `*{margin:0}` reset がブラウザ標準の `margin:auto` を打ち消すため、
+   中央寄せは inset + margin で明示的に指定する */
+.modal{
+  position:fixed;inset:0;margin:auto;
+  width:min(var(--modal-max-width), calc(100vw - 2 * var(--content-padding-x)));
+  height:min(var(--modal-max-height), calc(100dvh - 2 * var(--content-padding-x)));
+  max-width:none;max-height:none;
+  border:0;padding:0;overflow:hidden;
+  border-radius:var(--radius-lg);
+  background:var(--bg);color:var(--txt);
+  box-shadow:var(--shadow-modal);
+}
+.modal::backdrop{background:var(--overlay);backdrop-filter:blur(3px)}
+/* モーダル表示中は背後のページをスクロールさせない */
+body:has(dialog[open]){overflow:hidden}
+
+.modal-in{display:flex;flex-direction:column;height:100%}
+/* ヘッダ: 左にタイトル、右に補助リンクと閉じるボタン */
+.modal-head{
+  flex:none;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 20px 16px 24px;border-bottom:1px solid var(--line);
+}
+.modal-title{font-size:18px;font-weight:900;letter-spacing:-.3px}
+.modal-actions{display:flex;align-items:center;gap:16px}
+.modal-link{font-size:14px;font-weight:800;color:var(--p1)}
+.modal-link:hover{text-decoration:underline}
+.modal-close{
+  flex:none;display:grid;place-items:center;
+  width:36px;height:36px;border:0;border-radius:var(--radius-pill);
+  background:var(--bg2);color:var(--txt);cursor:pointer;
+  font:inherit;font-size:15px;font-weight:800;line-height:1;
+  transition:background var(--transition-fast),color var(--transition-fast);
+}
+.modal-close:hover{background:var(--txt);color:var(--bg)}
+/* showModal() の初期フォーカスは autofocus で .modal-close に置く。
+   そのまま既定のフォーカスリングが出るとリンクの角枠のように見えるため、意図した形に整える */
+.modal-close:focus-visible{outline:2px solid var(--p1);outline-offset:2px}
+.modal-link:focus-visible{outline:2px solid var(--p1);outline-offset:3px;border-radius:var(--radius-sm)}
+/* 本文: iframe を残り高さいっぱいに敷く（min-height:0 が無いと flex 内で縮まない） */
+.modal-body{flex:1;min-height:0;background:var(--bg2)}
+.modal-frame{display:block;width:100%;height:100%;border:0;background:var(--bg)}
+
+/* =========================================================
    6.9 Footer
    ========================================================= */
 footer{padding:50px 0;color:var(--muted);font-size:15px;border-top:1px solid var(--line)}
@@ -202,4 +248,8 @@ footer{padding:50px 0;color:var(--muted);font-size:15px;border-top:1px solid var
   .figure{padding:16px}
   .figure-flush{padding:0}
   .cta{padding:56px 24px}
+  /* モーダルは全画面化し、補助リンクは省く */
+  .modal{width:100vw;height:100dvh;border-radius:0}
+  .modal-head{padding:12px 14px 12px 18px}
+  .modal-link{display:none}
 }
