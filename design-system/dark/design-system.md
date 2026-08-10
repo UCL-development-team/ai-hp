@@ -183,4 +183,3 @@
 - モバイル用ナビゲーション（ハンバーガーメニュー等）— 現状820px以下で単純非表示
 - フォームコンポーネント（input, textarea, select等）
 - エラー/成功などのステータスカラー
-- ダークテーマ以外との共存方法 → ライト版デザインシステムを [design/light/design-system/design-system.md](../../light/design-system/design-system.md) に定義済み（色トークンのみ差分、レイアウト系は共通）

@@ -19,8 +19,8 @@
 読み込み順は **tokens.css → components.css** の順（後者が前者の変数に依存）。
 
 ```html
-<link rel="stylesheet" href="light/tokens.css">
-<link rel="stylesheet" href="light/components.css">
+<link rel="stylesheet" href="design-system/light/tokens.css">
+<link rel="stylesheet" href="design-system/light/components.css">
 ```
 
 適用例: `docs/index-2-light.html`（`<style>` を持たず、この2ファイルのみで構成）
@@ -262,4 +262,3 @@
 - モバイル用ナビゲーション（ハンバーガーメニュー等）— 現状820px以下で単純非表示
 - フォームコンポーネント（input, textarea, select等）
 - エラー/成功などのステータスカラー
-- OSのライト/ダーク設定に応じた `prefers-color-scheme` での自動切り替え（現状はライト版・ダーク版とも静的な単一テーマとして分離管理）

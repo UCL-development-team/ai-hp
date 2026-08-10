@@ -6,8 +6,8 @@
   値はすべて tokens.css のカスタムプロパティ経由で参照し、ハードコードしない。
 
   使い方（tokens.css を先に読み込むこと）:
-    <link rel="stylesheet" href="light/tokens.css">
-    <link rel="stylesheet" href="light/components.css">
+    <link rel="stylesheet" href="design-system/light/tokens.css">
+    <link rel="stylesheet" href="design-system/light/components.css">
 */
 
 /* =========================================================
