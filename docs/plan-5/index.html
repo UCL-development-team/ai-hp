@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Innovation 部 | AIで、次を、つくる。</title>
-<meta name="description" content="AI Innovation 部（AI Innovation Division）は、AI支援型開発・仕様駆動型開発・AI人材支援の3領域で、先端技術を“実際に使える形”に変えていく新設部門です。">
+<meta name="description" content="AI Innovation 部（AI Innovation Division）は、受託開発とAI人材支援の2領域で、AIによる開発（支援型・仕様駆動型）と、AIを搭載するシステムの開発に取り組む新設部門です。">
 
 <!-- Light Design System — 読み込み順は tokens.css → components.css
      tokens.css     : 色・角丸・スペーシング・タイポグラフィ・モーションのトークン定義
@@ -15,16 +15,18 @@
 </head>
 <body>
 
-<nav>
+<!-- 現行UCLサイトのヘッダー配下に差し込む前提のサブヘッダー。
+     .nav-sub で高さを詰め、問い合わせ導線（ヘッダー側にある）は持たせない -->
+<nav class="nav-sub">
   <div class="wrap nav-in">
     <div class="logo">AI <span>Innovation</span> 部</div>
     <div class="nav-links">
       <a href="#service">領域</a>
+      <a href="#tech">AIによる開発</a>
+      <a href="#ai-system">AI搭載システム</a>
       <a href="#values">価値観</a>
       <a href="#why">強み</a>
-      <a href="#contact">お問い合わせ</a>
     </div>
-    <a href="#contact" class="btn btn-p">相談する</a>
   </div>
 </nav>
 
@@ -38,8 +40,8 @@
       <a href="#service" class="btn btn-o">取り組みを見る</a>
     </div>
     <div class="marquee">
-      <a href="#service" class="mtag m1">AI支援型開発（AI-assisted）</a>
-      <a href="#service" class="mtag m2">仕様駆動型開発（AI-driven）</a>
+      <a href="#tech" class="mtag m1">AI支援型開発（AI-assisted）</a>
+      <a href="#tech" class="mtag m2">仕様駆動型開発（AI-driven）</a>
       <a href="#service" class="mtag m4">AI人材支援</a>
     </div>
   </div>
@@ -48,23 +50,17 @@
 <section id="service">
   <div class="wrap">
     <div class="eyebrow">Focus Areas</div>
-    <h2 class="s-title">やることは、3つ。</h2>
-    <p class="s-sub">AI Innovation 部が担う領域。単独でも、掛け合わせても。お客様・社内のフェーズに合わせて動きます。</p>
-    <div class="cards cards-3">
+    <h2 class="s-title">やることは、2つ。</h2>
+    <p class="s-sub">AI Innovation 部が担う領域。お客様・社内のフェーズに合わせて動きます。</p>
+    <div class="cards">
       <div class="card c1">
         <div class="n">01</div>
-        <h3>AI支援型開発</h3>
-        <p>コード生成、ドキュメント出力、自動テストなど、特定タスクをAIが強化。<strong>既存の開発フローを保ったまま</strong>、生産性を底上げします。</p>
-        <div class="k"># コード生成　# ドキュメント出力　# 自動テスト(E2E)</div>
-      </div>
-      <div class="card c2">
-        <div class="n">02</div>
-        <h3>仕様駆動型開発</h3>
-        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-KIT」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
-        <div class="k"># 弊社オリジナルFramework SDD-KIT　# GitHub Spec Kit　# AWS Kiro</div>
+        <h3>受託開発</h3>
+        <p>要件定義から設計・実装・運用まで、開発一式をお預かりします。<strong>AIを前提とした進め方</strong>で、動くものを早く出し、実物で確かめながら仕上げます。</p>
+        <div class="k"># 受託開発　# 持ち帰り開発　# 要件定義〜運用</div>
       </div>
       <div class="card c4">
-        <div class="n">03</div>
+        <div class="n">02</div>
         <h3>AI人材支援</h3>
         <p>AI活用に強い人材が、SES的に現場へ。チームに入り込み、AIを前提とした開発を回しながら、内製化まで伴走します。</p>
         <div class="k"># SES　# 常駐・伴走　# 内製化</div>
@@ -73,13 +69,61 @@
   </div>
 </section>
 
-<section id="evolution" class="section-alt">
+<!-- 図版 timeline.png の地色は --panel(=--bg2) で焼いてあるため、
+     このセクションは section-alt（背景 --bg2）から外さないこと。白背景に置くと図版が浮く -->
+<section id="tech" class="section-alt">
   <div class="wrap">
-    <div class="eyebrow">Evolution</div>
-    <h2 class="s-title">AI開発の世代と位置づけ</h2>
-    <figure class="figure">
-      <img src="assets/ai-evolution-light/sdd-kit-timeline.png" alt="AI開発の世代と、その中でのSDD-KITの位置づけを示すタイムライン図">
+    <div class="eyebrow">AI-driven Development</div>
+    <h2 class="s-title">AIで、つくり方を変える。</h2>
+    <p class="s-sub">AI自体を道具にして、開発の進め方そのものを変える2つの技術。受託でも人材支援でも、案件のフェーズに合わせて使い分け、組み合わせます。</p>
+    <div class="cards">
+      <div class="card c1">
+        <div class="n">01</div>
+        <h3>AIによる支援型開発</h3>
+        <p>コード生成、ドキュメント出力、自動テストなど、特定タスクをAIが強化。<strong>既存の開発フローを保ったまま</strong>、生産性を底上げします。</p>
+        <div class="k"># コード生成　# ドキュメント出力　# 自動テスト(E2E)</div>
+      </div>
+      <div class="card c2">
+        <div class="n">02</div>
+        <h3>AIによる仕様駆動型開発</h3>
+        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-KIT」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
+        <div class="k"># 弊社オリジナルFramework SDD-KIT　# GitHub Spec Kit　# AWS Kiro</div>
+      </div>
+    </div>
+    <figure class="figure figure-flush">
+      <!-- 図版の原本: docs/plan-5/timeline.drawio ／ HTML版: docs/plan-5/timeline.html
+           caption は図版の導入文のため img より前に置いている -->
+      <figcaption>プロンプト → コンテキスト → ハーネス → ループ。世代ごとに移り変わる主戦場の中で、私たちの2領域がどこを担っているかを整理しました。</figcaption>
+      <img src="timeline.png" alt="AI開発の4世代（プロンプト／コンテキスト／ハーネス／ループ）と、AI支援型開発・仕様駆動型開発の位置づけを示すタイムライン図。あわせて各領域の体制イメージを図解しており、AI支援型開発ではエンジニアが個別にAIへ指示を出しプロジェクト体制は従来と同じ、仕様駆動型開発では少数のアーキテクトが仕様と検証ゲートを設計し増分ごとに承認して一周する、ループエンジニアリングでは計画・実装・検証・修正のAIが自律的に回り人は終了条件と逸脱時だけ関与する、という違いを示している">
     </figure>
+  </div>
+</section>
+
+<section id="ai-system">
+  <div class="wrap">
+    <div class="eyebrow">AI-powered Systems</div>
+    <h2 class="s-title">AIを、つくるものに載せる。</h2>
+    <p class="s-sub">つくり方だけでなく、つくるものにも。チャット、検索、要約、判定といったAIの働きを、システムの機能として実装します。社内データを扱う場合も、<strong>AIに学習させない構成</strong>で設計します。</p>
+    <div class="cards cards-3">
+      <div class="card c3">
+        <div class="n">01</div>
+        <h3>社内データ検索・要約</h3>
+        <p>社内文書やナレッジをAIが探し、根拠を示しながら答える。<strong>元データは学習させず参照だけ</strong>させる構成で、機密を守ったまま使えます。</p>
+        <div class="k"># RAG　# 社内ナレッジ検索　# 根拠の提示</div>
+      </div>
+      <div class="card c4">
+        <div class="n">02</div>
+        <h3>業務システムへのAI組込</h3>
+        <p>既存の画面・業務フローの中にAIを埋め込む。分類、要約、下書き生成、入力チェックなど、<strong>人の手数が多い工程から</strong>置き換えます。</p>
+        <div class="k"># 自動分類・要約　# 下書き生成　# 入力チェック</div>
+      </div>
+      <div class="card c2">
+        <div class="n">03</div>
+        <h3>AIエージェント</h3>
+        <p>手順を決め打ちせず、AIが道具（社内システム・API）を選んで実行する領域。任せきりにはせず、<strong>人が承認する地点を必ず残す</strong>設計にします。</p>
+        <div class="k"># 自律エージェント　# 社内システム連携　# 承認ゲート</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -138,11 +182,12 @@
   <div class="wrap">
     <div class="cta">
       <h2>AIの一歩目、<br>今日から。</h2>
-      <p>ご相談・簡易ご提案は無料。気軽にどうぞ。</p>
+      <p>ご相談・簡易ご提案はお気軽にどうぞ。</p>
       <div class="hero-cta">
-        <a href="https://www.ucl-group.co.jp/contact" class="btn btn-w" target="_blank" rel="noopener">相談を申し込む</a>
+        <!-- 現行UCLサイトに埋め込む前提のため、問い合わせフォームへは同一タブで遷移する -->
+        <a href="https://www.ucl-group.co.jp/contact" class="btn btn-w">相談を申し込む</a>
         <!-- モーダル（#sddkit-modal）で開く。JS無効時は href の遷移にフォールバック -->
-        <a href="SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
+        <a href="../assets/SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
       </div>
     </div>
   </div>
@@ -155,19 +200,19 @@
   </div>
 </footer>
 
-<!-- 6.13 Modal — CTAの「SDD-Kitを詳しく見る」から開き、SDD-Kit/index.html を iframe で表示する。
+<!-- 6.13 Modal — CTAの「SDD-Kitを詳しく見る」から開き、../assets/SDD-Kit/index.html を iframe で表示する。
      iframe の src は初回オープン時に data-src から設定される（components.js） -->
 <dialog id="sddkit-modal" class="modal" aria-labelledby="sddkit-modal-title">
   <div class="modal-in">
     <div class="modal-head">
       <div class="modal-title" id="sddkit-modal-title">SDD-Kit</div>
       <div class="modal-actions">
-        <a class="modal-link" href="SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
+        <a class="modal-link" href="../assets/SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
         <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
       </div>
     </div>
     <div class="modal-body">
-      <iframe class="modal-frame" data-src="SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
+      <iframe class="modal-frame" data-src="../assets/SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
     </div>
   </div>
 </dialog>

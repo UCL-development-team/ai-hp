@@ -8,7 +8,7 @@
 
 <!-- Light Design System — 読み込み順は tokens.css → components.css
      tokens.css     : 色・角丸・スペーシング・タイポグラフィ・モーションのトークン定義
-     components.css : nav / btn / card / big / figure / why / cta 等のコンポーネント実装
+     components.css : nav / btn / card / big / why / cta 等のコンポーネント実装
      仕様書         : design-system/light/design-system.md -->
 <link rel="stylesheet" href="design-system/light/tokens.css">
 <link rel="stylesheet" href="design-system/light/components.css">
@@ -20,7 +20,6 @@
     <div class="logo">AI <span>Innovation</span> 部</div>
     <div class="nav-links">
       <a href="#service">領域</a>
-      <a href="#position">立ち位置</a>
       <a href="#values">価値観</a>
       <a href="#why">強み</a>
       <a href="#contact">お問い合わせ</a>
@@ -74,19 +73,7 @@
   </div>
 </section>
 
-<section id="position" class="section-alt">
-  <div class="wrap">
-    <div class="eyebrow">Position</div>
-    <h2 class="s-title">AI開発の世代と私たちの立ち位置</h2>
-    <p class="s-sub">プロンプト → コンテキスト → ハーネス → ループ。世代ごとに移り変わる主戦場の中で、私たちの3領域がどこを担っているかを整理しました。</p>
-    <figure class="figure figure-flush">
-      <!-- 図版の原本: docs/plan-4-timeline.drawio ／ HTML版: docs/plan-4-timeline.html -->
-      <img src="plan-4-timeline.png" alt="AI開発の4世代（プロンプト／コンテキスト／ハーネス／ループ）と、AI支援型開発・仕様駆動型開発の位置づけを示すタイムライン図。あわせて各領域の体制イメージを図解しており、AI支援型開発ではエンジニアが個別にAIへ指示を出しプロジェクト体制は従来と同じ、仕様駆動型開発では少数のアーキテクトが仕様と検証ゲートを設計し増分ごとに承認して一周する、ループエンジニアリングでは計画・実装・検証・修正のAIが自律的に回り人は終了条件と逸脱時だけ関与する、という違いを示している">
-    </figure>
-  </div>
-</section>
-
-<section id="values">
+<section id="values" class="section-flush">
   <div class="wrap">
     <div class="big">
       <div class="eyebrow">Values</div>
@@ -145,7 +132,7 @@
       <div class="hero-cta">
         <a href="https://www.ucl-group.co.jp/contact" class="btn btn-w" target="_blank" rel="noopener">相談を申し込む</a>
         <!-- モーダル（#sddkit-modal）で開く。JS無効時は href の遷移にフォールバック -->
-        <a href="SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
+        <a href="../assets/SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
       </div>
     </div>
   </div>
@@ -158,19 +145,19 @@
   </div>
 </footer>
 
-<!-- 6.13 Modal — CTAの「SDD-Kitを詳しく見る」から開き、SDD-Kit/index.html を iframe で表示する。
+<!-- 6.13 Modal — CTAの「SDD-Kitを詳しく見る」から開き、../assets/SDD-Kit/index.html を iframe で表示する。
      iframe の src は初回オープン時に data-src から設定される（components.js） -->
 <dialog id="sddkit-modal" class="modal" aria-labelledby="sddkit-modal-title">
   <div class="modal-in">
     <div class="modal-head">
       <div class="modal-title" id="sddkit-modal-title">SDD-Kit</div>
       <div class="modal-actions">
-        <a class="modal-link" href="SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
+        <a class="modal-link" href="../assets/SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
         <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
       </div>
     </div>
     <div class="modal-body">
-      <iframe class="modal-frame" data-src="SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
+      <iframe class="modal-frame" data-src="../assets/SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
     </div>
   </div>
 </dialog>

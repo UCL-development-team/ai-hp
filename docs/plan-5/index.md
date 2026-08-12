@@ -66,7 +66,7 @@ AIがより広い範囲を自律的に開発。弊社オリジナルFramework「
 - タグ: **弊社オリジナルFramework** SDD-KIT / GitHub Spec Kit / AWS Kiro
 
 - プロンプト → コンテキスト → ハーネス → ループ。世代ごとに移り変わる主戦場の中で、私たちの2領域がどこを担っているかを整理しました。
-- ここに `docs\plan-5-timeline.drawio`の内容を挿入
+- ここに `docs\plan-5\timeline.drawio`の内容を挿入
   - 背景色は挿入する位置のHTMLデザインに合わせて下さい
   - より見栄えのする内容にしてください。
   - 出力はPNG画像としてください

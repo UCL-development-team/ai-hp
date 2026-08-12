@@ -3,16 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI開発の世代と位置づけ（Light / plan-5）</title>
+<title>AI開発の世代と位置づけ（Light / plan-4）</title>
 <style>
   /* ------------------------------------------------------------------
      配色は docs/design-system/light/tokens.css のパレットに揃える
      （--p1 パープル = AI支援型開発 / --p2 ピンク = 仕様駆動型開発 /
        --p3 アンバー = これから / --p4 シアン）
-     元データ: docs/plan-5-timeline.drawio
+     元データ: docs/plan-4/timeline.drawio
      ------------------------------------------------------------------ */
   :root{
-    /* 掲載先 plan-5-light.html の .figure パネル面（tokens.css の --panel）と同色。
+    /* 掲載先 plan-4/index.html の .figure パネル面（tokens.css の --panel）と同色。
        継ぎ目なく馴染ませるため、地色はフラットに置く */
     --canvas:#f4f2ff;
     --bg:#ffffff;
@@ -241,7 +241,7 @@
 <main class="canvas">
 
   <!-- ===== ヘッダー =====
-       見出し・リード文は掲載先ページ（plan-5-light.html の #evolution）が持つため、
+       見出し・リード文は掲載先ページ（plan-4/index.html の #evolution）が持つため、
        図版側ではラベルのみを表示する -->
   <header>
     <span class="kicker">AI DRIVEN DEVELOPMENT / EVOLUTION</span>
@@ -274,7 +274,7 @@
       <span class="cap">FOCUS AREA 01</span>
       <h2>AI支援型開発</h2>
       <p class="note">既存の開発フローを保ったまま、コード生成・ドキュメント出力・自動テストといった特定タスクをAIで底上げする領域。</p>
-      <img class="viz" src="assets/projdect/AI-assisted/ai-assisted.png" alt="">
+      <img class="viz" src="../assets/projdect/AI-assisted/ai-assisted.png" alt="">
       <div class="chips">
         <span class="chip">Claude Code</span>
         <span class="chip">Codex</span>
@@ -295,7 +295,7 @@
       <span class="cap">FOCUS AREA 02</span>
       <h2>仕様駆動型開発</h2>
       <p class="note">仕様から実装まで一気に。設計とコードを双方向で同期させ、乖離しない状態を仕組みで担保する領域。</p>
-      <img class="viz" src="assets/projdect/AI-driven/ai-driven.png" alt="">
+      <img class="viz" src="../assets/projdect/AI-driven/ai-driven.png" alt="">
       <div class="chips">
         <span class="chip own">SDD-KIT</span>
         <span class="chip">GitHub Spec Kit</span>
@@ -316,7 +316,7 @@
     <aside class="extend" style="grid-row:4">
       <span class="cap">NEXT — EXTENDING</span>
       <p><b>SDD-KIT</b> は ループエンジニアリング対応できるように拡張を続けます。</p>
-      <img class="viz" src="assets/projdect/AI-loop/ai-loop.png" alt="">
+      <img class="viz" src="../assets/projdect/AI-loop/ai-loop.png" alt="">
     </aside>
 
   </section>

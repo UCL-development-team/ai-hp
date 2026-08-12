@@ -5,9 +5,8 @@
 
 実装時の共有トークンは [tokens.css](tokens.css) を、コンポーネントの実装は [components.css](components.css) を参照してください。
 
-> **このフォルダ（`docs/design-system/`）は原本です。どのページからも直接参照されません。**
-> 各デザイン案は `docs/plan-<N>/design-system/` に**このフォルダごとコピーしたもの**を持ち、自分のコピーだけを読み込みます。
-> 新しい案を作るときはここからコピーしてください。コピー後は案ごとに独立して育てる前提のため、**原本への同期は不要**です（ある案の変更が他案に波及しないようにするための構成）。
+> **このフォルダは `docs/plan-5/` 専用のコピーです。**原本は `docs/design-system/` にあり、`plan-5` はこのコピーだけを読み込みます。
+> ここを編集しても他の案には影響しません。逆に、原本や他案の変更もここには入ってきません。
 
 ### ファイル構成
 
@@ -213,7 +212,7 @@
 **`.nav-sub`（修飾クラス / `<nav>` に付与）** — 既存サイトのヘッダー配下に差し込むページ用のサブヘッダー。
 - 高さ52px（`--nav-height-sub`）、ロゴ17px、リンク14px・gap 24px
 - 親サイト側のヘッダーが問い合わせ導線を持つ前提のため、右のCTAボタンは置かずロゴ＋ページ内リンクの2分割にする
-- 使用例: [../../plan-5/index.html](../../plan-5/index.html)
+- 使用例: [../../index.html](../../index.html)
 
 ### 6.2 Buttons
 - `.btn`: 基本形（padding `13px 26px`、`--radius-pill`、15px/800）
@@ -354,7 +353,7 @@ max-height:var(--modal-max-height); /* none  — 高さは制限しない */
 - 閉じ方は3通り: `.modal-close` のクリック／背景（`::backdrop`）のクリック／Esc キー（`<dialog>` の標準挙動）
 - `<dialog>` 非対応ブラウザでは components.js が何もしないため、きっかけの `<a href>` がそのまま効いて同じページへ遷移する
 
-適用例: `docs/plan-2/index.html` / `plan-3/index.html` / `plan-4/index.html` の CTA（`docs/assets/SDD-Kit/index.html` を表示）
+適用例: `docs/plan-5/index.html` の CTA（`docs/assets/SDD-Kit/index.html` を表示）
 
 ---
 
@@ -363,7 +362,7 @@ max-height:var(--modal-max-height); /* none  — 高さは制限しない */
 絵文字をアイコンとして直接使用（外部アイコンライブラリ非依存）:
 - 🎯 実装まで、やり切る / 🔒 セキュリティ前提 / 📈 成果で語る
 
-軽量な単一HTMLファイル構成を維持する方針と一致します（[CLAUDE.md](../../../CLAUDE.md) 参照）。
+軽量な単一HTMLファイル構成を維持する方針と一致します（[CLAUDE.md](../../../../CLAUDE.md) 参照）。
 
 ---
 
