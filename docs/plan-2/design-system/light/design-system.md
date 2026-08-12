@@ -131,7 +131,7 @@
 - **コンテンツ幅**: `.wrap { max-width:1140px; margin:0 auto; padding:0 24px }`
 - **セクション垂直パディング**: `section { padding:100px 0 }`
 - **ヒーロー**: `padding:110px 0 90px`
-- **ナビ高さ**: `70px`（`--nav-height`） / サブヘッダー版 `52px`（`--nav-height-sub`、`.nav-sub`）
+- **ナビ高さ**: `70px`（`--nav-height`）
 - **グリッド間隔**: `.cards` = 24px（`--gap-grid`） / `.why` = 26px（`--gap-feat`） / `.bigrow` = 40px（`--gap-stats`）
 - **内側パディング**: card `40px 34px` / `.big` `70px 48px` / `.why .w` `32px` / `.cta` `72px 40px` / `.btn` `13px 26px`
 - **モーダル**: 四方 `24px`（`--modal-gap` = `--content-padding-x`）を空けた領域に、幅上限 `1180px`（`--modal-max-width`）。高さは無制限（`--modal-max-height: none`）で縦を使い切る。詳細は [6.13 Modal](#613-modaldialog)
@@ -188,7 +188,7 @@
 
 | 節 | コンポーネント | 主なクラス |
 |---|---|---|
-| 6.1 | Navigation | `nav`（`.nav-sub`）/ `.nav-in` / `.nav-links` / `.logo`（`.logo-sm`） |
+| 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.logo-sm`） |
 | 6.2 | Buttons | `.btn` / `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` |
 | 6.3 | Pill | `.pill` |
 | 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `b` `small`） |
@@ -208,11 +208,6 @@
 - 半透明の白背景（80%）+ blur、下ボーダーのみ（`--line`）
 - 左ロゴ／中央リンク／右CTAボタンの3分割
 - ロゴ: 900ウェイトのテキストのみ。`<span>` で囲んだ語だけ `--p1` に着色（例: `AI <span>Innovation</span> 部`）。フッターでは `.logo-sm` で17pxに縮小
-
-**`.nav-sub`（修飾クラス / `<nav>` に付与）** — 既存サイトのヘッダー配下に差し込むページ用のサブヘッダー。
-- 高さ52px（`--nav-height-sub`）、ロゴ17px、リンク14px・gap 24px
-- 親サイト側のヘッダーが問い合わせ導線を持つ前提のため、右のCTAボタンは置かずロゴ＋ページ内リンクの2分割にする
-- 使用例: [../../index.html](../../index.html)
 
 ### 6.2 Buttons
 - `.btn`: 基本形（padding `13px 26px`、`--radius-pill`、15px/800）

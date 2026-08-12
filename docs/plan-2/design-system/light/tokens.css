@@ -73,7 +73,6 @@
   --content-padding-x: 24px;
   --section-padding-y: 100px;
   --nav-height: 70px;
-  --nav-height-sub: 52px; /* .nav-sub（既存サイトのヘッダー配下に置くサブヘッダー）用 */
   --gap-grid: 24px;   /* .cards */
   --gap-feat: 26px;   /* .why */
   --gap-stats: 40px;  /* .bigrow */

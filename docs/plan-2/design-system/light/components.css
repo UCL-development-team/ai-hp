@@ -50,11 +50,6 @@ nav{
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--nav-height)}
 .nav-links{display:flex;gap:30px;font-size:15px;font-weight:600;color:var(--muted)}
 .nav-links a:hover{color:var(--txt)}
-/* サブヘッダー版（修飾クラス）: 既存サイトのヘッダー配下に差し込む前提のページで使う。
-   高さとロゴを詰め、ページ内リンクだけを持つ薄い帯にする */
-.nav-sub .nav-in{height:var(--nav-height-sub)}
-.nav-sub .logo{font-size:17px}
-.nav-sub .nav-links{gap:24px;font-size:14px}
 
 /* ロゴ: 太字テキスト（強調語のみ --p1） */
 .logo{font-weight:900;font-size:20px;letter-spacing:-.5px}

@@ -6,12 +6,14 @@
 <title>AI Innovation 部 | AIで、次を、つくる。</title>
 <meta name="description" content="AI Innovation 部（AI Innovation Division）は、受託開発とAI人材支援の2領域で、AIによる開発（支援型・仕様駆動型）と、AIを搭載するシステムの開発に取り組む新設部門です。">
 
-<!-- Light Design System — 読み込み順は tokens.css → components.css
+<!-- デザインシステム ＋ 個別対応 ＝ 運用サイト。読み込み順は tokens → components → custom
      tokens.css     : 色・角丸・スペーシング・タイポグラフィ・モーションのトークン定義
      components.css : nav / btn / card / big / figure / why / cta 等のコンポーネント実装
+     custom.css     : このページ固有の個別対応（現行UCLサイトとの連携部分）
      仕様書         : design-system/light/design-system.md -->
 <link rel="stylesheet" href="design-system/light/tokens.css">
 <link rel="stylesheet" href="design-system/light/components.css">
+<link rel="stylesheet" href="custom.css">
 </head>
 <body>
 
@@ -30,10 +32,19 @@
   </div>
 </nav>
 
+<!-- ページタイトル帯 — 現行UCLサイトの各事業ページ（例: /ict-solutions）と同じ体裁。
+     ヘッダー配下に差し込んだときに本体サイトの1ページとして繋がって見えるようにする -->
+<div class="page-head">
+  <div class="wrap page-head-in">
+    <span class="page-head-badge">✦ 2026年 新設</span>
+    <h1>AIイノベーション</h1>
+    <p class="page-head-en">AI Innovation</p>
+  </div>
+</div>
+
 <header class="hero">
   <div class="wrap">
-    <span class="pill">✦ 2026年 新設 &mdash; AI Innovation Division</span>
-    <h1>AIで、次を、<br><span class="gr">つくる。</span></h1>
+    <h2 class="hero-h">AIで、次を、<br><span class="gr">つくる。</span></h2>
     <p class="lede">AIによる支援から、仕様駆動型による自律開発、そして人材として現場へ。AI Innovation 部は、先端技術を“実際に使える形”に変えていく部隊です。アジャイルの価値観を重視し、試すだけで終わらせず、成果まで走り切ります。</p>
     <div class="hero-cta">
       <a href="#contact" class="btn btn-p">一緒に始める →</a>
@@ -193,10 +204,60 @@
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot-in">
-    <div class="logo logo-sm">AI <span>Innovation</span> 部</div>
-    <div><a href="https://www.ucl-group.co.jp/" target="_blank" rel="noopener">UCL グループ</a> &nbsp;/&nbsp; &copy; 2026 AI Innovation Division. All rights reserved.</div>
+<!-- フッター — 現行UCLサイト（www.ucl-group.co.jp）のフッターを移植。
+     本体サイトに埋め込む前提のため、リンクはすべて同一タブで本体サイトへ遷移する -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <div class="foot-logo">UCL Group</div>
+        <p class="foot-corp">株式会社 ユー・シー・エル</p>
+        <p class="foot-info">
+          <!-- lucide: map-pin（本体サイトと同じアイコン） -->
+          <svg class="foot-ico foot-ico-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>〒150-0043<br>東京都渋谷区道玄坂1-18-3<br>プレミア道玄坂ビル7階</span>
+        </p>
+        <p class="foot-info">
+          <!-- lucide: phone -->
+          <svg class="foot-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/>
+          </svg>
+          <span>03-6821-8886</span>
+        </p>
+      </div>
+      <div class="foot-col-1">
+        <h3 class="foot-h">企業情報</h3>
+        <ul class="foot-links">
+          <li><a href="https://www.ucl-group.co.jp/company"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>会社概要</a></li>
+          <li><a href="https://www.ucl-group.co.jp/message"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>社長挨拶</a></li>
+          <li><a href="https://www.ucl-group.co.jp/history"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>会社沿革</a></li>
+          <li><a href="https://www.ucl-group.co.jp/service"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>事業案内</a></li>
+        </ul>
+      </div>
+      <div class="foot-col-2">
+        <h3 class="foot-h">事業領域</h3>
+        <ul class="foot-links">
+          <li><a href="https://www.ucl-group.co.jp/ict-solutions"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>ソリューション</a></li>
+          <li><a href="https://www.ucl-group.co.jp/engineering"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>エンジニアリング</a></li>
+          <li><a href="https://www.ucl-group.co.jp/our-services"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>自社サービス</a></li>
+          <li><a href="https://www.ucl-group.co.jp/new-energy"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>新エネルギー事業</a></li>
+          <li><a href="https://www.ucl-group.co.jp/consulting"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>コンサルティング</a></li>
+        </ul>
+      </div>
+      <div class="foot-col-3">
+        <h3 class="foot-h">その他</h3>
+        <ul class="foot-links">
+          <li><a href="https://www.ucl-group.co.jp/sdgs"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>SDGsへの取り組み</a></li>
+          <li><a href="https://www.ucl-group.co.jp/recruit"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>採用情報</a></li>
+          <li><a href="https://www.ucl-group.co.jp/privacy"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>プライバシーポリシー</a></li>
+          <li><a href="https://www.ucl-group.co.jp/contact"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-btm">&copy; 2026 UCL Group. All rights reserved.</div>
   </div>
 </footer>
 

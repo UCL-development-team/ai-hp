@@ -26,8 +26,16 @@
 
 
 
+## ページタイトル帯
+現行UCLサイトの各事業ページ（https://www.ucl-group.co.jp/ict-solutions ）と同じ体裁の帯。紺地に左シアン→右ブルーの薄いグラデーション。
+
+- バッジ（左上）: ✦ 2026年 新設
+- タイトル: **AIイノベーション**
+- 英字（タイトル下）: AI Innovation
+
+
+
 ## ヒーロー（トップ）
-- ピル: ✦ 2026年 新設 — AI Innovation Division
 - 見出し: **AIで、次を、つくる。**  
 AIによる支援から、仕様駆動型による自律開発、そして人材として現場へ。AI Innovation 部は、先端技術を"実際に使える形"に変えていく部隊です。アジャイルの価値観を重視し、試すだけで終わらせず、成果まで走り切ります。
 
@@ -125,4 +133,16 @@ AIがより広い範囲を自律的に開発。弊社オリジナルFramework「
 
 
 ## フッター
-&copy; 2026 AI Innovation Division. All rights reserved.
+現行UCLサイト（https://www.ucl-group.co.jp/ict-solutions ）のフッターをそのまま移植。リンクはすべて同一タブで本体サイトへ遷移する。
+
+- ブランド列: **UCL Group** / 株式会社 ユー・シー・エル
+  - 📍 〒150-0043 東京都渋谷区道玄坂1-18-3 プレミア道玄坂ビル7階
+  - 📞 03-6821-8886
+
+| 列 | リンク | リンク先 |
+|---|---|---|
+| 企業情報 | 会社概要 / 社長挨拶 / 会社沿革 / 事業案内 | /company, /message, /history, /service |
+| 事業領域 | ソリューション / エンジニアリング / 自社サービス / 新エネルギー事業 / コンサルティング | /ict-solutions, /engineering, /our-services, /new-energy, /consulting |
+| その他 | SDGsへの取り組み / 採用情報 / プライバシーポリシー / お問い合わせ | /sdgs, /recruit, /privacy, /contact |
+
+- コピーライト: &copy; 2026 UCL Group. All rights reserved.
