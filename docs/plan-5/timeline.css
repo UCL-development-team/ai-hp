@@ -1,10 +1,9 @@
 /*
   図版「AI開発の世代と私たちの立ち位置」— スタイル
 
-  以前は timeline.html をヘッドレスChromeでPNGに焼いて <img> で貼っていたが、
-  現在は index.html にマークアップを直接埋め込んでいる（拡大しても滲まず、
-  テキストが選択・検索・読み上げできる）。timeline.html はブラウザ単体で
-  確認するための控えで、同じこのCSSを読み込む。
+  **マークアップは index.html の #tech セクションの <figure> 内が正。**
+  以前はこの図版をPNGに焼いて <img> で貼っていたが、現在はHTMLのまま
+  埋め込んでいる（拡大しても滲まず、テキストが選択・検索・読み上げできる）。
 
   読み込み順は tokens.css → components.css → custom.css → timeline.css。
   **すべてのセレクタを .timeline 配下に閉じてある**ので、ページ側の

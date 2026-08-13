@@ -26,7 +26,7 @@ docs/
 - `index.md` — そのページの**掲載内容（コピー）の正**。文言を変更するときは md と html の両方を同期させる。
 - `design-system/` — その案専用のデザインシステム（後述）。インライン `<style>` 型の案（`plan-1-*`）は持たない。
 - `custom.css` — その案だけの**個別対応**（後述）。必要な案だけが持つ。
-- `timeline.drawio` / `timeline.html` / `timeline.png` — その案だけで使う図版（持たない案もある）。
+- `timeline.drawio` / `timeline.css` — その案だけで使う図版（持たない案もある）。`plan-5` はマークアップを `index.html` に直接書き、スタイルだけを `timeline.css` に分ける方式（後述）。`plan-4` までは同じ内容をPNGに焼いて `<img>` で貼っていたため、`timeline.html` / `timeline.png` を持つ案もある。
 
 その他:
 
@@ -80,21 +80,16 @@ docs/
 - コンポーネントを追加・変更したら、同じディレクトリの `design-system.md`（仕様書）も更新する。
 - ブレークポイントは md（`max-width:820px`）のみ。修飾クラスを足すときは、メディアクエリ内で基底クラスが上書きしている値がないか確認する。
 
-## 図版（PNG）の作り方
+## 図版の作り方
 
-`plan-4-light.html` の「AI開発の世代と私たちの立ち位置」で使っている方式です。図版はブラウザでレンダリングしてPNGに焼き、ページには `<img>` として貼ります。
+元データは drawio（例: [docs/plan-5/timeline.drawio](docs/plan-5/timeline.drawio)）。それを再構成したHTMLを**ページに直接埋め込みます**（PNGには焼きません）。拡大しても滲まず、テキストが選択・検索・読み上げできます。
 
-1. 元ネタは drawio（例: [docs/plan-4-timeline.drawio](docs/plan-4-timeline.drawio)）。
-2. それを再構成したHTML（例: [docs/plan-4-timeline.html](docs/plan-4-timeline.html)）を作る。**配色は掲載先ページのトークンに揃え、地色は挿入先の面と同色にする**（`plan-4` では `.figure` パネルと同じ `--panel` = `#f4f2ff`）。
-3. Chrome ヘッドレスでPNGに焼く。`--window-size` の高さはコンテンツ高に合わせて調整する（ビューポート分しか写らないため、短いと下が切れる）。
-   ```sh
-   chrome --headless=new --hide-scrollbars --force-device-scale-factor=2 \
-     --window-size=1200,838 --virtual-time-budget=3000 \
-     --screenshot=docs/plan-4-timeline.png \
-     docs/plan-4-timeline.html
-   ```
-   Windows の Chrome に渡すパスは絶対パス。URLフラグメント（`#evolution`）を付ける場合は `file:///R:/...` 形式にする。
-4. ページ側では `<figure class="figure figure-flush">` に入れる。図版自身が面と余白を持つため、`figure-flush` で枠・背景・paddingを外してセクション背景と地続きに見せている。
+- マークアップはページの `<figure class="figure figure-flush">` の中に置く。図版自身が面と余白を持つため、`figure-flush` で枠・背景・paddingを外してセクション背景と地続きに見せる。
+- スタイルは図版専用のCSSファイル（例: `timeline.css`）に分け、**すべてのセレクタをルートのクラス配下にスコープする**（例: `.timeline .chip{...}`）。ページ側のコンポーネントと名前が重なっても衝突しない。カスタムプロパティも `:root` ではなくルートのクラスに置き、接頭辞（`--tl-*`）を付ける。
+- ルートのクラスに `zoom: var(--<名前>-scale)` を持たせ、**図版全体の大きさを1か所で変えられる**ようにする。`transform: scale()` は見た目だけ縮んで余白が残るため使わない。
+- 配色は掲載先ページのトークンに揃える。ただし**地色は持たせない**（セクションの背景をそのまま透かす）。地色を焼き込むと、掲載先セクションの背景色を変えられなくなる。
+- 図版のルート要素に `<section>` を使わない（`section{padding:100px 0}` を拾う）。
+- 図版のマークアップはページ（`index.html`）にしか置かない。**単体確認用のHTMLを別に持たない**（同じマークアップが2か所にあると必ず食い違うため）。確認はページごとブラウザで開く。
 
 ## 作業時の注意
 

@@ -78,7 +78,9 @@ AIがより広い範囲を自律的に開発。弊社オリジナルFramework「
 - ここに `docs\plan-5\timeline.drawio`の内容を挿入
   - 背景色は挿入する位置のHTMLデザインに合わせて下さい
   - より見栄えのする内容にしてください。
-  - 出力はPNG画像としてください
+  - **HTMLで直接埋め込む**（PNGではない）。マークアップは index.html の `<figure>` 内、スタイルは `timeline.css`（`.timeline` 配下にスコープ）
+  - 図版全体の大きさは `timeline.css` の `--timeline-scale` 1か所で調整する
+  - 元データは `timeline.drawio`（描画には使わない。構成を見直すときの下敷き）
 
 
 

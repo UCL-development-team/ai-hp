@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="design-system/light/tokens.css">
 <link rel="stylesheet" href="design-system/light/components.css">
 <link rel="stylesheet" href="custom.css">
+<!-- 図版「AI開発の世代と私たちの立ち位置」専用。セレクタは .timeline 配下に閉じてある。
+     図版全体の大きさは、このファイル冒頭の --timeline-scale 1か所で変えられる -->
+<link rel="stylesheet" href="timeline.css">
 </head>
 <body>
 
@@ -79,8 +82,8 @@
   </div>
 </section>
 
-<!-- 図版 timeline.png の地色は --panel(=--bg2) で焼いてあるため、
-     このセクションは section-alt（背景 --bg2）から外さないこと。白背景に置くと図版が浮く -->
+<!-- 図版はHTML（timeline.css）で地色を持たないため、このセクションの背景色は自由に変えられる
+     （PNGを貼っていた頃は --panel で焼いた地色に合わせて section-alt 固定だった） -->
 <section id="tech" class="section-alt">
   <div class="wrap">
     <div class="eyebrow" data-reveal>AI-driven Development</div>
@@ -103,10 +106,87 @@
       </div>
     </div>
     <figure class="figure figure-flush" data-reveal>
-      <!-- 図版の原本: docs/plan-5/timeline.drawio ／ HTML版: docs/plan-5/timeline.html
-           caption は図版の導入文のため img より前に置いている -->
+      <!-- 図版の元データ: docs/plan-5/timeline.drawio
+           マークアップはここが正、スタイルは timeline.css（すべて .timeline 配下にスコープ済み）。
+           **全体の大きさは timeline.css の --timeline-scale 1か所で変えられる。**
+           caption は図版の導入文のため図版より前に置いている -->
       <figcaption>プロンプト → コンテキスト → ハーネス → ループ。世代ごとに移り変わる主戦場の中で、私たちの活動が何処を担っているかを整理しました。</figcaption>
-      <img src="timeline.png" alt="AI開発の4世代（プロンプト／コンテキスト／ハーネス／ループ）と、AI支援型開発・仕様駆動型開発の位置づけを示すタイムライン図。あわせて各領域の体制イメージを図解しており、AI支援型開発ではエンジニアが個別にAIへ指示を出しプロジェクト体制は従来と同じ、仕様駆動型開発では少数のアーキテクトが仕様と検証ゲートを設計し増分ごとに承認して一周する、ループエンジニアリングでは計画・実装・検証・修正のAIが自律的に回り人は終了条件と逸脱時だけ関与する、という違いを示している">
+      <div class="timeline">
+        <div class="canvas">
+          <!-- section ではなく div。section だとページ側の section{padding:100px 0} を拾う -->
+          <div class="tl">
+
+            <!-- 第1世代 -->
+            <div class="when" style="grid-row:1"><span class="d">〜2024</span><span class="t">PAST</span></div>
+            <div class="rail" style="grid-row:1"></div>
+            <article class="gen" style="grid-row:1">
+              <span class="no">第1世代 / G1</span>
+              <h3>プロンプト<br>エンジニアリング</h3>
+              <p>「どう聞くか」を最適化する</p>
+            </article>
+
+            <!-- 第2世代 -->
+            <div class="when" style="grid-row:2"><span class="d">2025</span><span class="t">RECENT</span></div>
+            <div class="rail" style="grid-row:2"></div>
+            <article class="gen" style="grid-row:2">
+              <span class="no">第2世代 / G2</span>
+              <h3>コンテキスト<br>エンジニアリング</h3>
+              <p>「何を渡すか」を設計する</p>
+            </article>
+
+            <!-- 領域①：AI支援型開発（G1〜G2 を包含） -->
+            <aside class="area area-1" style="grid-row:1 / span 2">
+              <span class="cap">FOCUS AREA 01</span>
+              <h2>AI支援型開発</h2>
+              <p class="note">既存の開発フローを保ったまま、コード生成・ドキュメント出力・自動テストといった特定タスクをAIで底上げする領域。</p>
+              <img class="viz" src="../assets/projdect/AI-assisted/ai-assisted.png" alt="AI支援型開発の体制イメージ。エンジニアが個別にAIへ指示を出し、プロジェクト体制は従来と同じ">
+              <div class="chips">
+                <span class="chip">Claude Code</span>
+                <span class="chip">Codex</span>
+              </div>
+            </aside>
+
+            <!-- 第3世代（NOW） -->
+            <div class="when is-now" style="grid-row:3"><span class="d">2026 初頭</span><span class="t">★ NOW</span></div>
+            <div class="rail is-now" style="grid-row:3"></div>
+            <article class="gen is-now" style="grid-row:3">
+              <span class="no">第3世代 / G3 ★</span>
+              <h3>ハーネス<br>エンジニアリング</h3>
+              <p>ルール・ツール・検証ゲートを設計する</p>
+            </article>
+
+            <!-- 領域②：仕様駆動型開発（G3） -->
+            <aside class="area area-2" style="grid-row:3">
+              <span class="cap">FOCUS AREA 02</span>
+              <h2>仕様駆動型開発</h2>
+              <p class="note">仕様から実装まで一気に。設計とコードを双方向で同期させ、乖離しない状態を仕組みで担保する領域。</p>
+              <img class="viz" src="../assets/projdect/AI-driven/ai-driven.png" alt="仕様駆動型開発の体制イメージ。少数のアーキテクトが仕様・ルール・検証ゲートを設計し、AIが実装、ゲートで自動検証、増分ごとに人が承認して次の一周へ進む">
+              <div class="chips">
+                <span class="chip own">SDD-KIT</span>
+                <span class="chip">GitHub Spec Kit</span>
+                <span class="chip">AWS Kiro</span>
+              </div>
+            </aside>
+
+            <!-- 第4世代（NEXT） -->
+            <div class="when is-next" style="grid-row:4"><span class="d">2026.6〜</span><span class="t">NEXT</span></div>
+            <div class="rail is-next" style="grid-row:4"></div>
+            <article class="gen is-next" style="grid-row:4">
+              <span class="no">第4世代 / G4</span>
+              <h3>ループ<br>エンジニアリング</h3>
+              <p>AIが自律的に回し続ける仕組み</p>
+            </article>
+
+            <!-- G4 への拡張ノート -->
+            <aside class="extend" style="grid-row:4">
+              <span class="cap">NEXT — EXTENDING</span>
+              <p><b>SDD-KIT</b> は ループエンジニアリング対応できるように拡張を続けます。</p>
+              <img class="viz" src="../assets/projdect/AI-loop/ai-loop.png" alt="ループエンジニアリングの体制イメージ。計画・実装・検証・修正をAIが自律的に回し、人が関与するのは終了条件と逸脱時だけ">
+            </aside>
+
+          </div>
+        </div>
+      </div>
     </figure>
   </div>
 </section>
