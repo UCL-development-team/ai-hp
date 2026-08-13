@@ -67,6 +67,7 @@
   /* --- Shadow --- */
   --shadow-btn: 0 10px 30px rgba(124, 58, 237, .35);   /* --p1 の35% */
   --shadow-modal: 0 30px 90px rgba(13, 11, 31, .35);   /* --ink の35% */
+  --shadow-panel: 0 2px 14px -6px rgba(13, 11, 31, .16);        /* 白パネル（.cat-group）。白背景でも面が沈まないように */
   --shadow-card: 0 14px 34px -14px rgba(13, 11, 31, .30);       /* カラーカードの接地感 */
   --shadow-card-hover: 0 28px 54px -18px rgba(13, 11, 31, .38); /* 同・ホバー時 */
 
