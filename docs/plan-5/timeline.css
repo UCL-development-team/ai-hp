@@ -246,14 +246,32 @@
 }
 
 /* ---------- レスポンシブ ---------- */
-/* デザインシステムの md（820px）ではなく、図版が破綻する1000pxで畳む。
-   グリッドを1カラムにし、軸レールと矢印は落とす */
-@media (max-width:1000px){
+/* デザインシステムの md（820px）ではなく、図版が破綻する幅で畳む。
+   グリッドを1カラムにし、軸レールと矢印は落とす。
+
+   ■ 畳む幅を --content-max-width（1140px）に合わせている理由
+     .wrap は max-width:1140px（内側は 1092px）で頭打ちになる。つまり横並びの
+     タイムラインが取れる幅は、ビューポートが 1140px を超えていれば常に 1092px で一定。
+     ここより狭い幅で横並びを維持すると、最終列（体制図＋チップ）だけが押し潰される
+     中途半端な状態が生まれる（1024×768 のプロジェクタがちょうどこの帯に入る）。
+     畳む幅を 1140px に置くことで、横並びは「常に 1092px」か「1カラム」かの
+     2状態だけになり、途中の潰れた状態を作らない。
+     **ブラウザズームでもこの境界をまたぐ**（1600px 画面の 150% ＝ 1067px 相当）ため、
+     客先で投影しながら拡大したときの見え方にも直結する。 */
+@media (max-width:1140px){
   .timeline .tl{grid-template-columns:1fr; row-gap:14px}
   .timeline .rail{display:none}
   .timeline .when{text-align:left; flex-direction:row; justify-content:flex-start; align-items:baseline; gap:10px}
   .timeline .gen{justify-content:flex-start}
-  .timeline .area,.timeline .extend{grid-row:auto !important}
+  /* 行番号（HTML側のインライン style="grid-row:N"）を全部の子で解除する。
+     .area/.extend だけ解除しても、.when と .gen には行番号が残るため、
+     1カラムのグリッドに同じ行番号の要素が2つ入り、暗黙の2列目が生成されて
+     横並びになってしまう（年次｜世代カード、さらに領域カードが半幅で2つ並ぶ）。
+     子をまとめて auto に戻せば、DOM順のとおりに縦一列で積まれる:
+       G1 → G2 → FOCUS AREA 01 → G3 → FOCUS AREA 02 → G4 → NEXT
+     stylesheet の !important は通常のインライン宣言に優先するため、
+     HTML を書き換えずにここで打ち消せる。 */
+  .timeline .tl > *{grid-row:auto !important}
   .timeline .extend{padding-left:24px}
   .timeline .extend::before,.timeline .extend::after{display:none}
   /* 図版の右にチップを置く余白が無いので、下に回して左寄せに戻す */

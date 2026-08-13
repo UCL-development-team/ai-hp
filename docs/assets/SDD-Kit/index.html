@@ -403,7 +403,10 @@ footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-s
       貴社のユーザーストーリーを 1 本お持ちください。<br>
       その場で画面定義 → 画面生成 → E2E テストまでのライブデモをご覧いただけます。
     </p>
-    <a class="btn pri" href="mailto:takahiro.tanaka.job@gmail.com">デモ・ご相談を予約する</a>
+    <!-- 問い合わせ先は本体サイトのフォームに集約する（個人アドレスは置かない）。
+         このページは plan-2〜5 のモーダル（iframe）内で開かれるため、target="_top" で
+         親ウィンドウ側を遷移させる。素のまま開いたときは _self と同じ挙動になる -->
+    <a class="btn pri" href="https://www.ucl-group.co.jp/contact" target="_top">デモ・ご相談を予約する</a>
   </div>
 </section>
 
