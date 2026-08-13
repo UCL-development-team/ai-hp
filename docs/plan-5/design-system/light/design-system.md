@@ -202,7 +202,8 @@
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
 | 6.12 | Figure（図版パネル） | `.figure`（`.figure-flush` / `img` / `figcaption`） |
-| 6.14 | Catalog（分類＋一覧） | `.catalog` / `.cat-group` / `.cat-head`（`.n` `.sub`）/ `.cat-item`（`.name` `.desc` `.role` `.k`） |
+| 6.14 | Catalog（分類＋一覧） | `.catalog` / `.cat-group` / `.cat-head`（`.n` `.sub`）/ `.cat-item`（`.name` `.desc` `.role` `.k`）/ `.cat-nav` |
+| 6.15 | Reveal（フェードイン） | `[data-reveal]`（`="1"`〜`="4"` で遅延）/ `.is-visible` / `html.js-reveal` |
 | 6.13 | Modal（`<dialog>`） | `.modal` / `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
 | — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
@@ -255,8 +256,10 @@
 ### 6.10 Section header pattern
 全セクション共通で以下の3点セット構成:
 1. `.eyebrow` — 小さいラベル（英語・uppercase・`--p2`）
-2. `.s-title` — セクションの主見出し
+2. `.s-title` — セクションの主見出し。**中の要語を `<span class="gr">` で囲んでグラデーション文字にする**（ヒーローと同じ手法。例:「AIで、<u>つくり方</u>を変える。」「<u>AI</u>を、つくるものに<u>載せる</u>。」）。囲むのは主題を担う語だけに絞り、多くても2箇所まで
 3. `.s-sub` — 補足説明（`--muted`、max-width制限で読みやすい行長に）
+
+濃色面（`.big` / `.cta`）の見出しでは `.gr` を使わない（`--p1` が背景に沈むため）。
 
 ### 6.11 セクション背景のパターン
 ヒーローは `--hero-bg`、通常セクションは `--bg`。変化をつけたいセクションに `.section-alt`（`--bg2`）を付与します。`.big`（濃色ブロック）を挟むセクションには `.section-flush` を付けて上パディングを詰め、直前のセクションと地続きに見せます。
@@ -281,6 +284,16 @@
 - `.cat-tags` — 技術タグのチップ列。分類色13%のティント地（`color-mix`。非対応環境は `--bg2` にフォールバック）
 - `.role` — 右端のラベル（人材の系統など）。分類色のグラデーション面に白文字
 - md以下では1カラムに畳み、`.role` は左寄せに戻る
+
+### 6.15 Reveal（スクロール連動のフェードイン）
+
+要素が画面に入ったら下から20pxだけ持ち上げながらフェードインさせます。挙動は [../components.js](../components.js)（light / dark 共用）が担当し、このファイルは初期状態・遷移・遅延だけを定義します。
+
+- 出したい要素に `data-reveal` を付ける。`data-reveal="1"`〜`"4"` にすると `.08s` 刻みで遅延し、eyebrow → 見出し → 補足 → 本体の順に出せる
+- JSは `<html>` に `js-reveal` を付け、画面に入った要素へ `.is-visible` を足すだけ。初期状態（`opacity:0`）は `.js-reveal` 配下に限定してあるので、**JSが無効な環境では最初から見えたまま**になる
+- `prefers-reduced-motion: reduce` の環境ではJSが何もしない（＝アニメーションなしで常時表示）
+- 一度出た要素は監視を外すため、戻りのアニメーションは起きない
+- 使用ページは `</body>` 直前で `components.js` を読み込むこと（6.13 Modal と同じファイル）
 
 ### 6.13 Modal（`<dialog>`）
 

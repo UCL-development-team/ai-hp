@@ -1,7 +1,7 @@
 /*
   AI Innovation 部 — Components (behavior)
 
-  CSS だけで完結しない挙動をここに集約する。現状の対象は「6.13 Modal」のみ。
+  CSS だけで完結しない挙動をここに集約する。現状の対象は「6.13 Modal」と「6.15 Reveal」。
 
   **light / dark 共用。** 配色・寸法は一切持たず、データ属性とDOM操作だけで動くため、
   どちらのテーマからでも同じファイルを読み込む。見た目（.modal 系クラス）は各テーマの
@@ -68,4 +68,38 @@
     // <dialog> 自身がクリック対象になるのは ::backdrop 上のときだけ
     if (ev.target.tagName === 'DIALOG' && ev.target.open) ev.target.close();
   });
+})();
+
+/*
+  6.15 Reveal — スクロールで要素をフェードインさせる
+
+  マークアップ:
+    <h2 class="s-title" data-reveal>…</h2>       <!-- 遅延なし -->
+    <p class="s-sub" data-reveal="2">…</p>       <!-- 1〜4 で段差をつける -->
+
+  見た目（初期状態・遷移・遅延）は各テーマの components.css が持ち、ここでは
+  data-reveal を持つ要素が画面に入ったら .is-visible を付けるだけ。
+  初期状態のCSSは <html class="js-reveal"> に限定してあるため、JSが動かない環境や
+  prefers-reduced-motion の環境では要素は最初から見えたままになる。
+*/
+(function () {
+  'use strict';
+
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var targets = document.querySelectorAll('[data-reveal]');
+  if (!targets.length) return;
+
+  document.documentElement.classList.add('js-reveal');
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      io.unobserve(entry.target); // 一度出したら戻さない
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+
+  Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
 })();
