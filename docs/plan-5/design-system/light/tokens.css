@@ -43,7 +43,14 @@
   --accent2: var(--p2);
 
   /* --- Gradients --- */
-  --gradient-text: linear-gradient(100deg, var(--p1), var(--p2) 55%, var(--p3)); /* .gr（文字） */
+  /* 文字グラデーション（.gr / .gr2〜.gr5）。同じ配色が続くと単調になるため、
+     セクションごとに使い分ける。読みやすさのため、弱い色（--p3 / --p4）は
+     終端側にだけ置き、語の先頭には濃い --p1 / --p2 を置く */
+  --gradient-text: linear-gradient(100deg, var(--p1), var(--p2) 55%, var(--p3)); /* .gr（3色・ヒーロー） */
+  --gradient-text-2: linear-gradient(100deg, var(--p1), var(--p4));              /* .gr2 パープル→シアン */
+  --gradient-text-3: linear-gradient(100deg, var(--p2), var(--p1));              /* .gr3 ピンク→パープル */
+  --gradient-text-4: linear-gradient(100deg, var(--p2), var(--p4));              /* .gr4 ピンク→シアン */
+  --gradient-text-5: linear-gradient(100deg, var(--p1), var(--p4) 55%, var(--p2)); /* .gr5 3色・パープル→シアン→ピンク */
   --gradient-btn: linear-gradient(100deg, var(--p1), var(--p2));                 /* .btn-p */
   --gradient-cta: linear-gradient(110deg, var(--p1), var(--p2));                 /* .cta 面 */
   --gradient-card-1: linear-gradient(150deg, var(--p1), var(--p1-light));

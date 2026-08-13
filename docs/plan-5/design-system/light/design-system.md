@@ -82,7 +82,11 @@
 
 | 変数名 | 値 | 用途 |
 |---|---|---|
-| `--gradient-text` | `linear-gradient(100deg, p1, p2 55%, p3)` | `.gr`（`background-clip:text` の文字グラデーション） |
+| `--gradient-text` | `linear-gradient(100deg, p1, p2 55%, p3)` | `.gr`（`background-clip:text` の文字グラデーション。ヒーロー専用） |
+| `--gradient-text-2` | `linear-gradient(100deg, p1, p4)` | `.gr2` パープル→シアン |
+| `--gradient-text-3` | `linear-gradient(100deg, p2, p1)` | `.gr3` ピンク→パープル |
+| `--gradient-text-4` | `linear-gradient(100deg, p2, p4)` | `.gr4` ピンク→シアン |
+| `--gradient-text-5` | `linear-gradient(100deg, p1, p4 55%, p2)` | `.gr5` パープル→シアン→ピンク（3色） |
 | `--gradient-btn` | `linear-gradient(100deg, p1, p2)` | `.btn-p` の面 |
 | `--gradient-cta` | `linear-gradient(110deg, p1, p2)` | `.cta` の面 |
 | `--gradient-card-1`〜`-4` | `linear-gradient(150deg, pN, pN-light)` | `.c1`〜`.c4` のカード面 |
@@ -204,9 +208,10 @@
 | 6.12 | Figure（図版パネル） | `.figure`（`.figure-flush` / `img` / `figcaption`） |
 | 6.14 | Catalog（分類＋一覧） | `.catalog` / `.cat-group` / `.cat-head`（`.n` `.sub`）/ `.cat-item`（`.name` `.desc` `.role` `.k`）/ `.cat-nav` |
 | 6.15 | Reveal（フェードイン） | `[data-reveal]`（`="1"`〜`="4"` で遅延）/ `.is-visible` / `html.js-reveal` |
+| 6.16 | Disclosure（開閉） | `<details class="cat-group">` / `<summary class="cat-head">`（6.14 と同じクラスで実装）/ `.cat-toggle`（一括開閉） |
 | 6.13 | Modal（`<dialog>`） | `.modal` / `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
-| — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
+| — | Utility | `.wrap` / `.gr`〜`.gr5` / `.section-alt` / `.section-flush` |
 
 ### 6.1 Navigation (`nav`)
 - position:sticky, top:0, z-index:50、高さ70px（`--nav-height`）
@@ -256,7 +261,20 @@
 ### 6.10 Section header pattern
 全セクション共通で以下の3点セット構成:
 1. `.eyebrow` — 小さいラベル（英語・uppercase・`--p2`）
-2. `.s-title` — セクションの主見出し。**中の要語を `<span class="gr">` で囲んでグラデーション文字にする**（ヒーローと同じ手法。例:「AIで、<u>つくり方</u>を変える。」「<u>AI</u>を、つくるものに<u>載せる</u>。」）。囲むのは主題を担う語だけに絞り、多くても2箇所まで
+2. `.s-title` — セクションの主見出し。**中の要語を `<span class="gr2">` 等で囲んでグラデーション文字にする**（例:「AIで、<u>つくり方</u>を変える。」「<u>AI</u>を、つくるものに<u>載せる</u>。」）。囲むのは主題を担う語だけに絞り、多くても2箇所まで。**同じ見出しの中では同じクラスを使う**（1見出し＝1配色）
+
+   配色はセクションごとに変える。全部が同じだと単調に見えるため、そのセクションのカード色に近いものを選ぶ:
+
+   | セクション | クラス | 配色 | 対応するカード |
+   |---|---|---|---|
+   | ヒーロー | `.gr` | パープル→ピンク→アンバー | — |
+   | `#service` | `.gr2` | パープル→シアン | `.c1` / `.c4` |
+   | `#tech` | `.gr3` | ピンク→パープル | `.c1` / `.c2` |
+   | `#ai-system` | `.gr4` | ピンク→シアン | `.c3` / `.c4` / `.c2` |
+   | `#talent` | `.gr5` | パープル→シアン→ピンク | カタログの4色 |
+   | `#why` | `.gr2` | パープル→シアン | — |
+
+   グラデーションは**要素ごとに引き直される**ため、1つの見出しに2つの `<span>` を置いても1本の帯にはつながらない。それぞれが独立した色の流れになる。
 3. `.s-sub` — 補足説明（`--muted`、max-width制限で読みやすい行長に）
 
 濃色面（`.big` / `.cta`）の見出しでは `.gr` を使わない（`--p1` が背景に沈むため）。
@@ -277,10 +295,10 @@
 カード（6.5）に収まらない量の項目を、分類ごとに一覧で見せるための構成。1項目あたり「名称＋説明 / タグ / ラベル」の3カラムを持ちます。
 
 - `.catalog` — 全体の器（`margin-top:56px`。6.10 のセクション見出しパターンの直下に置く想定）
-- `.cat-group` — 分類ひとかたまり。2つ目以降は上に44pxのマージン。`.cat-p1`〜`.cat-p4` でパレット4色のどれかを割り当て、配下のバッジ・タグ・ラベル・ホバー枠がすべてその色（`--cat` / `--cat-2`）を参照する
-- `.cat-head` — 分類見出し。`.n`（採番。分類色のグラデーションを敷いたピル）→ `h3`（23px/900）→ `.sub`（補足・`--muted`）の順。**罫線は引かない**（余白だけで項目群と分ける）
+- `.cat-group` — 分類ひとかたまり（**`<details>`**）。`--bg` の白パネル（`--line` ボーダー、`--radius-md`）で、**畳んだ状態でも枠が残る**ため見出しだけが並んでも境界が見える。2つ目以降は上に12pxのマージン。`.cat-p1`〜`.cat-p4` でパレット4色のどれかを割り当て、配下のバッジ・タグ・ラベル・ホバー枠がすべてその色（`--cat` / `--cat-2`）を参照する。初期表示で開いておくものにだけ `open` を付ける
+- `.cat-head` — 分類見出し（**`<summary>`**＝開閉のトグル）。`.n`（採番。分類色のグラデーションを敷いたピル）→ `h3`（23px/900）→ `.sub`（補足・`--muted`）→ 右端に開閉シェブロン（`::after`）の順（padding `18px 24px`）。ホバーで地色が `--bg2` になり、パネルの枠が分類色に変わる（`:has`）。標準の三角マーカーは `list-style:none` と `::-webkit-details-marker` で消している
 - `.cat-nav` — 分類への目次リンク列（`.catalog` の前、`.s-sub` の下に置く）。`<a>` にも `.cat-p1`〜`.cat-p4` を付けて、採番バッジの色と着地先の分類を揃える。ピルの面は半透明の白（`#ffffff70`）で、下地（`.section-alt` の `--bg2`）をうっすら透かす。`.cat-group` には `scroll-margin-top:100px` を入れてあり、sticky な `nav` の下に見出しが潜らない
-- `.cat-item` — 1項目。`--bg` の白パネル（`--line` ボーダー、`--radius-sm`、padding `18px 22px`）。中身は「`.name` + `.desc` を入れた `div`」／`.cat-tags`／`.role` の3カラム。ホバーで枠が分類色に変わり2px浮く
+- `.cat-item` — 1項目。パネル内の行として `--line` の上罫だけで区切る（padding `18px 24px`。面と枠は持たない）。中身は「`.name` + `.desc` を入れた `div`」／`.cat-tags`／`.role` の3カラム。ホバーで地色が `--bg2` になる
 - `.cat-tags` — 技術タグのチップ列。分類色13%のティント地（`color-mix`。非対応環境は `--bg2` にフォールバック）
 - `.role` — 右端のラベル（人材の系統など）。分類色のグラデーション面に白文字
 - md以下では1カラムに畳み、`.role` は左寄せに戻る
@@ -294,6 +312,21 @@
 - `prefers-reduced-motion: reduce` の環境ではJSが何もしない（＝アニメーションなしで常時表示）
 - 一度出た要素は監視を外すため、戻りのアニメーションは起きない
 - 使用ページは `</body>` 直前で `components.js` を読み込むこと（6.13 Modal と同じファイル）
+
+### 6.16 Disclosure（開閉）
+
+項目数の多い一覧を畳んでおくための構成。**開閉そのものは `<details>`/`<summary>` の標準挙動**なので、JSは「ページ内リンクの飛び先が閉じていたら開く」ためだけに使います（[../components.js](../components.js)）。
+
+- マークアップは 6.14 Catalog と同じクラスのまま、器を `<details class="cat-group">`、見出しを `<summary class="cat-head">` に置き換える
+- 初期表示で開くものにだけ `open` を付ける。複数開いたままにできる（アコーディオンのように他を閉じたりはしない）
+- 目次（`.cat-nav`）のリンクを押すと、閉じていた分類も開いてからその位置へスクロールする。`#cat-03` のようなURL直打ち・ブラウザバックでも同じ
+- 開いたときだけ中身が `cat-open`（6px上からのフェードイン）で表示される。閉じるときは即時。`prefers-reduced-motion: reduce` では無効
+- **一括開閉ボタン**（`.cat-toggle`）: 器の `id` を `data-details-toggle` に指定すると、その中の `<details>` をまとめて開閉する。1つでも開いていれば「全て閉じる」、全部閉じていれば「全て開く」とラベルが切り替わり（`data-label-close` / `data-label-open`）、`aria-expanded` も追従する。見出しを個別にクリックした場合も `toggle` イベントで同期される
+  ```html
+  <button type="button" class="cat-toggle" data-details-toggle="talent-catalog"
+          data-label-open="全て開く" data-label-close="全て閉じる">全て閉じる</button>
+  ```
+- **JSが無効でも開閉は動く**（標準機能のため）。効かなくなるのは目次リンクからの自動オープンと一括開閉ボタンだけ
 
 ### 6.13 Modal（`<dialog>`）
 

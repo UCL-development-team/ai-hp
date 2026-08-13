@@ -71,6 +71,79 @@
 })();
 
 /*
+  6.16 Disclosure — ページ内リンクの飛び先が閉じた <details> なら開いてから移動する
+
+  開閉そのものは <details>/<summary> の標準挙動なのでJSは不要。ここが面倒を見るのは
+  「目次のリンクを押したら、その分類が閉じていても開いた状態で着地する」ケースだけ。
+  リンク先が <details> 自身でも、その中の要素でも動く（祖先をすべて開く）。
+  読み込み時とハッシュ変更時にも同じ処理を通すため、URL直打ちや戻る操作でも開く。
+*/
+(function () {
+  'use strict';
+
+  function openAncestors(el) {
+    for (var node = el; node; node = node.parentElement) {
+      if (node.tagName === 'DETAILS') node.open = true;
+    }
+  }
+
+  function openByHash(hash) {
+    if (!hash || hash.length < 2) return;
+    var target = null;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (e) { return; }
+    if (target) openAncestors(target);
+  }
+
+  document.addEventListener('click', function (ev) {
+    if (!(ev.target instanceof Element)) return;
+    var link = ev.target.closest('a[href^="#"]');
+    if (!link) return;
+    // 既定のスクロールより先に開く。開いた後の位置へブラウザが飛んでくれる
+    openByHash(link.getAttribute('href'));
+  });
+
+  window.addEventListener('hashchange', function () { openByHash(location.hash); });
+  openByHash(location.hash);
+
+  /*
+    一括開閉ボタン:
+      <button class="cat-toggle" data-details-toggle="<器のid>"
+              data-label-open="全て開く" data-label-close="全て閉じる">全て閉じる</button>
+    器の中の <details> をまとめて開閉する。1つでも開いていれば「閉じる」、
+    全部閉じていれば「開く」に切り替わる。個別の開閉にも toggle イベントで追従する。
+  */
+  function detailsIn(button) {
+    var box = document.getElementById(button.getAttribute('data-details-toggle'));
+    return box ? box.querySelectorAll('details') : [];
+  }
+
+  function syncLabel(button, items) {
+    var anyOpen = Array.prototype.some.call(items, function (d) { return d.open; });
+    button.textContent = anyOpen
+      ? button.getAttribute('data-label-close')
+      : button.getAttribute('data-label-open');
+    button.setAttribute('aria-expanded', String(anyOpen));
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-details-toggle]'), function (button) {
+    var items = detailsIn(button);
+    if (!items.length) return;
+
+    button.addEventListener('click', function () {
+      var anyOpen = Array.prototype.some.call(items, function (d) { return d.open; });
+      Array.prototype.forEach.call(items, function (d) { d.open = !anyOpen; });
+      syncLabel(button, items);
+    });
+
+    Array.prototype.forEach.call(items, function (d) {
+      d.addEventListener('toggle', function () { syncLabel(button, items); });
+    });
+
+    syncLabel(button, items);
+  });
+})();
+
+/*
   6.15 Reveal — スクロールで要素をフェードインさせる
 
   マークアップ:

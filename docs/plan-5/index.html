@@ -62,7 +62,7 @@
 <section id="service">
   <div class="wrap">
     <div class="eyebrow" data-reveal>Focus Areas</div>
-    <h2 class="s-title" data-reveal="1">やることは、<span class="gr">2つ</span>。</h2>
+    <h2 class="s-title" data-reveal="1">やることは、<span class="gr2">2つ</span>。</h2>
     <p class="s-sub" data-reveal="2">AI Innovation 部が担う領域。お客様・社内のフェーズに合わせて動きます。</p>
     <div class="cards" data-reveal="3">
       <div class="card c1">
@@ -86,7 +86,7 @@
 <section id="tech" class="section-alt">
   <div class="wrap">
     <div class="eyebrow" data-reveal>AI-driven Development</div>
-    <h2 class="s-title" data-reveal="1">AIで、<span class="gr">つくり方</span>を変える。</h2>
+    <h2 class="s-title" data-reveal="1">AIで、<span class="gr3">つくり方</span>を変える。</h2>
     <p class="s-sub" data-reveal="2">AI自体を道具にして、開発の進め方そのものを変える2つの技術。受託でも人材支援でも、案件のフェーズに合わせて使い分け、組み合わせます。</p>
     <div class="cards" data-reveal="3">
       <div class="card c1">
@@ -114,7 +114,7 @@
 <section id="ai-system">
   <div class="wrap">
     <div class="eyebrow" data-reveal>AI-powered Systems</div>
-    <h2 class="s-title" data-reveal="1"><span class="gr">AI</span>を、つくるものに<span class="gr">載せる</span>。</h2>
+    <h2 class="s-title" data-reveal="1"><span class="gr4">AI</span>を、つくるものに<span class="gr4">載せる</span>。</h2>
     <p class="s-sub" data-reveal="2">つくり方だけでなく、つくるものにも。チャット、検索、要約、判定といったAIの働きを、システムの機能として実装します。社内データを扱う場合も、<strong>AIに学習させない構成</strong>で設計します。</p>
     <div class="cards cards-3" data-reveal="3">
       <div class="card c3">
@@ -142,7 +142,7 @@
 <section id="talent" class="section-alt">
   <div class="wrap">
     <div class="eyebrow" data-reveal>AI Talent</div>
-    <h2 class="s-title" data-reveal="1">共に働く、<span class="gr">AIの使い手</span>。</h2>
+    <h2 class="s-title" data-reveal="1">共に働く、<span class="gr5">AIの使い手</span>。</h2>
     <p class="s-sub" data-reveal="2">AI活用に強い人材が、ともに現場で働きます。お預かりするだけでなく、チームの一員として手を動かし、AIを前提とした進め方をそのまま持ち込みます。最後は<strong>お客様が自走できる状態</strong>を目標にします。</p>
     <!-- 分類への目次。色（cat-p1〜4）と採番は各分類の見出しと対応させる -->
     <div class="cat-nav" data-reveal="3">
@@ -152,14 +152,16 @@
       <a class="cat-p4" href="#cat-04"><span class="n">04</span>応対する</a>
       <a class="cat-p1" href="#cat-05"><span class="n">05</span>見抜く</a>
       <a class="cat-p2" href="#cat-06"><span class="n">06</span>動かす</a>
+      <button type="button" class="cat-toggle" data-details-toggle="talent-catalog"
+              data-label-open="全て開く" data-label-close="全て閉じる">全て閉じる</button>
     </div>
 
     <!-- 案件カタログ。AIで強化したい機能で6分類し、案件タイプごとに
          「依頼内容 / 人材の系統 / 技術タグ」を並べる。実装は design-system の 6.14 Catalog -->
-    <div class="catalog">
+    <div class="catalog" id="talent-catalog">
 
-      <div class="cat-group cat-p1" id="cat-01" data-reveal>
-        <div class="cat-head"><span class="n">01</span><h3>探す・引き出す</h3><span class="sub">検索・知識活用系</span></div>
+      <details class="cat-group cat-p1" id="cat-01" data-reveal open>
+        <summary class="cat-head"><span class="n">01</span><h3>探す・引き出す</h3><span class="sub">検索・知識活用系</span></summary>
         <div class="cat-item">
           <div>
             <div class="name">RAG案件</div>
@@ -192,10 +194,10 @@
           <div class="cat-tags"><span>協調フィルタリング</span><span>埋め込み</span><span>A/Bテスト</span></div>
           <div class="role">機械学習系</div>
         </div>
-      </div>
+      </details>
 
-      <div class="cat-group cat-p2" id="cat-02" data-reveal>
-        <div class="cat-head"><span class="n">02</span><h3>読み取る・仕分ける</h3><span class="sub">文書処理系</span></div>
+      <details class="cat-group cat-p2" id="cat-02" data-reveal>
+        <summary class="cat-head"><span class="n">02</span><h3>読み取る・仕分ける</h3><span class="sub">文書処理系</span></summary>
         <div class="cat-item">
           <div>
             <div class="name">帳票OCR／IDP案件</div>
@@ -228,10 +230,10 @@
           <div class="cat-tags"><span>音声認識</span><span>話者分離</span><span>要約</span></div>
           <div class="role">音声＋LLM</div>
         </div>
-      </div>
+      </details>
 
-      <div class="cat-group cat-p3" id="cat-03" data-reveal>
-        <div class="cat-head"><span class="n">03</span><h3>つくる</h3><span class="sub">生成系</span></div>
+      <details class="cat-group cat-p3" id="cat-03" data-reveal>
+        <summary class="cat-head"><span class="n">03</span><h3>つくる</h3><span class="sub">生成系</span></summary>
         <div class="cat-item">
           <div>
             <div class="name">文書生成案件</div>
@@ -264,10 +266,10 @@
           <div class="cat-tags"><span>音声合成（TTS）</span><span>話者クローン</span><span>権利処理</span></div>
           <div class="role">音声系</div>
         </div>
-      </div>
+      </details>
 
-      <div class="cat-group cat-p4" id="cat-04" data-reveal>
-        <div class="cat-head"><span class="n">04</span><h3>応対する</h3><span class="sub">対話系</span></div>
+      <details class="cat-group cat-p4" id="cat-04" data-reveal>
+        <summary class="cat-head"><span class="n">04</span><h3>応対する</h3><span class="sub">対話系</span></summary>
         <div class="cat-item">
           <div>
             <div class="name">チャットボット案件</div>
@@ -300,10 +302,10 @@
           <div class="cat-tags"><span>翻訳品質評価</span><span>用語集管理</span></div>
           <div class="role">自然言語処理系</div>
         </div>
-      </div>
+      </details>
 
-      <div class="cat-group cat-p1" id="cat-05" data-reveal>
-        <div class="cat-head"><span class="n">05</span><h3>見抜く</h3><span class="sub">検知・予測系</span></div>
+      <details class="cat-group cat-p1" id="cat-05" data-reveal>
+        <summary class="cat-head"><span class="n">05</span><h3>見抜く</h3><span class="sub">検知・予測系</span></summary>
         <div class="cat-item">
           <div>
             <div class="name">画像認識（コンピュータビジョン）案件</div>
@@ -344,10 +346,10 @@
           <div class="cat-tags"><span>分類モデル</span><span>不均衡データ</span><span>説明可能性</span><span>規制対応</span></div>
           <div class="role">機械学習＋金融ドメイン</div>
         </div>
-      </div>
+      </details>
 
-      <div class="cat-group cat-p2" id="cat-06" data-reveal>
-        <div class="cat-head"><span class="n">06</span><h3>動かす</h3><span class="sub">自動化・エージェント系</span></div>
+      <details class="cat-group cat-p2" id="cat-06" data-reveal>
+        <summary class="cat-head"><span class="n">06</span><h3>動かす</h3><span class="sub">自動化・エージェント系</span></summary>
         <div class="cat-item">
           <div>
             <div class="name">AIエージェント案件</div>
@@ -372,7 +374,7 @@
           <div class="cat-tags"><span>ジョブ制御</span><span>リトライ</span><span>トレース</span></div>
           <div class="role">バックエンド＋LLM</div>
         </div>
-      </div>
+      </details>
 
     </div>
   </div>
@@ -408,7 +410,7 @@
 <section id="why" class="section-alt">
   <div class="wrap">
     <div class="eyebrow" data-reveal>Why us</div>
-    <h2 class="s-title" data-reveal="1">なぜ、<span class="gr">私たち</span>なのか。</h2>
+    <h2 class="s-title" data-reveal="1">なぜ、<span class="gr2">私たち</span>なのか。</h2>
     <div class="why" data-reveal="3">
       <div class="w">
         <div class="e">🎯</div>
