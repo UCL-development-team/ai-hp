@@ -1,0 +1,205 @@
+/*
+  図版「AI開発の世代と私たちの立ち位置」— スタイル
+
+  以前は timeline.html をヘッドレスChromeでPNGに焼いて <img> で貼っていたが、
+  現在は index.html にマークアップを直接埋め込んでいる（拡大しても滲まず、
+  テキストが選択・検索・読み上げできる）。timeline.html はブラウザ単体で
+  確認するための控えで、同じこのCSSを読み込む。
+
+  読み込み順は tokens.css → components.css → custom.css → timeline.css。
+  **すべてのセレクタを .timeline 配下に閉じてある**ので、ページ側の
+  コンポーネント（.card / .chip 等と名前が重なるもの）には影響しない。
+
+  ■ 全体の大きさは1か所で変える
+      .timeline { --timeline-scale: 1 }   ← この数字だけを触る（0.9 なら9割）
+    zoom で実装しているため、縮めた分だけ図版の占める高さも詰まる
+    （transform:scale だと見た目だけ縮んで余白が残る）。
+
+  配色は design-system/light/tokens.css のパレットに揃えている
+  （--p1 パープル = AI支援型開発 / --p2 ピンク = 仕様駆動型開発 /
+    --p3 アンバー = これから / --p4 シアン）。元データ: timeline.drawio
+*/
+
+.timeline{
+  /* ▼ 全体倍率。ここだけで図版全体の大きさが決まる */
+  --timeline-scale: 1;
+
+  --tl-bg:#ffffff;
+  --tl-line:#e7e3f7;
+  --tl-line2:#d9d3f0;
+  --tl-ink:#0d0b1f;
+  --tl-muted:#5b5776;
+  --tl-dim:#8a86a6;
+
+  --tl-p1:#7c3aed;  --tl-p1-soft:#f3edff;  --tl-p1-ink:#5b21b6;
+  --tl-p2:#ec4899;  --tl-p2-soft:#fdf0f7;  --tl-p2-ink:#b3266e;
+  --tl-p3:#f59e0b;  --tl-p3-soft:#fff7e8;  --tl-p3-ink:#a35f06;
+
+  --tl-radius:18px;
+  --tl-shadow-sm:0 1px 2px rgba(13,11,31,.05), 0 8px 22px -16px rgba(13,11,31,.30);
+  --tl-shadow-p2:0 1px 3px rgba(236,72,153,.14), 0 26px 50px -30px rgba(236,72,153,.75);
+
+  zoom: var(--timeline-scale);
+
+  /* 地色は持たない。掲載先セクションの背景（白でも --bg2 でも）に馴染ませる */
+  color:var(--tl-ink);
+  font-family:"Helvetica Neue","Hiragino Sans","Noto Sans JP",-apple-system,sans-serif;
+  font-feature-settings:"palt" 1;
+  line-height:1.7;
+  display:flex;
+  justify-content:center;
+}
+.timeline *{box-sizing:border-box;margin:0;padding:0}
+
+.timeline .canvas{width:100%; max-width:1112px}
+
+/* ---------- タイムライン本体 ---------- */
+.timeline .tl{
+  display:grid;
+  grid-template-columns:126px 26px 296px 1fr;
+  column-gap:22px;
+  row-gap:16px;
+  align-items:stretch;
+}
+
+/* 左：年次 */
+/* 右の領域カードが図版ぶん高くなるため、年次・ノード・世代カードは
+   行の高さに対して縦センターで揃える（上寄せだと下に大きな空白が出る） */
+.timeline .when{
+  display:flex; flex-direction:column; justify-content:center;
+  text-align:right;
+}
+.timeline .when .d{font-size:21px; font-weight:900; letter-spacing:-.5px; color:var(--tl-muted)}
+.timeline .when .t{
+  margin-top:6px; font-size:10.5px; font-weight:900; letter-spacing:.14em; color:var(--tl-dim);
+}
+.timeline .when.is-now .d{color:var(--tl-p2)}
+.timeline .when.is-now .t{color:var(--tl-p2)}
+.timeline .when.is-next .d{color:var(--tl-p3)}
+.timeline .when.is-next .t{color:var(--tl-p3-ink)}
+
+/* 中：軸レール＋ノード */
+.timeline .rail{position:relative}
+.timeline .rail::before{
+  content:""; position:absolute; left:50%; transform:translateX(-50%);
+  top:-8px; bottom:-8px; width:2px;
+  background:var(--tl-line2);
+}
+.timeline .rail::after{
+  content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:12px; height:12px; border-radius:50%;
+  background:var(--tl-bg); border:2px solid var(--tl-line2);
+}
+.timeline .rail.is-now::before{background:linear-gradient(180deg,rgba(236,72,153,.85),rgba(236,72,153,.35))}
+.timeline .rail.is-now::after{border-color:var(--tl-p2); background:var(--tl-p2); box-shadow:0 0 0 5px rgba(236,72,153,.16)}
+.timeline .rail.is-next::before{background:linear-gradient(180deg,rgba(245,158,11,.55),rgba(245,158,11,0))}
+.timeline .rail.is-next::after{border-color:var(--tl-p3); background:var(--tl-bg)}
+
+/* 右1：世代カード */
+.timeline .gen{
+  border:1px solid var(--tl-line); border-radius:var(--tl-radius);
+  background:var(--tl-bg);
+  box-shadow:var(--tl-shadow-sm);
+  padding:18px 22px 20px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.timeline .gen .no{
+  display:flex; align-items:center; gap:8px;
+  font-size:11px; font-weight:900; letter-spacing:.14em; color:var(--tl-dim);
+}
+.timeline .gen .no::before{content:""; width:14px; height:1px; background:currentColor; opacity:.7}
+.timeline .gen h3{margin-top:9px; font-size:21px; font-weight:900; line-height:1.35; letter-spacing:-.5px}
+.timeline .gen p{margin-top:6px; font-size:13.5px; color:var(--tl-muted)}
+
+.timeline .gen.is-now{
+  border-color:rgba(236,72,153,.55);
+  background:linear-gradient(180deg,var(--tl-p2-soft),#ffffff 70%);
+  box-shadow:var(--tl-shadow-p2);
+}
+.timeline .gen.is-now .no{color:var(--tl-p2-ink)}
+.timeline .gen.is-next{border-color:rgba(245,158,11,.48); background:linear-gradient(180deg,var(--tl-p3-soft),#ffffff 72%)}
+.timeline .gen.is-next .no{color:var(--tl-p3-ink)}
+
+/* 右2：領域ブラケット（AI支援型開発 / 仕様駆動型開発） */
+.timeline .area{
+  position:relative;
+  border:1px solid var(--tl-line2); border-radius:var(--tl-radius);
+  padding:20px 24px 22px 26px;
+  display:flex; flex-direction:column;
+}
+.timeline .area::before{
+  content:""; position:absolute; left:0; top:16px; bottom:16px; width:4px;
+  border-radius:0 4px 4px 0;
+}
+.timeline .area .cap{font-size:11px; font-weight:900; letter-spacing:.14em}
+.timeline .area h2{margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-.8px; line-height:1.25}
+.timeline .area .note{margin-top:8px; font-size:13.5px; color:var(--tl-muted); max-width:560px}
+/* 体制イメージ図（docs/assets/projdect/ の透過PNG）。
+   元画像は 1040×344px＝表示 520×172px なので、等倍のとき最も鮮明になる。
+   .extend の中では左パディングぶん幅が足りないため width:100% 側で縮む。 */
+.timeline .viz{display:block; width:100%; max-width:520px; height:auto; margin-top:16px}
+
+.timeline .chips{margin-top:auto; padding-top:20px; display:flex; flex-wrap:wrap; gap:8px}
+.timeline .chip{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12.5px; font-weight:800; color:var(--tl-muted);
+  border:1px solid var(--tl-line2); background:var(--tl-bg);
+  border-radius:999px; padding:7px 14px;
+  white-space:nowrap;
+}
+
+.timeline .area-1{background:linear-gradient(115deg,var(--tl-p1-soft),rgba(255,255,255,.35) 62%); border-color:rgba(124,58,237,.34)}
+.timeline .area-1::before{background:var(--tl-p1)}
+.timeline .area-1 .cap{color:var(--tl-p1)}
+.timeline .area-1 .chip{border-color:rgba(124,58,237,.28); color:var(--tl-p1-ink); background:rgba(255,255,255,.8)}
+
+.timeline .area-2{background:linear-gradient(115deg,var(--tl-p2-soft),rgba(255,255,255,.35) 62%); border-color:rgba(236,72,153,.38)}
+.timeline .area-2::before{background:var(--tl-p2)}
+.timeline .area-2 .cap{color:var(--tl-p2-ink)}
+.timeline .area-2 .chip{border-color:rgba(236,72,153,.26); color:var(--tl-p2-ink); background:rgba(255,255,255,.82)}
+
+/* 自社フレームワークの強調チップ */
+.timeline .chip.own{
+  color:#fff; border-color:transparent;
+  background:linear-gradient(100deg,var(--tl-p1),var(--tl-p2));
+  box-shadow:0 8px 20px -10px rgba(236,72,153,.85);
+}
+.timeline .chip.own::before{content:"★"; font-size:11px}
+
+/* 右3：G4 への拡張ノート */
+.timeline .extend{
+  position:relative;
+  border:1px dashed rgba(245,158,11,.62);
+  border-radius:var(--tl-radius);
+  background:linear-gradient(100deg,rgba(245,158,11,.10),rgba(245,158,11,0) 66%);
+  padding:20px 24px 20px 76px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+/* 上の「仕様駆動型開発」から降りてくる矢印 */
+.timeline .extend::before{
+  content:""; position:absolute; left:41px; top:-16px; width:2px; height:34px;
+  background:linear-gradient(180deg,rgba(236,72,153,.85),var(--tl-p3));
+}
+.timeline .extend::after{
+  content:""; position:absolute; left:36px; top:16px;
+  width:0; height:0;
+  border-top:9px solid var(--tl-p3);
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+}
+.timeline .extend .cap{font-size:11px; font-weight:900; letter-spacing:.14em; color:var(--tl-p3-ink)}
+.timeline .extend p{margin-top:5px; font-size:15px; font-weight:700; line-height:1.6}
+.timeline .extend p b{color:var(--tl-p3-ink)}
+
+/* ---------- レスポンシブ ---------- */
+/* デザインシステムの md（820px）ではなく、図版が破綻する1000pxで畳む。
+   グリッドを1カラムにし、軸レールと矢印は落とす */
+@media (max-width:1000px){
+  .timeline .tl{grid-template-columns:1fr; row-gap:14px}
+  .timeline .rail{display:none}
+  .timeline .when{text-align:left; flex-direction:row; justify-content:flex-start; align-items:baseline; gap:10px}
+  .timeline .gen{justify-content:flex-start}
+  .timeline .area,.timeline .extend{grid-row:auto !important}
+  .timeline .extend{padding-left:24px}
+  .timeline .extend::before,.timeline .extend::after{display:none}
+}

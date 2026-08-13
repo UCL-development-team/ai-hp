@@ -66,20 +66,30 @@ nav{
    6.2 Buttons
    ========================================================= */
 .btn{
-  display:inline-block;padding:13px 26px;
+  display:inline-flex;align-items:center;justify-content:center;gap:2px;
+  padding:13px 26px;
   border-radius:var(--radius-pill);
   font-size:15px;font-weight:800;
-  transition:transform var(--transition-fast),background var(--transition-fast),color var(--transition-fast);
+  transition:transform var(--transition-fast),background var(--transition-fast),color var(--transition-fast),box-shadow var(--transition-fast);
 }
+/* 小サイズ。カードやパネルの中に置くとき用 */
+.btn-sm{padding:9px 18px;font-size:13.5px}
+/* 末尾の矢印。ホバーで少し前に出る（ラベルは <span class="arw">→</span> で囲む） */
+.btn .arw{display:inline-block;margin-left:7px;transition:transform var(--transition-fast)}
+.btn:hover .arw{transform:translateX(3px)}
 /* プライマリ: グラデーション面 + 白文字 */
 .btn-p{background:var(--gradient-btn);color:var(--txt-on-accent);box-shadow:var(--shadow-btn)}
 .btn-p:hover{transform:translateY(-2px) scale(1.02)}
 /* アウトライン: 太ボーダー。ホバーで反転 */
 .btn-o{border:2px solid var(--txt);color:var(--txt)}
 .btn-o:hover{background:var(--txt);color:var(--bg)}
-/* 濃色面（.cta 内）で使う白ボタン */
-.btn-w{background:var(--bg);color:var(--p1)}
+/* アクセント面（カラーカード・CTA）の上で使う白ボタン */
+.btn-w{background:var(--bg);color:var(--p1);box-shadow:0 8px 20px -10px rgba(13,11,31,.6)}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 14px 26px -12px rgba(13,11,31,.7)}
 .btn-wo{border:2px solid rgba(255,255,255,.8);color:var(--txt-on-accent)}
+.btn-wo:hover{background:rgba(255,255,255,.16);border-color:var(--bg)}
+/* カード内に置くCTA。.k（メタ情報）の下に少し離して置く */
+.card-cta{margin-top:18px}
 
 /* =========================================================
    Hero
@@ -168,10 +178,26 @@ a.mtag:hover{transform:translateY(-2px)}
    6.7 Feature panel（.why / .w — 淡色パネル）
    ========================================================= */
 .why{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap-feat);margin-top:56px}
-.why .w{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-md);padding:32px}
-.why .w .e{font-size:34px}                                   /* 絵文字アイコン */
-.why .w .n{font-size:15px;font-weight:900;color:var(--p1)}   /* 採番ラベル（絵文字の代替） */
-.why .w h4{font-size:20px;font-weight:900;margin:14px 0 8px;letter-spacing:-.3px}
+/* 面は --bg 固定。--panel だと .section-alt（--bg2）上で地色と同化して埋もれる */
+.why .w{
+  --acc:var(--p1);
+  background:var(--bg);border:1px solid var(--line);
+  border-radius:var(--radius-md);padding:34px 32px;
+  box-shadow:var(--shadow-panel);
+  transition:transform var(--transition-base),box-shadow var(--transition-base),border-color var(--transition-fast);
+}
+.why .w:nth-child(2){--acc:var(--p2)}
+.why .w:nth-child(3){--acc:var(--p4)}
+.why .w:hover{transform:translateY(-4px);box-shadow:var(--shadow-card);border-color:var(--acc)}
+/* 絵文字アイコン。単体で置くと浮くので、アクセント色のティントを敷いた枠に載せる */
+.why .w .e{
+  display:grid;place-items:center;width:54px;height:54px;
+  border-radius:var(--radius-sm);font-size:26px;line-height:1;
+  background:var(--bg2);
+  background:color-mix(in srgb,var(--acc) 14%,var(--bg));
+}
+.why .w .n{font-size:15px;font-weight:900;color:var(--acc)}  /* 採番ラベル（絵文字の代替） */
+.why .w h4{font-size:20px;font-weight:900;margin:20px 0 10px;letter-spacing:-.3px}
 .why .w p{color:var(--muted);font-size:15px}
 
 /* =========================================================

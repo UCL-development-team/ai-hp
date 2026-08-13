@@ -222,10 +222,17 @@
 - ロゴ: 900ウェイトのテキストのみ。`<span>` で囲んだ語だけ `--p1` に着色（例: `AI <span>Innovation</span> 部`）。フッターでは `.logo-sm` で17pxに縮小
 
 ### 6.2 Buttons
-- `.btn`: 基本形（padding `13px 26px`、`--radius-pill`、15px/800）
+- `.btn`: 基本形（`inline-flex`、padding `13px 26px`、`--radius-pill`、15px/800）
+- `.btn-sm`: 小サイズ（padding `9px 18px`、13.5px）。カードやパネルの中に置くとき用
 - `.btn-p`: グラデーション面（`--gradient-btn`）・白文字・紫の影。ホバーで2px上昇＋1.02倍
 - `.btn-o`: 2pxの `--txt` ボーダー。ホバーで地色と文字色が反転
-- `.btn-w` / `.btn-wo`: CTA（濃色面）上で使う白ボタン／白アウトラインボタン
+- `.btn-w` / `.btn-wo`: アクセント面（CTA・カラーカード）上で使う白ボタン／白アウトラインボタン。`.btn-w` は影付きでホバーすると2px浮き、`.btn-wo` はホバーで白16%が乗る
+- `.arw`: ラベル末尾の矢印を `<span class="arw">→</span>` で囲むと、ホバーで3px前に出る
+- `.card-cta`: カラーカード（6.5）の中にボタンを置くときの位置調整（`.k` の下に18px）
+
+```html
+<a href="…" class="btn btn-w btn-sm card-cta" data-modal-open="sddkit-modal">詳しく見る<span class="arw">→</span></a>
+```
 
 ### 6.3 Pill（ステータスラベル）
 - ピル型、`--bg2` 背景 + `--line` ボーダー、文字は `--p1`（14px/800）
@@ -249,8 +256,11 @@
 - ヒーロー下部のキーワード列に使用。`<a>` にするとホバーで2px上昇
 
 ### 6.7 Feature panel (`.why` / `.w`)
-- `--panel` 背景 + `--line` ボーダー、`--radius-md`、padding 32px
-- 先頭に絵文字アイコン（`.e`、34px）または採番ラベル（`.n`、`--p1`）、その下に `h4` と `p`
+- **`--bg`（白）背景** + `--line` ボーダー、`--radius-md`、padding `34px 32px`、`--shadow-panel`。`--panel`（= `--bg2`）だと `.section-alt` 上で地色と同化して埋もれるため、面は白で固定する
+- パネルごとにアクセント色を持つ（`--acc`。1枚目 `--p1` / 2枚目 `--p2` / 3枚目 `--p4` を `:nth-child` で割り当て）
+- 先頭に絵文字アイコン（`.e`）または採番ラベル（`.n`、`--acc`）、その下に `h4` と `p`
+- `.e` は54pxの角丸枠（`--radius-sm`）に**アクセント色14%のティント**を敷き、その上に絵文字26pxを中央配置する。絵文字を裸で置くと他の要素と質感が合わないため
+- ホバーで4px浮き、影が `--shadow-card` に深まり、枠がアクセント色になる
 
 ### 6.8 CTA セクション
 - `--gradient-cta` の濃色面に白文字、`--radius-2xl`、padding `72px 40px`、中央揃え
