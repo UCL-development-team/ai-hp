@@ -120,9 +120,9 @@
 | `.card h3` | `26px` | 900 | `letter-spacing:-.5px` |
 | `.card p` | `15.5px` | 400 | `opacity:.95` |
 | `.card .n` / `.card .k` | `15px` / `13px` | 900 / 800 | `opacity:.75` / `.9` |
-| `.big b` | `20px` | 900 | 反転ブロック内の見出し |
-| `.big small` | `15px` | 600 | color: `--muted-on-ink` |
-| `.why .w h4` | `20px` | 900 | `letter-spacing:-.3px` |
+| `.bigrow h3` | `20px` | 900 | 反転ブロック内の項目名 |
+| `.bigrow p` | `15px` | 600 | color: `--muted-on-ink` |
+| `.why .w h3` | `20px` | 900 | `letter-spacing:-.3px` |
 | `.why .w p` | `15px` | 400 | color: `--muted` |
 | `.nav-links a` | `15px` | 600 | color: `--muted` |
 | `.logo` | `20px` | 900 | `letter-spacing:-.5px`（footerは `.logo-sm` で17px） |
@@ -138,7 +138,8 @@
 - **セクション垂直パディング**: `section { padding:100px 0 }`
 - **ヒーロー**: `padding:110px 0 90px`
 - **ナビ高さ**: `70px`（`--nav-height`）
-- **sticky の張り付き位置**: `--sticky-top`（既定は `--nav-height`）。`.cat-nav` の `top` と `.cat-group` の `scroll-margin-top` がこの値を基準にする。**ナビの高さを変えるページは `custom.css` でこの値も上書きする**（`plan-5` はサブヘッダー化で52px）
+- **sticky の張り付き位置**: `--sticky-top`（既定は `--nav-height`）。`.cat-nav` の `top` と `.cat-group` の `scroll-margin-top` がこの値を基準にする。**ナビの高さを変えるページは `custom.css` でこの値も上書きする**（`plan-5` はサブヘッダー化で `--host-header-height` + 52px）
+- **外部サイトへの差し込み**: 差し込み先にもヘッダーがある場合、`nav{top:0}` のままだと重なる。`plan-5` は `custom.css` で `--host-header-height`（既定 `0px`）を用意し、`nav` の `top` と `--sticky-top` の両方をそこから算出している。**単体で開くときと差し込んだときの両方を1つの値で切り替えられるようにする**のが、この種の個別対応の作法
 - **グリッド間隔**: `.cards` = 24px（`--gap-grid`） / `.why` = 26px（`--gap-feat`） / `.bigrow` = 40px（`--gap-stats`）
 - **内側パディング**: card `40px 34px` / `.big` `70px 48px` / `.why .w` `32px` / `.cta` `72px 40px` / `.btn` `13px 26px`
 - **モーダル**: 四方 `24px`（`--modal-gap` = `--content-padding-x`）を空けた領域に、幅上限 `1180px`（`--modal-max-width`）。高さは無制限（`--modal-max-height: none`）で縦を使い切る。詳細は [6.13 Modal](#613-modaldialog)
@@ -202,7 +203,7 @@
 | 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.logo-sm`） |
 | 6.2 | Buttons | `.btn`（`.btn-sm`）/ `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` / `.arw` / `.card-cta` / `.link-inline` |
 | 6.3 | Pill | `.pill` |
-| 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `b` `small`） |
+| 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `h3` `p`） |
 | 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k` `.card-tag` `.card-cta`） |
 | 6.6 | Marquee tag | `.marquee` / `.mtag` + `.m1`〜`.m4` |
 | 6.7 | Feature panel | `.why` / `.w`（`.e` `.n`） |
@@ -243,7 +244,8 @@
 
 ### 6.4 Inverted block (`.big`)
 - `--ink` の濃色面、`--radius-xl`、padding `70px 48px`、中央揃え
-- `.bigrow` で3カラム。各カラムは `.num`（大数値、`.gr` を併用してグラデーション化）→ `b`（見出し・任意）→ `small`（説明）の縦構成
+- `.bigrow` で3カラム。各カラムは `.num`（大数値、`.gr` を併用してグラデーション化）→ `h3`（項目名）→ `p`（説明）の縦構成。**項目名は `<b>` ではなく `<h3>`**（セクション見出し `h2` の1段下。`.card h3` / `.why .w h3` と同じ階層）。説明も `<small>` ではなく `<p>`
+- セレクタを `.big p` ではなく `.bigrow p` に閉じてあるのは、同じ `.big` の中にあるリード文（`.s-sub`）も `<p>` のため。`.big p` にすると `.s-sub` の `font-size` が上書きされる
 - カラムはホバーで6px浮き、`.num` が1.05倍＋ピンクの `drop-shadow` で発光する。面や枠は持たないので、静止時の見た目は変わらない
 - 内部に 6.10 のセクション見出しパターンを置く場合、`.eyebrow` は `--p3`、`.s-sub` は `--muted-on-ink` に自動で切り替わる
 
@@ -263,7 +265,7 @@
 ### 6.7 Feature panel (`.why` / `.w`)
 - **`--bg`（白）背景** + `--line` ボーダー、`--radius-md`、padding `34px 32px`、`--shadow-panel`。`--panel`（= `--bg2`）だと `.section-alt` 上で地色と同化して埋もれるため、面は白で固定する
 - パネルごとにアクセント色を持つ（`--acc`。1枚目 `--p1` / 2枚目 `--p2` / 3枚目 `--p4` を `:nth-child` で割り当て）
-- 先頭に絵文字アイコン（`.e`）または採番ラベル（`.n`、`--acc`）、その下に `h4` と `p`
+- 先頭に絵文字アイコン（`.e`）または採番ラベル（`.n`、`--acc`）、その下に `h3` と `p`（セクション見出しの `h2` の1段下。`.card h3` と同じ階層に揃える）
 - `.e` は54pxの角丸枠（`--radius-sm`）に**アクセント色14%のティント**を敷き、その上に絵文字26pxを中央配置する。絵文字を裸で置くと他の要素と質感が合わないため
 - ホバーで4px浮き、影が `--shadow-card` に深まり、枠がアクセント色になる
 

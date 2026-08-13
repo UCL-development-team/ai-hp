@@ -200,8 +200,11 @@ a.mtag:hover{transform:translateY(-2px)}
 .bigrow > * .num{transition:transform var(--transition-base),filter var(--transition-base)}
 .bigrow > *:hover .num{transform:scale(1.05);filter:drop-shadow(0 12px 26px rgba(236,72,153,.45))}
 .big .num{font-size:clamp(48px,9vw,92px);font-weight:900;letter-spacing:-2px;line-height:1}
-.big b{display:block;font-size:20px;font-weight:900;letter-spacing:-.3px;margin-top:12px} /* 見出し（任意） */
-.big small{display:block;color:var(--muted-on-ink);font-size:15px;font-weight:600;margin-top:10px}
+/* 項目名と説明。<b>/<small> ではなく h3/p を使う（項目名を見出しとして読み上げに乗せるため）。
+   **セレクタは .bigrow に閉じる。** .big p にすると、同じブロック内のリード文（.s-sub も <p>）まで
+   拾って font-size が 17px → 15px に上書きされてしまう */
+.bigrow h3{font-size:20px;font-weight:900;letter-spacing:-.3px;margin-top:12px}
+.bigrow p{color:var(--muted-on-ink);font-size:15px;font-weight:600;margin-top:10px}
 /* .big 内に 6.10 のセクション見出しパターンを置く場合の配色・配置調整 */
 .big .eyebrow{color:var(--p3)}
 .big .s-title{margin-bottom:16px}
@@ -230,7 +233,8 @@ a.mtag:hover{transform:translateY(-2px)}
   background:color-mix(in srgb,var(--acc) 14%,var(--bg));
 }
 .why .w .n{font-size:15px;font-weight:900;color:var(--acc)}  /* 採番ラベル（絵文字の代替） */
-.why .w h4{font-size:20px;font-weight:900;margin:20px 0 10px;letter-spacing:-.3px}
+/* 見出しは h3。セクション見出し（h2）の1段下で、カード（.card h3）と同じ階層 */
+.why .w h3{font-size:20px;font-weight:900;margin:20px 0 10px;letter-spacing:-.3px}
 .why .w p{color:var(--muted);font-size:15px}
 
 /* =========================================================

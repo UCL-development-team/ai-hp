@@ -97,8 +97,8 @@
         <span class="card-tag">AI-driven</span>
         <div class="n">02</div>
         <h3>AIによる仕様駆動型開発</h3>
-        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-KIT」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
-        <div class="k"># GitHub Spec Kit　# AWS Kiro</div>
+        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-Kit」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
+        <div class="k"># SDD-Kit　# GitHub Spec Kit　# AWS Kiro</div>
         <!-- モーダル（#sddkit-modal）で開く。JS無効時は href の遷移にフォールバック -->
         <a href="../assets/SDD-Kit/index.html" class="btn btn-w btn-sm card-cta" data-modal-open="sddkit-modal">弊社オリジナル Framework「SDD-Kit」を詳しく見る<span class="arw">→</span></a>
       </div>
@@ -135,11 +135,14 @@
             <!-- 領域①：AI支援型開発（G1〜G2 を包含） -->
             <aside class="area area-1" style="grid-row:1 / span 2">
               <span class="cap">FOCUS AREA 01</span>
-              <h2>AI支援型開発</h2>
+              <!-- 図版内の見出しは h3。セクション見出し（#tech の h2）より必ず1段下げる。
+                   本体UCLサイトの1ページとして差し込んだときに、見出しの階層が
+                   h1（ページタイトル帯）→ h2（セクション）→ h3（カード・図版）で通るようにするため -->
+              <h3>AI支援型開発</h3>
               <p class="note">既存の開発フローを保ったまま、コード生成・ドキュメント出力・自動テストといった特定タスクをAIで底上げする領域。</p>
               <!-- 図の右の空きに、この領域で強化できるタスクを縦に並べる -->
               <div class="area-row">
-                <img class="viz" src="../assets/projdect/AI-assisted/ai-assisted.png" alt="AI支援型開発の体制イメージ。エンジニアが個別にAIへ指示を出し、プロジェクト体制は従来と同じ">
+                <img class="viz" src="../assets/project/AI-assisted/ai-assisted.png" alt="AI支援型開発の体制イメージ。エンジニアが個別にAIへ指示を出し、プロジェクト体制は従来と同じ">
                 <div class="chips chips-col">
                   <span class="chip">コード生成</span>
                   <span class="chip">ドキュメント出力</span>
@@ -152,8 +155,11 @@
               </div>
             </aside>
 
-            <!-- 第3世代（NOW） -->
-            <div class="when is-now" style="grid-row:3"><span class="d">2026 初頭</span><span class="t">★ NOW</span></div>
+            <!-- 第3世代（NOW）
+                 **第3・第4世代の年次は相対表現にしてある。** ここに具体的な年月を書くと、
+                 その時期を過ぎた瞬間に「更新が止まっているページ」に見えるため。
+                 過去（第1・第2世代）は事実として動かないので年次のままでよい -->
+            <div class="when is-now" style="grid-row:3"><span class="d">現在</span><span class="t">★ NOW</span></div>
             <div class="rail is-now" style="grid-row:3"></div>
             <article class="gen is-now" style="grid-row:3">
               <span class="no">第3世代 / G3 ★</span>
@@ -164,18 +170,18 @@
             <!-- 領域②：仕様駆動型開発（G3） -->
             <aside class="area area-2" style="grid-row:3">
               <span class="cap">FOCUS AREA 02</span>
-              <h2>仕様駆動型開発</h2>
+              <h3>仕様駆動型開発</h3>
               <p class="note">仕様から実装まで一気に。設計とコードを双方向で同期させ、乖離しない状態を仕組みで担保する領域。</p>
-              <img class="viz" src="../assets/projdect/AI-driven/ai-driven.png" alt="仕様駆動型開発の体制イメージ。少数のアーキテクトが仕様・ルール・検証ゲートを設計し、AIが実装、ゲートで自動検証、増分ごとに人が承認して次の一周へ進む">
+              <img class="viz" src="../assets/project/AI-driven/ai-driven.png" alt="仕様駆動型開発の体制イメージ。少数のアーキテクトが仕様・ルール・検証ゲートを設計し、AIが実装、ゲートで自動検証、増分ごとに人が承認して次の一周へ進む">
               <div class="chips">
-                <span class="chip own">SDD-KIT</span>
+                <span class="chip own">SDD-Kit</span>
                 <span class="chip">GitHub Spec Kit</span>
                 <span class="chip">AWS Kiro</span>
               </div>
             </aside>
 
             <!-- 第4世代（NEXT） -->
-            <div class="when is-next" style="grid-row:4"><span class="d">2026.6〜</span><span class="t">NEXT</span></div>
+            <div class="when is-next" style="grid-row:4"><span class="d">これから</span><span class="t">NEXT</span></div>
             <div class="rail is-next" style="grid-row:4"></div>
             <article class="gen is-next" style="grid-row:4">
               <span class="no">第4世代 / G4</span>
@@ -186,8 +192,8 @@
             <!-- G4 への拡張ノート -->
             <aside class="extend" style="grid-row:4">
               <span class="cap">NEXT — EXTENDING</span>
-              <p><b>SDD-KIT</b> は ループエンジニアリング対応できるように拡張を続けます。</p>
-              <img class="viz" src="../assets/projdect/AI-loop/ai-loop.png" alt="ループエンジニアリングの体制イメージ。計画・実装・検証・修正をAIが自律的に回し、人が関与するのは終了条件と逸脱時だけ">
+              <p><b>SDD-Kit</b> は ループエンジニアリング対応できるように拡張を続けます。</p>
+              <img class="viz" src="../assets/project/AI-loop/ai-loop.png" alt="ループエンジニアリングの体制イメージ。計画・実装・検証・修正をAIが自律的に回し、人が関与するのは終了条件と逸脱時だけ">
             </aside>
 
           </div>
@@ -306,7 +312,7 @@
             <div class="name">コード生成／AI開発支援案件</div>
             <div class="desc">開発現場へのAIコーディング導入</div>
           </div>
-          <div class="cat-tags"><span>支援型開発</span><span>仕様駆動開発</span><span>SDD-KIT</span></div>
+          <div class="cat-tags"><span>支援型開発</span><span>仕様駆動開発</span><span>SDD-Kit</span></div>
           <div class="role">AI開発エンジニア</div>
         </div>
         <div class="cat-item">
@@ -446,20 +452,22 @@
       <h2 class="s-title" data-reveal="1">大事にするもの</h2>
       <p class="s-sub" data-reveal="2">私たちは、<button type="button" class="link-inline" data-modal-open="agile-modal">アジャイルの価値観</button>を軸に開発を進めます。作り込んでから一度に出すのではなく、小さく動くものを積み重ね、実物で対話しながら正解に近づけていきます。</p>
       <div class="bigrow">
+        <!-- 項目名は h3。セクション見出し（h2「大事にするもの」）の1段下で、
+             「強み」の3枚（.why .w h3）やカードと同じ階層に揃えている -->
         <div>
           <div class="num gr">01</div>
-          <b><button type="button" class="link-inline" data-modal-open="increment-modal">インクリメント</button></b>
-          <small>全部を一度に作らず、動く単位で少しずつ届ける。早く価値を出し、得たフィードバックを次の一手に活かします。</small>
+          <h3><button type="button" class="link-inline" data-modal-open="increment-modal">インクリメント</button></h3>
+          <p>全部を一度に作らず、動く単位で少しずつ届ける。早く価値を出し、得たフィードバックを次の一手に活かします。</p>
         </div>
         <div>
           <div class="num gr">02</div>
-          <b>動くものが正</b>
-          <small>計画書や議論よりも、動くコードで判断する。プロトタイプと実物をベースに意思決定します。</small>
+          <h3>動くものが正</h3>
+          <p>計画書や議論よりも、動くコードで判断する。プロトタイプと実物をベースに意思決定します。</p>
         </div>
         <div>
           <div class="num gr">03</div>
-          <b>変化を歓迎</b>
-          <small>要件もAI技術も変わる前提で、方向転換できる余地を残して設計します。</small>
+          <h3>変化を歓迎</h3>
+          <p>要件もAI技術も変わる前提で、方向転換できる余地を残して設計します。</p>
         </div>
       </div>
     </div>
@@ -473,17 +481,17 @@
     <div class="why" data-reveal="3">
       <div class="w">
         <div class="e">🎯</div>
-        <h4>実装まで、やり切る</h4>
+        <h3>実装まで、やり切る</h3>
         <p>デモやPoCで満足しません。実際の開発・業務に組み込み、成果として残るところまで責任を持ちます。</p>
       </div>
       <div class="w">
         <div class="e">📈</div>
-        <h4>成果で語る</h4>
+        <h3>成果で語る</h3>
         <p>人月ではなく、実現した価値で評価いただく。AIによる加速されたアジャイル開発の効果を、そのままメリットとして還元します。</p>
       </div>
       <div class="w">
         <div class="e">🔒</div>
-        <h4>セキュリティ前提</h4>
+        <h3>セキュリティ前提</h3>
         <p>弊社で使用するLLMは、<strong>全てお預かりしたデータが学習に利用されない設定</strong>で運用しています。</p>
       </div>
     </div>
