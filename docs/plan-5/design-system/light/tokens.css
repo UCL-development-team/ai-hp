@@ -15,6 +15,7 @@
   --bg2: #f4f2ff;     /* セクション背景・パネル面（淡いラベンダー） */
   --panel: #f4f2ff;   /* feature panel 等の面背景（= --bg2） */
   --line: #e7e3f7;    /* ボーダー・区切り線 */
+  --line-on-accent: rgba(255, 255, 255, .28); /* アクセント面（カラーカード）上の区切り線 */
   --ink: #0d0b1f;     /* 反転ブロック（.big）の背景 */
   --overlay: rgba(13, 11, 31, .55); /* モーダルの背景（--ink の55%） */
 
@@ -59,6 +60,8 @@
   /* --- Shadow --- */
   --shadow-btn: 0 10px 30px rgba(124, 58, 237, .35);   /* --p1 の35% */
   --shadow-modal: 0 30px 90px rgba(13, 11, 31, .35);   /* --ink の35% */
+  --shadow-card: 0 14px 34px -14px rgba(13, 11, 31, .30);       /* カラーカードの接地感 */
+  --shadow-card-hover: 0 28px 54px -18px rgba(13, 11, 31, .38); /* 同・ホバー時 */
 
   /* --- Radius scale --- */
   --radius-sm: 14px;    /* 小さい面 */

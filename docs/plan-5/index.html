@@ -144,36 +144,236 @@
     <div class="eyebrow">AI Talent</div>
     <h2 class="s-title">共に働く、AIの使い手。</h2>
     <p class="s-sub">AI活用に強い人材が、ともに現場で働きます。お預かりするだけでなく、チームの一員として手を動かし、AIを前提とした進め方をそのまま持ち込みます。最後は<strong>お客様が自走できる状態</strong>を目標にします。</p>
-    <!-- カードは #tech / #ai-system からの複製（文言は今後この人材視点に書き換える予定）。
-         タグ行（.k）は付けない -->
-    <div class="cards">
-      <div class="card c1">
-        <div class="n">01</div>
-        <h3>AIによる支援型開発</h3>
-        <p>コード生成、ドキュメント出力、自動テストなど、特定タスクをAIが強化。<strong>既存の開発フローを保ったまま</strong>、生産性を底上げします。</p>
-      </div>
-      <div class="card c2">
-        <div class="n">02</div>
-        <h3>AIによる仕様駆動型開発</h3>
-        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-KIT」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
-      </div>
+    <!-- 分類への目次。色（cat-p1〜4）と採番は各分類の見出しと対応させる -->
+    <div class="cat-nav">
+      <a class="cat-p1" href="#cat-01"><span class="n">01</span>探す・引き出す</a>
+      <a class="cat-p2" href="#cat-02"><span class="n">02</span>読み取る・仕分ける</a>
+      <a class="cat-p3" href="#cat-03"><span class="n">03</span>つくる</a>
+      <a class="cat-p4" href="#cat-04"><span class="n">04</span>応対する</a>
+      <a class="cat-p1" href="#cat-05"><span class="n">05</span>見抜く</a>
+      <a class="cat-p2" href="#cat-06"><span class="n">06</span>動かす</a>
     </div>
-    <div class="cards cards-3">
-      <div class="card c3">
-        <div class="n">01</div>
-        <h3>社内データ検索・要約</h3>
-        <p>社内文書やナレッジをAIが探し、根拠を示しながら答える。<strong>元データは学習させず参照だけ</strong>させる構成で、機密を守ったまま使えます。</p>
+
+    <!-- 案件カタログ。AIで強化したい機能で6分類し、案件タイプごとに
+         「依頼内容 / 人材の系統 / 技術タグ」を並べる。実装は design-system の 6.14 Catalog -->
+    <div class="catalog">
+
+      <div class="cat-group cat-p1" id="cat-01">
+        <div class="cat-head"><span class="n">01</span><h3>探す・引き出す</h3><span class="sub">検索・知識活用系</span></div>
+        <div class="cat-item">
+          <div>
+            <div class="name">RAG案件</div>
+            <div class="desc">社内文書・ナレッジの検索と根拠付き回答</div>
+          </div>
+          <div class="cat-tags"><span>ベクトル検索</span><span>埋め込み</span><span>チャンク設計</span><span>リランキング</span></div>
+          <div class="role">LLMアプリ</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">セマンティック検索／検索基盤刷新</div>
+            <div class="desc">既存の全文検索を意味検索に置換</div>
+          </div>
+          <div class="cat-tags"><span>OpenSearch／Elasticsearch</span><span>ハイブリッド検索</span><span>pgvector・Qdrant等</span></div>
+          <div class="role">検索エンジニア＋LLM</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">GraphRAG／ナレッジグラフ案件</div>
+            <div class="desc">関係性をたどる検索、構造化知識の構築</div>
+          </div>
+          <div class="cat-tags"><span>ナレッジグラフ</span><span>Cypher／RDF</span><span>エンティティリンキング</span></div>
+          <div class="role">データモデリング系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">レコメンド案件</div>
+            <div class="desc">商品・コンテンツの推薦、パーソナライズ</div>
+          </div>
+          <div class="cat-tags"><span>協調フィルタリング</span><span>埋め込み</span><span>A/Bテスト</span></div>
+          <div class="role">機械学習系</div>
+        </div>
       </div>
-      <div class="card c4">
-        <div class="n">02</div>
-        <h3>業務システムへのAI組込</h3>
-        <p>既存の画面・業務フローの中にAIを埋め込む。分類、要約、下書き生成、入力チェックなど、<strong>人の手数が多い工程から</strong>置き換えます。</p>
+
+      <div class="cat-group cat-p2" id="cat-02">
+        <div class="cat-head"><span class="n">02</span><h3>読み取る・仕分ける</h3><span class="sub">文書処理系</span></div>
+        <div class="cat-item">
+          <div>
+            <div class="name">帳票OCR／IDP案件</div>
+            <div class="desc">請求書・申請書の読み取りと基幹システム投入</div>
+          </div>
+          <div class="cat-tags"><span>Azure Document Intelligence</span><span>Google Document AI</span><span>AWS Textract</span><span>レイアウト解析</span></div>
+          <div class="role">文書処理系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">契約書レビュー（リーガルテック）</div>
+            <div class="desc">条項抽出、リスク判定、差分比較</div>
+          </div>
+          <div class="cat-tags"><span>長文処理</span><span>条項分類</span><span>根拠の提示</span></div>
+          <div class="role">LLMアプリ＋ドメイン知識</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">自然言語処理案件（分類・抽出）</div>
+            <div class="desc">問い合わせ振り分け、固有表現抽出、タグ付け</div>
+          </div>
+          <div class="cat-tags"><span>分類モデル</span><span>固有表現抽出（NER）</span><span>出力スキーマ制御</span></div>
+          <div class="role">自然言語処理系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">議事録・通話の構造化</div>
+            <div class="desc">音声から文字起こしし、要約・タスク抽出まで</div>
+          </div>
+          <div class="cat-tags"><span>音声認識</span><span>話者分離</span><span>要約</span></div>
+          <div class="role">音声＋LLM</div>
+        </div>
       </div>
-      <div class="card c2">
-        <div class="n">03</div>
-        <h3>AIエージェント</h3>
-        <p>手順を決め打ちせず、AIが道具（社内システム・API）を選んで実行する領域。任せきりにはせず、<strong>人が承認する地点を必ず残す</strong>設計にします。</p>
+
+      <div class="cat-group cat-p3" id="cat-03">
+        <div class="cat-head"><span class="n">03</span><h3>つくる</h3><span class="sub">生成系</span></div>
+        <div class="cat-item">
+          <div>
+            <div class="name">文書生成案件</div>
+            <div class="desc">提案書・報告書・返信文の下書き自動化</div>
+          </div>
+          <div class="cat-tags"><span>プロンプト設計</span><span>テンプレート統合</span><span>トーン制御</span></div>
+          <div class="role">LLMアプリ</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">コード生成／AI開発支援案件</div>
+            <div class="desc">開発現場へのAIコーディング導入</div>
+          </div>
+          <div class="cat-tags"><span>支援型開発</span><span>仕様駆動開発</span><span>SDD-KIT</span></div>
+          <div class="role">AI開発エンジニア</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">画像生成案件</div>
+            <div class="desc">商品画像、バナー、デザイン案の生成</div>
+          </div>
+          <div class="cat-tags"><span>拡散モデル</span><span>ControlNet</span><span>LoRA</span><span>商用利用・権利処理</span></div>
+          <div class="role">生成画像系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">音声合成・ナレーション</div>
+            <div class="desc">読み上げ、多言語吹き替え</div>
+          </div>
+          <div class="cat-tags"><span>音声合成（TTS）</span><span>話者クローン</span><span>権利処理</span></div>
+          <div class="role">音声系</div>
+        </div>
       </div>
+
+      <div class="cat-group cat-p4" id="cat-04">
+        <div class="cat-head"><span class="n">04</span><h3>応対する</h3><span class="sub">対話系</span></div>
+        <div class="cat-item">
+          <div>
+            <div class="name">チャットボット案件</div>
+            <div class="desc">社内ヘルプデスク、カスタマーサポート</div>
+          </div>
+          <div class="cat-tags"><span>対話設計</span><span>状態管理</span><span>RAG連携</span><span>エスカレーション設計</span></div>
+          <div class="role">LLMアプリ</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">ボイスボット／AI電話応対</div>
+            <div class="desc">IVR置換、一次受付の自動化</div>
+          </div>
+          <div class="cat-tags"><span>リアルタイム音声</span><span>割り込み処理</span><span>低レイテンシ設計</span><span>CTI連携</span></div>
+          <div class="role">音声＋リアルタイム系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">コンタクトセンター支援</div>
+            <div class="desc">通話要約、応対品質分析、FAQ自動更新</div>
+          </div>
+          <div class="cat-tags"><span>音声認識</span><span>感情・品質スコアリング</span></div>
+          <div class="role">音声＋分析系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">多言語・翻訳案件</div>
+            <div class="desc">多言語サポート、ドキュメント翻訳</div>
+          </div>
+          <div class="cat-tags"><span>翻訳品質評価</span><span>用語集管理</span></div>
+          <div class="role">自然言語処理系</div>
+        </div>
+      </div>
+
+      <div class="cat-group cat-p1" id="cat-05">
+        <div class="cat-head"><span class="n">05</span><h3>見抜く</h3><span class="sub">検知・予測系</span></div>
+        <div class="cat-item">
+          <div>
+            <div class="name">画像認識（コンピュータビジョン）案件</div>
+            <div class="desc">外観検査、物体検出、人物・車両検知</div>
+          </div>
+          <div class="cat-tags"><span>物体検出</span><span>セグメンテーション</span><span>PyTorch</span><span>アノテーション設計</span></div>
+          <div class="role">画像認識系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">エッジAI案件</div>
+            <div class="desc">現場カメラ・機器上での推論</div>
+          </div>
+          <div class="cat-tags"><span>モデル軽量化</span><span>量子化</span><span>組込デバイス</span><span>リアルタイム制約</span></div>
+          <div class="role">画像認識＋組込</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">異常検知／予兆保全</div>
+            <div class="desc">設備故障の予兆、ログ異常検知</div>
+          </div>
+          <div class="cat-tags"><span>時系列異常検知</span><span>センサーデータ処理</span><span>IoT基盤</span></div>
+          <div class="role">機械学習＋制御・IoT</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">需要予測案件</div>
+            <div class="desc">在庫・来客・電力の予測</div>
+          </div>
+          <div class="cat-tags"><span>時系列予測</span><span>勾配ブースティング</span><span>特徴量設計</span></div>
+          <div class="role">データサイエンス</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">不正検知・与信スコアリング</div>
+            <div class="desc">金融の審査、不正取引検知</div>
+          </div>
+          <div class="cat-tags"><span>分類モデル</span><span>不均衡データ</span><span>説明可能性</span><span>規制対応</span></div>
+          <div class="role">機械学習＋金融ドメイン</div>
+        </div>
+      </div>
+
+      <div class="cat-group cat-p2" id="cat-06">
+        <div class="cat-head"><span class="n">06</span><h3>動かす</h3><span class="sub">自動化・エージェント系</span></div>
+        <div class="cat-item">
+          <div>
+            <div class="name">AIエージェント案件</div>
+            <div class="desc">手順を任せた多段実行、社内システム操作</div>
+          </div>
+          <div class="cat-tags"><span>Function Calling</span><span>MCP</span><span>状態管理</span><span>承認ゲート</span></div>
+          <div class="role">LLMアプリ上位</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">業務自動化（RPA×AI）</div>
+            <div class="desc">既存RPAの判断部分をAI化</div>
+          </div>
+          <div class="cat-tags"><span>RPA連携</span><span>例外処理設計</span><span>冪等性</span></div>
+          <div class="role">業務システム＋LLM</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">ワークフロー・オーケストレーション</div>
+            <div class="desc">複数AI・複数システムをつなぐ実行基盤</div>
+          </div>
+          <div class="cat-tags"><span>ジョブ制御</span><span>リトライ</span><span>トレース</span></div>
+          <div class="role">バックエンド＋LLM</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

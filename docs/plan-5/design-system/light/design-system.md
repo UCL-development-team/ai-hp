@@ -53,6 +53,7 @@
 | `--bg2` | `#f4f2ff` | セクション背景・pill背景（淡いラベンダー） |
 | `--panel` | `#f4f2ff` | feature panel（`.w`）の面背景（= `--bg2`） |
 | `--line` | `#e7e3f7` | ボーダー・区切り線 |
+| `--line-on-accent` | `rgba(255,255,255,.28)` | カラーカード上の区切り線（`.card .k` の上罫） |
 | `--ink` | `#0d0b1f` | 反転ブロック（`.big`）の背景 |
 
 ### テキスト
@@ -169,11 +170,13 @@
 ## 5. シャドウ & エフェクト
 
 - **プライマリボタンの浮遊感**: `--shadow-btn: 0 10px 30px rgba(124,58,237,.35)`（`--p1` の35%）
+- **カラーカードの接地感**: `--shadow-card: 0 14px 34px -14px rgba(13,11,31,.30)` ／ ホバー時 `--shadow-card-hover: 0 28px 54px -18px rgba(13,11,31,.38)`。広がりを抑えた負のスプレッドで、面の直下だけを落とす
 - **ホバー時の動き**:
   - `.btn-p:hover { transform:translateY(-2px) scale(1.02) }`
   - `.btn-o:hover { background:var(--txt); color:var(--bg) }`（反転）
-  - `.card:hover { transform:translateY(-6px) }`
+  - `.card:hover { transform:translateY(-6px) }` ＋ 影を `--shadow-card-hover` に
   - `a.mtag:hover { transform:translateY(-2px) }`
+  - `.cat-item:hover` / `.cat-nav a:hover { transform:translateY(-2px) }` ＋ 枠が分類色に
 - **backdrop blur**: `nav { background:rgba(255,255,255,.8); backdrop-filter:blur(12px) }`
 - **トランジション速度**: ボタン `.2s`（`--transition-fast`）／カード `.25s`（`--transition-base`）
 - 本テーマにグロー（`box-shadow` による発光）やアニメーションはありません（ダーク版の `pulse` に相当するものは持たない）。
@@ -199,6 +202,7 @@
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
 | 6.12 | Figure（図版パネル） | `.figure`（`.figure-flush` / `img` / `figcaption`） |
+| 6.14 | Catalog（分類＋一覧） | `.catalog` / `.cat-group` / `.cat-head`（`.n` `.sub`）/ `.cat-item`（`.name` `.desc` `.role` `.k`） |
 | 6.13 | Modal（`<dialog>`） | `.modal` / `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
 | — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
@@ -225,10 +229,11 @@
 - 内部に 6.10 のセクション見出しパターンを置く場合、`.eyebrow` は `--p3`、`.s-sub` は `--muted-on-ink` に自動で切り替わる
 
 ### 6.5 Card（カラーカード）
-- 4色のグラデーション面（`.c1`〜`.c4`）に白文字。ボーダーなし、`--radius-lg`、padding `40px 34px`
-- `.n`（採番）→ `h3`（タイトル）→ `p`（説明）→ `.k`（メタ情報）の縦構成
-- `.k` は `# タグA　# タグB` のように `#` 区切りの1行テキストで表現する
-- ホバーで6px浮き上がり
+- 4色のグラデーション面（`.c1`〜`.c4`）に白文字。ボーダーなし、`--radius-lg`、padding `40px 34px`、`--shadow-card`
+- `::before` で右上に白の放射グラデーション（26%）を敷き、平坦なグラデーション面に奥行きを与える。装飾のため内容は持たず、本文は `.card > *` の `z-index:1` で前面に置く
+- `.n`（採番・13px/900・トラッキング1.5px）→ `h3`（タイトル）→ `p`（説明）→ `.k`（メタ情報）の縦構成
+- `.k` は `# タグA　# タグB` のように `#` 区切りの1行テキストで表現する。**細字（400）**とし、上に `--line-on-accent` の1px罫を入れて本文と分ける
+- ホバーで6px浮き上がり、影が `--shadow-card-hover` に深まる
 - 3枚構成のときは `.cards.cards-3`。色は連続を避けて `c1 / c2 / c4` のように選ぶ
 
 ### 6.6 Marquee tag (`.mtag`)
@@ -263,6 +268,19 @@
 - `alt` は必須。図が伝える内容を文章で説明する
 - 6.10 のセクション見出しパターンの直下に置く想定（`margin-top:56px`）
 - `.figure-flush` を併記すると枠・背景・角丸・padding を外す。図版自身が面（背景色）と余白を持っていて、セクション背景と地続きに見せたい場合に使う。padding が無くなる分、図版はコンテンツ幅いっぱいに広がる
+
+### 6.14 Catalog（分類＋一覧）
+
+カード（6.5）に収まらない量の項目を、分類ごとに一覧で見せるための構成。1項目あたり「名称＋説明 / タグ / ラベル」の3カラムを持ちます。
+
+- `.catalog` — 全体の器（`margin-top:56px`。6.10 のセクション見出しパターンの直下に置く想定）
+- `.cat-group` — 分類ひとかたまり。2つ目以降は上に44pxのマージン。`.cat-p1`〜`.cat-p4` でパレット4色のどれかを割り当て、配下のバッジ・タグ・ラベル・ホバー枠がすべてその色（`--cat` / `--cat-2`）を参照する
+- `.cat-head` — 分類見出し。`.n`（採番。分類色のグラデーションを敷いたピル）→ `h3`（23px/900）→ `.sub`（補足・`--muted`）の順。**罫線は引かない**（余白だけで項目群と分ける）
+- `.cat-nav` — 分類への目次リンク列（`.catalog` の前、`.s-sub` の下に置く）。`<a>` にも `.cat-p1`〜`.cat-p4` を付けて、採番バッジの色と着地先の分類を揃える。ピルの面は半透明の白（`#ffffff70`）で、下地（`.section-alt` の `--bg2`）をうっすら透かす。`.cat-group` には `scroll-margin-top:100px` を入れてあり、sticky な `nav` の下に見出しが潜らない
+- `.cat-item` — 1項目。`--bg` の白パネル（`--line` ボーダー、`--radius-sm`、padding `18px 22px`）。中身は「`.name` + `.desc` を入れた `div`」／`.cat-tags`／`.role` の3カラム。ホバーで枠が分類色に変わり2px浮く
+- `.cat-tags` — 技術タグのチップ列。分類色13%のティント地（`color-mix`。非対応環境は `--bg2` にフォールバック）
+- `.role` — 右端のラベル（人材の系統など）。分類色のグラデーション面に白文字
+- md以下では1カラムに畳み、`.role` は左寄せに戻る
 
 ### 6.13 Modal（`<dialog>`）
 
