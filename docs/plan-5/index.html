@@ -115,7 +115,8 @@
     <h2 class="s-title" data-reveal="1"><span class="gr4">AI</span>を、つくるものに<span class="gr4">載せる</span>。</h2>
     <p class="s-sub" data-reveal="2">つくり方だけでなく、つくるものにも。チャット、検索、要約、判定といったAIの働きを、システムの機能として実装します。社内データを扱う場合も、<strong>AIに学習させない構成</strong>で設計します。</p>
     <!-- 分類への目次。色（cat-p1〜4）と採番は各分類の見出しと対応させる -->
-    <div class="cat-nav" data-reveal="3">
+    <!-- sticky なので data-reveal は付けない（フェードインの transform と競合する） -->
+    <div class="cat-nav">
       <a class="cat-p1" href="#cat-01"><span class="n">01</span>探す・引き出す</a>
       <a class="cat-p2" href="#cat-02"><span class="n">02</span>読み取る・仕分ける</a>
       <a class="cat-p3" href="#cat-03"><span class="n">03</span>つくる</a>

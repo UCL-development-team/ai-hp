@@ -41,6 +41,9 @@
 .nav-sub .nav-in{height:52px}
 .nav-sub .logo{font-size:17px}
 .nav-sub .nav-links{gap:24px;font-size:14px}
+/* 詰めた高さを、sticky な要素（.cat-nav）の張り付き位置にも反映する。
+   上の 52px と必ず揃えること */
+:root{--sticky-top:52px}
 
 /* =========================================================
    Hero の大見出し

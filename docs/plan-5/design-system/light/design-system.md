@@ -137,6 +137,7 @@
 - **セクション垂直パディング**: `section { padding:100px 0 }`
 - **ヒーロー**: `padding:110px 0 90px`
 - **ナビ高さ**: `70px`（`--nav-height`）
+- **sticky の張り付き位置**: `--sticky-top`（既定は `--nav-height`）。`.cat-nav` の `top` と `.cat-group` の `scroll-margin-top` がこの値を基準にする。**ナビの高さを変えるページは `custom.css` でこの値も上書きする**（`plan-5` はサブヘッダー化で52px）
 - **グリッド間隔**: `.cards` = 24px（`--gap-grid`） / `.why` = 26px（`--gap-feat`） / `.bigrow` = 40px（`--gap-stats`）
 - **内側パディング**: card `40px 34px` / `.big` `70px 48px` / `.why .w` `32px` / `.cta` `72px 40px` / `.btn` `13px 26px`
 - **モーダル**: 四方 `24px`（`--modal-gap` = `--content-padding-x`）を空けた領域に、幅上限 `1180px`（`--modal-max-width`）。高さは無制限（`--modal-max-height: none`）で縦を使い切る。詳細は [6.13 Modal](#613-modaldialog)
@@ -299,7 +300,7 @@
 - `.catalog` — 全体の器（`margin-top:56px`。6.10 のセクション見出しパターンの直下に置く想定）
 - `.cat-group` — 分類ひとかたまり（**`<details>`**）。`--bg` の白パネル（`--line` ボーダー、`--radius-md`、`--shadow-panel`）で、**畳んだ状態でも枠が残る**ため見出しだけが並んでも境界が見える。影は白背景（`--bg`）のセクション上でも面が沈まないようにするためのもので、`.section-alt` 上でも成立する。2つ目以降は上に12pxのマージン。`.cat-p1`〜`.cat-p4` でパレット4色のどれかを割り当て、配下のバッジ・タグ・ラベル・ホバー枠がすべてその色（`--cat` / `--cat-2`）を参照する。初期表示で開いておくものにだけ `open` を付ける
 - `.cat-head` — 分類見出し（**`<summary>`**＝開閉のトグル）。`.n`（採番。分類色のグラデーションを敷いたピル）→ `h3`（23px/900）→ `.sub`（補足・`--muted`）→ 右端に開閉シェブロン（`::after`）の順（padding `18px 24px`）。ホバーで地色が `--bg2` になり、パネルの枠が分類色に変わる（`:has`）。標準の三角マーカーは `list-style:none` と `::-webkit-details-marker` で消している
-- `.cat-nav` — 分類への目次リンク列（`.catalog` の前、`.s-sub` の下に置く）。`<a>` にも `.cat-p1`〜`.cat-p4` を付けて、採番バッジの色と着地先の分類を揃える。ピルの面は `--bg2`。`.cat-group` には `scroll-margin-top:100px` を入れてあり、sticky な `nav` の下に見出しが潜らない
+- `.cat-nav` — 分類への目次リンク列（`.catalog` の前、`.s-sub` の下に置く）。`<a>` にも `.cat-p1`〜`.cat-p4` を付けて、採番バッジの色と着地先の分類を揃える。ピルの面は `--bg2`。**`position:sticky`（`top: --sticky-top` / `z-index:40`）** で、カタログをスクロールする間だけ画面上部に残る。器は `.wrap` なので、セクションを抜ければ自然に外れる。下を通る内容が透けないよう、面は白85%＋`blur(10px)`（`nav` と同じ処理）。**`data-reveal` は付けない**（フェードインの `transform` と競合する）。`.cat-group` には `scroll-margin-top:100px` を入れてあり、sticky な `nav` の下に見出しが潜らない
 - `.cat-item` — 1項目。パネル内の行として `--line` の上罫だけで区切る（padding `18px 24px`。面と枠は持たない）。中身は「`.name` + `.desc` を入れた `div`」／`.cat-tags`／`.role` の3カラム。ホバーで地色が `--bg2` になる
 - `.cat-tags` — 技術タグのチップ列。分類色13%のティント地（`color-mix`。非対応環境は `--bg2` にフォールバック）
 - `.role` — 右端のラベル（人材の系統など）。分類色のグラデーション面に白文字

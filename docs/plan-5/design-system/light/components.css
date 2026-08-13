@@ -182,9 +182,9 @@ a.mtag:hover{transform:translateY(-2px)}
    ========================================================= */
 .catalog{margin-top:56px}
 /* 分類は1枚のパネル。畳んだときも枠が残るので、見出しだけが並んでも境界が見える。
-   scroll-margin-top は、目次リンクの着地点が sticky な nav に隠れないように */
+   scroll-margin-top は、着地点が sticky な nav と .cat-nav の下に潜らないように */
 .cat-group{
-  --cat:var(--p1);--cat-2:var(--p1-light);scroll-margin-top:100px;
+  --cat:var(--p1);--cat-2:var(--p1-light);scroll-margin-top:calc(var(--sticky-top) + 76px);
   background:var(--bg);border:1px solid var(--line);
   border-radius:var(--radius-md);box-shadow:var(--shadow-panel);
   transition:border-color var(--transition-fast);
@@ -238,8 +238,18 @@ a.mtag:hover{transform:translateY(-2px)}
 .cat-head .sub{font-size:14px;font-weight:800;color:var(--muted)}
 
 /* 目次（分類へのアンカーリンク列）。sub と同じく .cat-p1〜4 で色を割り当てる */
-/* 既定色は親に置く。a 側に書くと詳細度で .cat-p2〜4 に勝ってしまい色が反映されない */
-.cat-nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px;--cat:var(--p1);--cat-2:var(--p1-light)}
+/* 既定色は親に置く。a 側に書くと詳細度で .cat-p2〜4 に勝ってしまい色が反映されない。
+   カタログをスクロールする間ずっと見えるよう sticky。--wrap の中に居るので
+   セクションを抜ければ自然に外れる。半透明＋blur は nav と同じ処理 */
+.cat-nav{
+  position:sticky;top:var(--sticky-top);z-index:40;
+  display:flex;flex-wrap:wrap;align-items:center;gap:8px;
+  margin:26px -12px 0;padding:10px 12px;
+  border-radius:var(--radius-sm);
+  background:rgba(255,255,255,.85); /* --bg の85% */
+  backdrop-filter:blur(10px);
+  --cat:var(--p1);--cat-2:var(--p1-light);
+}
 .cat-nav a{
   display:inline-flex;align-items:center;gap:7px;
   padding:4px 13px 4px 5px;border-radius:var(--radius-pill);

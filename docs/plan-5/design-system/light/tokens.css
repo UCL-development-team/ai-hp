@@ -84,6 +84,9 @@
   --content-padding-x: 24px;
   --section-padding-y: 100px;
   --nav-height: 70px;
+  /* sticky な要素（6.14 の .cat-nav 等）が張り付く位置。既定はナビの高さ。
+     ナビの高さを変えるページは、custom.css 側でこの値も上書きする */
+  --sticky-top: var(--nav-height);
   --gap-grid: 24px;   /* .cards */
   --gap-feat: 26px;   /* .why */
   --gap-stats: 40px;  /* .bigrow */
