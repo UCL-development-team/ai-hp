@@ -53,7 +53,8 @@
 | `--bg2` | `#f4f2ff` | セクション背景・pill背景（淡いラベンダー） |
 | `--panel` | `#f4f2ff` | feature panel（`.w`）の面背景（= `--bg2`） |
 | `--line` | `#e7e3f7` | ボーダー・区切り線 |
-| `--line-on-accent` | `rgba(255,255,255,.28)` | カラーカード上の区切り線（`.card .k` の上罫） |
+| `--line-on-accent` | `rgba(255,255,255,.28)` | カラーカード上の区切り線（`.card .k` の上罫）・ラベルの枠 |
+| `--panel-on-accent` | `rgba(255,255,255,.16)` | カラーカード上の面（`.card-tag` の地色） |
 | `--ink` | `#0d0b1f` | 反転ブロック（`.big`）の背景 |
 
 ### テキスト
@@ -182,6 +183,7 @@
   - `.btn-o:hover { background:var(--txt); color:var(--bg) }`（反転）
   - `.card:hover { transform:translateY(-6px) }` ＋ 影を `--shadow-card-hover` に
   - `a.mtag:hover { transform:translateY(-2px) }`
+  - `.bigrow > *:hover { transform:translateY(-6px) }` ＋ `.num` が1.05倍＋発光
   - `.cat-item:hover` / `.cat-nav a:hover { transform:translateY(-2px) }` ＋ 枠が分類色に
 - **backdrop blur**: `nav { background:rgba(255,255,255,.8); backdrop-filter:blur(12px) }`
 - **トランジション速度**: ボタン `.2s`（`--transition-fast`）／カード `.25s`（`--transition-base`）
@@ -201,7 +203,7 @@
 | 6.2 | Buttons | `.btn` / `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` |
 | 6.3 | Pill | `.pill` |
 | 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `b` `small`） |
-| 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k`） |
+| 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k` `.card-tag` `.card-cta`） |
 | 6.6 | Marquee tag | `.marquee` / `.mtag` + `.m1`〜`.m4` |
 | 6.7 | Feature panel | `.why` / `.w`（`.e` `.n`） |
 | 6.8 | CTA | `.cta` |
@@ -241,12 +243,14 @@
 ### 6.4 Inverted block (`.big`)
 - `--ink` の濃色面、`--radius-xl`、padding `70px 48px`、中央揃え
 - `.bigrow` で3カラム。各カラムは `.num`（大数値、`.gr` を併用してグラデーション化）→ `b`（見出し・任意）→ `small`（説明）の縦構成
+- カラムはホバーで6px浮き、`.num` が1.05倍＋ピンクの `drop-shadow` で発光する。面や枠は持たないので、静止時の見た目は変わらない
 - 内部に 6.10 のセクション見出しパターンを置く場合、`.eyebrow` は `--p3`、`.s-sub` は `--muted-on-ink` に自動で切り替わる
 
 ### 6.5 Card（カラーカード）
 - 4色のグラデーション面（`.c1`〜`.c4`）に白文字。ボーダーなし、`--radius-lg`、padding `40px 34px`、`--shadow-card`
 - `::before` で右上に白の放射グラデーション（26%）を敷き、平坦なグラデーション面に奥行きを与える。装飾のため内容は持たず、本文は `.card > *` の `z-index:1` で前面に置く
 - `.n`（採番・13px/900・トラッキング1.5px）→ `h3`（タイトル）→ `p`（説明）→ `.k`（メタ情報）の縦構成
+- `.card-tag`（任意）— 右上に置くラベル（英語の呼称など）。白16%（`--panel-on-accent`）＋白28%の枠（`--line-on-accent`）＋`blur(6px)` のガラス調ピル。`.n` と同じ高さに揃うよう、カードの padding から逆算した位置に絶対配置している
 - `.k` は `# タグA　# タグB` のように `#` 区切りの1行テキストで表現する。**細字（400）**とし、上に `--line-on-accent` の1px罫を入れて本文と分ける
 - ホバーで6px浮き上がり、影が `--shadow-card-hover` に深まる
 - 3枚構成のときは `.cards.cards-3`。色は連続を避けて `c1 / c2 / c4` のように選ぶ
@@ -298,7 +302,7 @@
 ### 6.12 Figure（図版パネル）
 - 図版（PNG/SVG）をページ内に置くための枠。`--panel` 背景 + `--line` ボーダー、`--radius-lg`、padding 28px（md以下は16px）
 - `<figure class="figure">` に `img` を入れる。`img` は `width:100%` / `height:auto` で枠に追従し、`--radius-sm` で角を丸める
-- 説明を添える場合は `figcaption`（14px/800、`--muted`、中央揃え）を `img` の後ろに置く
+- 説明を添える場合は `figcaption`（**`.s-sub` と同じ17px / `--muted`**、中央揃え）。図版の後ろに置くと上に18px、**図版より前に置く（導入文として読ませる）ときは下に56px**取り、`.figure` の `margin-top` と対称にしてカード群と図版のあいだの余白の中央に置く
 - `alt` は必須。図が伝える内容を文章で説明する
 - 6.10 のセクション見出しパターンの直下に置く想定（`margin-top:56px`）
 - `.figure-flush` を併記すると枠・背景・角丸・padding を外す。図版自身が面（背景色）と余白を持っていて、セクション背景と地続きに見せたい場合に使う。padding が無くなる分、図版はコンテンツ幅いっぱいに広がる
