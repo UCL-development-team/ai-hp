@@ -200,7 +200,7 @@
 | 節 | コンポーネント | 主なクラス |
 |---|---|---|
 | 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.logo-sm`） |
-| 6.2 | Buttons | `.btn` / `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` |
+| 6.2 | Buttons | `.btn`（`.btn-sm`）/ `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` / `.arw` / `.card-cta` / `.link-inline` |
 | 6.3 | Pill | `.pill` |
 | 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `b` `small`） |
 | 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k` `.card-tag` `.card-cta`） |
@@ -213,7 +213,7 @@
 | 6.14 | Catalog（分類＋一覧） | `.catalog` / `.cat-group` / `.cat-head`（`.n` `.sub`）/ `.cat-item`（`.name` `.desc` `.role` `.k`）/ `.cat-nav` |
 | 6.15 | Reveal（フェードイン） | `[data-reveal]`（`="1"`〜`="4"` で遅延）/ `.is-visible` / `html.js-reveal` |
 | 6.16 | Disclosure（開閉） | `<details class="cat-group">` / `<summary class="cat-head">`（6.14 と同じクラスで実装）/ `.cat-toggle`（一括開閉） |
-| 6.13 | Modal（`<dialog>`） | `.modal` / `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
+| 6.13 | Modal（`<dialog>`） | `.modal`（`.modal-doc`）/ `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
 | — | Utility | `.wrap` / `.gr`〜`.gr5` / `.section-alt` / `.section-flush` |
 
@@ -231,6 +231,7 @@
 - `.btn-w` / `.btn-wo`: アクセント面（CTA・カラーカード）上で使う白ボタン／白アウトラインボタン。`.btn-w` は影付きでホバーすると2px浮き、`.btn-wo` はホバーで白16%が乗る
 - `.arw`: ラベル末尾の矢印を `<span class="arw">→</span>` で囲むと、ホバーで3px前に出る
 - `.card-cta`: カラーカード（6.5）の中にボタンを置くときの位置調整（`.k` の下に18px）
+- `.link-inline`: 本文中のインラインリンク。`<a>` でも `<button>` でも同じ見た目になる（`font:inherit` + `border:0`）。900ウェイト＋`--p2` の下線＋末尾に `↗`。`.big`（濃色ブロック）の中では自動で白抜きになる。モーダルを開くボタンにも使う
 
 ```html
 <a href="…" class="btn btn-w btn-sm card-cta" data-modal-open="sddkit-modal">詳しく見る<span class="arw">→</span></a>
@@ -425,6 +426,15 @@ max-height:var(--modal-max-height); /* none  — 高さは制限しない */
   - `data-modal-close` — クリックで、自分が属する `<dialog>` を閉じる
   - `<iframe>` の `src` は書かず `data-src` に置く。初回オープン時にだけ `src` へ移されるので、ページ表示時に読み込まれない
   - `aria-labelledby` で `.modal-title` を参照し、`<iframe>` には `title` を必ず付ける
+
+#### `.modal-doc` — 文章を直接入れる版
+
+外部ページではなく**テキストを読ませる**モーダル。`<iframe>` の代わりに `.modal-body` の中へ `<div class="doc">` を置きます。
+
+- 幅は `--modal-max-width: 820px`、本文は `.doc` で600pxに絞る（読みやすい行長）。`.modal-body` は `overflow-y:auto` でスクロールし、面は `--bg`
+- `h3`（22px/900＋下罫）／`p`（15.5px・`--muted`）／`.doc-values`（罫で区切った大きめの箇条書き）／`.doc-principles`（`01`〜 のゼロ埋め採番・`--p1`）／`.doc-sign`・`.doc-copy`・`.doc-src`（小さめの補足）
+- きっかけは本文中の `.link-inline` を使う（`<button type="button" data-modal-open="…">`）
+- **複数のモーダルが同居するページでは、個別対応（`custom.css`）の上書きを `#<id>` に閉じること。** `.modal` で当てると他のモーダルまで色が変わる
   - `.modal-close` に `autofocus` を付ける。付けないと `showModal()` の初期フォーカスが `.modal-link` に落ち、リンクに既定のフォーカスリング（角枠）が出てしまう。`:focus-visible` のリングは `--p1` の2px アウトラインに整えている
 - 閉じ方は3通り: `.modal-close` のクリック／背景（`::backdrop`）のクリック／Esc キー（`<dialog>` の標準挙動）
 - `<dialog>` 非対応ブラウザでは components.js が何もしないため、きっかけの `<a href>` がそのまま効いて同じページへ遷移する

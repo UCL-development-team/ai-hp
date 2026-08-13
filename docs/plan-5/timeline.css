@@ -55,7 +55,9 @@
 /* ---------- タイムライン本体 ---------- */
 .timeline .tl{
   display:grid;
-  grid-template-columns:126px 26px 296px 1fr;
+  /* 最終列は minmax(0,1fr)。素の 1fr だと中身の最小幅で列が押し広げられ、
+     図版の右にチップを置いたときに全体がはみ出す */
+  grid-template-columns:126px 26px 296px minmax(0,1fr);
   column-gap:22px;
   row-gap:16px;
   align-items:stretch;
@@ -138,7 +140,18 @@
    .extend の中では左パディングぶん幅が足りないため width:100% 側で縮む。 */
 .timeline .viz{display:block; width:100%; max-width:520px; height:auto; margin-top:16px}
 
+/* 図版と、その右の空きに置くチップ列を横に並べる行 */
+.timeline .area-row{display:flex; align-items:flex-end; gap:20px; margin-top:16px}
+/* flex の中では width:100% が行幅いっぱいを要求してチップを押し出すため、
+   幅は flex-basis で与えて縮められるようにする */
+.timeline .area-row .viz{margin-top:0; width:auto; flex:0 1 520px; min-width:0}
+
 .timeline .chips{margin-top:auto; padding-top:20px; display:flex; flex-wrap:wrap; gap:8px}
+/* 縦積み版。.area-row の中で右端に寄せる */
+.timeline .chips-col{
+  margin:0 0 0 auto; padding-top:0;
+  flex-direction:column; align-items:flex-end; flex-wrap:nowrap;
+}
 .timeline .chip{
   display:inline-flex; align-items:center; gap:6px;
   font-size:12.5px; font-weight:800; color:var(--tl-muted);
@@ -190,6 +203,48 @@
 .timeline .extend p{margin-top:5px; font-size:15px; font-weight:700; line-height:1.6}
 .timeline .extend p b{color:var(--tl-p3-ink)}
 
+/* ---------- ホバー ----------
+   7つのボックス（世代カード4 ＋ 領域2 ＋ 拡張ノート1）を、ページ側のカードと
+   同じように浮かせる。影の色はそれぞれの枠色に合わせる */
+.timeline .gen,
+.timeline .area,
+.timeline .extend{
+  transition:transform var(--transition-base),box-shadow var(--transition-base),border-color var(--transition-fast);
+}
+.timeline .gen:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px -14px rgba(13,11,31,.42);
+  border-color:var(--tl-line2);
+}
+.timeline .gen.is-now:hover{
+  box-shadow:0 1px 3px rgba(236,72,153,.14), 0 32px 58px -28px rgba(236,72,153,.95);
+  border-color:rgba(236,72,153,.75);
+}
+.timeline .gen.is-next:hover{
+  box-shadow:0 14px 30px -16px rgba(245,158,11,.7);
+  border-color:rgba(245,158,11,.7);
+}
+.timeline .area-1:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 32px -16px rgba(124,58,237,.6);
+  border-color:rgba(124,58,237,.6);
+}
+.timeline .area-2:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 32px -16px rgba(236,72,153,.6);
+  border-color:rgba(236,72,153,.62);
+}
+.timeline .extend:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 32px -16px rgba(245,158,11,.55);
+  border-color:rgba(245,158,11,.9);
+}
+@media(prefers-reduced-motion:reduce){
+  .timeline .gen:hover,
+  .timeline .area:hover,
+  .timeline .extend:hover{transform:none}
+}
+
 /* ---------- レスポンシブ ---------- */
 /* デザインシステムの md（820px）ではなく、図版が破綻する1000pxで畳む。
    グリッドを1カラムにし、軸レールと矢印は落とす */
@@ -201,4 +256,7 @@
   .timeline .area,.timeline .extend{grid-row:auto !important}
   .timeline .extend{padding-left:24px}
   .timeline .extend::before,.timeline .extend::after{display:none}
+  /* 図版の右にチップを置く余白が無いので、下に回して左寄せに戻す */
+  .timeline .area-row{flex-direction:column; align-items:stretch; gap:12px}
+  .timeline .chips-col{margin:0; flex-direction:row; flex-wrap:wrap; align-items:flex-start}
 }

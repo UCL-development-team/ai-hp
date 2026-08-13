@@ -64,13 +64,54 @@
   background:linear-gradient(90deg, rgba(6,182,212,.20), rgba(37,99,235,.20));
 }
 .page-head-in{position:relative;z-index:1;text-align:center}
-/* バッジだけは左寄せ（block + fit-content なので親の text-align に影響されない） */
+/* バッジだけは左寄せ（width:fit-content なので親の text-align に影響されない）。
+   帯はシアン→ブルーのグラデーションなので、ベタ塗りのピルだと色が喧嘩する。
+   帯の色をそのまま透かすガラス調にして、左端の光る点で「新しさ」を出す。
+   マークアップ:
+     <span class="page-head-badge">
+       <span class="badge-dot" aria-hidden="true"></span>2026<span class="badge-unit">年</span>
+       <span class="badge-sep" aria-hidden="true"></span>新設
+     </span> */
 .page-head-badge{
-  display:block;width:fit-content;margin:0 0 30px;
-  background:var(--p1);color:var(--txt-on-accent);
-  font-size:13px;font-weight:800;letter-spacing:.02em;
-  padding:7px 16px;border-radius:var(--radius-pill);
+  /* flex + fit-content で、中央寄せの親（.page-head-in）の中でも左端に置かれる */
+  display:flex;align-items:center;gap:10px;width:fit-content;margin:0 0 30px;
+  padding:8px 18px 8px 15px;border-radius:var(--radius-pill);
+  color:#eaf6ff;font-size:13px;font-weight:900;letter-spacing:.06em;line-height:1;
+  background:linear-gradient(115deg, rgba(6,182,212,.28), rgba(37,99,235,.20));
+  border:1px solid rgba(255,255,255,.24);
+  backdrop-filter:blur(8px);
+  /* 外に落ちるシアンの光と、上辺の白いハイライト（ガラスの厚みを出す） */
+  box-shadow:0 10px 26px -14px rgba(6,182,212,.9), inset 0 1px 0 rgba(255,255,255,.22);
 }
+/* 左端の光点。✦ の絵文字的な記号より作りが締まる。
+   ゆっくり明滅させて「稼働中のランプ」に見せる（点滅ではなく呼吸のリズム） */
+.page-head-badge .badge-dot{
+  flex:none;width:7px;height:7px;border-radius:50%;
+  background:var(--ucl-cyan);
+  box-shadow:0 0 0 4px rgba(6,182,212,.16), 0 0 14px rgba(6,182,212,.95);
+  animation:badge-dot-blink 2.6s ease-in-out infinite;
+}
+/* 明るさだけでなく色も動かす。点灯側は明るいシアン（--p4-light 相当）、
+   減光側は帯の終端と同じブルー（--ucl-blue）に寄せて、帯の中で色が呼吸して見えるようにする */
+@keyframes badge-dot-blink{
+  0%,100%{
+    background:#22d3ee; opacity:1;
+    box-shadow:0 0 0 4px rgba(34,211,238,.18), 0 0 14px rgba(34,211,238,.95);
+  }
+  50%{
+    background:var(--ucl-blue); opacity:.6;
+    box-shadow:0 0 0 7px rgba(37,99,235,.05), 0 0 6px rgba(37,99,235,.55);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .page-head-badge .badge-dot{animation:none}
+}
+/* 数字と単位はひとかたまり（親の gap を挟ませない） */
+.page-head-badge .badge-year{display:inline-flex;align-items:baseline}
+/* 「年」だけ一段小さく落として、数字を主役にする */
+.page-head-badge .badge-unit{font-size:.82em;font-weight:800;opacity:.75;margin-left:2px}
+/* 数字と語句を分ける縦罫 */
+.page-head-badge .badge-sep{flex:none;width:1px;height:12px;background:rgba(255,255,255,.28)}
 /* 素の h1（ヒーロー用の 88px）を上書きする */
 .page-head h1{
   font-size:clamp(28px,4.4vw,48px);line-height:1.25;letter-spacing:-.5px;
@@ -119,8 +160,9 @@
    SDD-Kit モーダル（外部ページの取り込み）
    モーダルで開く docs/assets/SDD-Kit/index.html はダークなページのため、
    デザインシステムの白いモーダル枠のままだと帯の色が食い違って見える。
-   このページのモーダルは1つ（SDD-Kit）だけなので、枠ごと SDD-Kit の配色に寄せる。
-   値は SDD-Kit 側の :root から採ったもの。
+   そこで枠ごと SDD-Kit の配色に寄せる。値は SDD-Kit 側の :root から採ったもの。
+   **セレクタは必ず #sddkit-modal に閉じること。** ページには他のモーダル
+   （#agile-modal＝白い文書モーダル）もあり、.modal で当てると巻き添えになる。
    ========================================================= */
 :root {
   --sdd-bg: #0b0f14;      /* SDD-Kit の --bg。ページ地色 */
@@ -128,20 +170,20 @@
   --sdd-txt: #e8eef5;     /* SDD-Kit の --text */
   --sdd-accent: #3ddc97;  /* SDD-Kit の --accent（グリーン） */
 }
-.modal{background:var(--sdd-bg);color:var(--sdd-txt)}
-.modal-head{border-bottom-color:var(--sdd-line)}
-.modal-link{color:var(--sdd-accent)}
-.modal-close{background:transparent;border:1px solid var(--sdd-line);color:var(--sdd-txt)}
-.modal-close:hover{background:var(--sdd-txt);color:var(--sdd-bg)}
-.modal-close:focus-visible{outline-color:var(--sdd-accent)}
+#sddkit-modal{background:var(--sdd-bg);color:var(--sdd-txt)}
+#sddkit-modal .modal-head{border-bottom-color:var(--sdd-line)}
+#sddkit-modal .modal-link{color:var(--sdd-accent)}
+#sddkit-modal .modal-close{background:transparent;border:1px solid var(--sdd-line);color:var(--sdd-txt)}
+#sddkit-modal .modal-close:hover{background:var(--sdd-txt);color:var(--sdd-bg)}
+#sddkit-modal .modal-close:focus-visible{outline-color:var(--sdd-accent)}
 /* モーダル下端の角丸（--radius-lg）が iframe の右下を斜めに切るため、
    スクロールバーの末端が欠けて見える。角丸の分だけ iframe を上げて逃がす。
    空いた帯はモーダルの地色（SDD-Kit と同色）なので継ぎ目は出ない */
-.modal-body{background:var(--sdd-bg);padding-bottom:var(--radius-lg)}
+#sddkit-modal .modal-body{background:var(--sdd-bg);padding-bottom:var(--radius-lg)}
 /* color-scheme は iframe 要素から中の文書へ伝わる（中の文書が自分で指定していない場合）。
    これで SDD-Kit 側を編集せずに、スクロールバーだけをダークにできる。
    SDD-Kit は他の案とも共用しているため、あちらには手を入れない */
-.modal-frame{background:var(--sdd-bg);color-scheme:dark}
+#sddkit-modal .modal-frame{background:var(--sdd-bg);color-scheme:dark}
 
 /* =========================================================
    Breakpoint — md (max-width:820px)
@@ -151,5 +193,5 @@
   .page-head{padding:44px 0 48px}
   .foot-cols{grid-template-columns:1fr;gap:40px;margin-bottom:40px}
   /* 全画面化して角丸が無くなるため、下端の逃げも不要 */
-  .modal-body{padding-bottom:0}
+  #sddkit-modal .modal-body{padding-bottom:0}
 }
