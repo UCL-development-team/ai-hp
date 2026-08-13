@@ -49,44 +49,8 @@
 
   .canvas{width:100%; max-width:1112px}
 
-  /* ---------- ヘッダー ---------- */
-  .kicker{
-    display:inline-flex; align-items:center; gap:10px;
-    font-size:12px; font-weight:900; letter-spacing:.16em;
-    color:var(--p1);
-    border:1px solid rgba(124,58,237,.28);
-    background:rgba(124,58,237,.06);
-    border-radius:999px;
-    padding:6px 14px 6px 12px;
-  }
-  .kicker::before{
-    content:""; width:6px; height:6px; border-radius:50%;
-    background:var(--p1); box-shadow:0 0 0 4px rgba(124,58,237,.15);
-  }
-
-  h1{
-    margin-top:18px;
-    font-size:38px; font-weight:900; letter-spacing:-1px; line-height:1.22;
-  }
-  h1 .hl{
-    color:var(--p2);
-    background:linear-gradient(180deg,transparent 64%,rgba(236,72,153,.20) 64%);
-    padding:0 .08em;
-  }
-  .lede{
-    margin-top:12px; max-width:880px;
-    color:var(--muted); font-size:15px;
-  }
-  .lede b{color:var(--ink); font-weight:800}
-
-  .rule{
-    height:1px; margin:22px 0 0;
-    background:linear-gradient(90deg,var(--line2),rgba(217,211,240,0));
-  }
-
   /* ---------- タイムライン本体 ---------- */
   .tl{
-    margin-top:30px;
     display:grid;
     grid-template-columns:126px 26px 296px 1fr;
     column-gap:22px;
@@ -226,7 +190,6 @@
   /* ---------- レスポンシブ（ブラウザ直接閲覧用。PNG化は1200px幅） ---------- */
   @media (max-width:1000px){
     body{padding:28px 20px 32px}
-    h1{font-size:29px}
     .tl{grid-template-columns:1fr; row-gap:14px}
     .rail{display:none}
     .when{text-align:left; flex-direction:row; justify-content:flex-start; align-items:baseline; gap:10px}
@@ -240,13 +203,8 @@
 <body>
 <main class="canvas">
 
-  <!-- ===== ヘッダー =====
-       見出し・リード文は掲載先ページ（plan-5/index.html の #evolution）が持つため、
-       図版側ではラベルのみを表示する -->
-  <header>
-    <span class="kicker">AI DRIVEN DEVELOPMENT / EVOLUTION</span>
-    <div class="rule"></div>
-  </header>
+  <!-- 見出し・リード文・ラベルは掲載先ページ（plan-5/index.html の #evolution）が
+       持つため、図版側はタイムライン本体のみ -->
 
   <!-- ===== タイムライン ===== -->
   <section class="tl">

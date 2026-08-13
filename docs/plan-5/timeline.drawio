@@ -7,9 +7,6 @@
                 <mxCell id="MzVt--DAruQML1r9yFfy-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#1a76d2;arcSize=8;align=right;verticalAlign=top;spacing=11;" value="&lt;h3 style=&quot;box-sizing: border-box; margin: 8px 0px 0px; padding: 0px; font-size: 26px; letter-spacing: -0.5px; font-family: &amp;quot;Helvetica Neue&amp;quot;, &amp;quot;Hiragino Sans&amp;quot;, &amp;quot;Noto Sans JP&amp;quot;, -apple-system, sans-serif; background-color: rgb(255, 255, 255);&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(18, 18, 18));&quot;&gt;仕様駆動型開発&lt;/span&gt;&lt;/h3&gt;" vertex="1">
                     <mxGeometry height="278" width="817" x="203" y="472" as="geometry"/>
                 </mxCell>
-                <mxCell id="hdr_kicker" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontColor=#1a76d2;fontSize=16;fontStyle=1" value="AI DRIVEN DEVELOPMENT / EVOLUTION" vertex="1">
-                    <mxGeometry height="24" width="600" x="23" y="10" as="geometry"/>
-                </mxCell>
                 <mxCell id="axis" edge="1" parent="1" style="endArrow=classic;html=1;strokeColor=#7a8896;" value="">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="163.84" y="61" as="sourcePoint"/>
