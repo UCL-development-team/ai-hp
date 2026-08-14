@@ -8,57 +8,60 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **公開・編集の対象はすべて [docs/](docs/) 配下です。** GitHub Pages（リポジトリ → Settings → Pages → `/docs`）で配信する想定のため、ページから参照されるもの（CSS・画像・図版）は必ず `docs/` の中に置き、そこを直接編集します。原本／配信用コピーの二重管理はしていません。
 
-**デザイン案は1案＝1ディレクトリです。** 案ごとに独立して育てられるよう、デザインシステムも案の中にコピーを持ちます。
+**運用サイト本体は `docs/` 直下です。** 採用した案（`plan-5`）を `docs/` 直下へ昇格させたもので、編集するのはここです。`plan-*/` は過去の検討履歴として凍結されています。
 
 ```
 docs/
-  index.html          デザイン案の一覧ページ（各案ディレクトリへのリンクのみ）
+  index.html          運用サイト本体（旧 plan-5）
+  index.md            掲載内容（コピー）の正
+  custom.css          個別対応（後述）
+  timeline.drawio     図版の元データ
+  timeline.css        図版のスタイル（マークアップは index.html の中）
+  design-system/      デザインシステム（原本。index.html がここを直接参照する）
+  assets/             画像・図版、`SDD-Kit/` の紹介ページ
   plan-1-dark/        ┐
-  plan-1-light/       │ 各デザイン案（下記の構成）
+  plan-1-light/       │ 過去の検討履歴（凍結。下記の構成）
   plan-2/ … plan-5/   ┘
-  design-system/      デザインシステムの原本（どのページからも参照されない）
-  assets/             全案で共用するもの（画像・図版、`SDD-Kit/` の紹介ページ）
 ```
-
-各案ディレクトリの中身:
 
 - `index.html` — ページ本体。
 - `index.md` — そのページの**掲載内容（コピー）の正**。文言を変更するときは md と html の両方を同期させる。
-- `design-system/` — その案専用のデザインシステム（後述）。インライン `<style>` 型の案（`plan-1-*`）は持たない。
-- `custom.css` — その案だけの**個別対応**（後述）。必要な案だけが持つ。
-- `timeline.drawio` / `timeline.css` — その案だけで使う図版（持たない案もある）。`plan-5` はマークアップを `index.html` に直接書き、スタイルだけを `timeline.css` に分ける方式（後述）。`plan-4` までは同じ内容をPNGに焼いて `<img>` で貼っていたため、`timeline.html` / `timeline.png` を持つ案もある。
+- `custom.css` — **個別対応**（後述）。
+- `timeline.drawio` / `timeline.css` — 図版（後述）。マークアップは `index.html` に直接書き、スタイルだけを `timeline.css` に分ける。`plan-4` までは同じ内容をPNGに焼いて `<img>` で貼っていたため、`timeline.html` / `timeline.png` を持つ案もある。
 
 その他:
 
 - [README.md](README.md) — リポジトリの入口。
 - `assets/`（リポジトリ直下） — ロゴの原本（`ucl-logo.svg`/`.png`、ダーク背景用の `ucl-logo-black.svg`/`.png`）。ページから参照する場合は `docs/assets/` 側にコピーして使う。
 
-**`plan-1`〜`plan-4` は過去の検討履歴として凍結されており、変更してはいけません。** 文言の統一などリポジトリ全体に関わる指摘であっても、反映先は最新の案（現状は `plan-5`）だけです。
+**`plan-1`〜`plan-5` は過去の検討履歴として凍結されており、変更してはいけません。** 各案は自分のディレクトリの中に当時のデザインシステムのコピーを抱えており、それによって当時の見た目のまま固定されています。文言の統一などリポジトリ全体に関わる指摘であっても、反映先は `docs/` 直下の運用サイトだけです。
+
+各案には `docs/plan-1-dark/` のような直接URLでアクセスします（一覧ページはありません）。
 
 ### 各ページの構成方式
 
 2種類が混在しているので、触る前にどちらか確認すること。
 
 - **インライン `<style>` 型** — `plan-1-dark/` / `plan-1-light/`。CSSはファイル冒頭の `<style>` ブロックに閉じており、色は `:root` のカスタムプロパティ（`--bg`、`--panel`、`--accent`、`--accent2` など）経由で管理されている。色をハードコードせず、これらの変数を再利用する。
-- **デザインシステム参照型** — `plan-2/` 〜 `plan-5/`。`<style>` ブロックを持たず、**自分のディレクトリ内の** `design-system/light/` の CSS だけで構成されている。このタイプのページの見た目を変えるときは、ページではなくその案のデザインシステム側を編集する。
+- **デザインシステム参照型** — `docs/` 直下の運用サイトと `plan-2/` 〜 `plan-5/`。`<style>` ブロックを持たず、`design-system/light/` の CSS だけで構成されている。このタイプのページの見た目を変えるときは、ページではなくデザインシステム側を編集する。
 
 ## デザインシステム
 
-**原本は [docs/design-system/](docs/design-system/)、実際に使われるのは各案の `docs/plan-<N>/design-system/`（原本のコピー）です。** 原本はどのページからも読み込まれません。
+**原本は [docs/design-system/](docs/design-system/) の1つだけで、運用サイト（`docs/index.html`）はこれを直接参照します。** 凍結された `plan-*/design-system/` は当時のコピーであり、原本とは切り離されています。
 
-- `light/` — ライト版（`tokens.css` / `components.css` / `design-system.md` / `tokens-usage-sample.html`）
+- `light/` — ライト版（`tokens.css` / `components.css` / `design-system.md` / `tokens-usage-sample.html`）。運用サイトが使うのはこちら。
 - `dark/` — ダーク版（`tokens.css` / `design-system.md` / `tokens-usage-sample.html`）。`components.css` は未整備。原本にのみ存在。
-- `components.js` — CSSだけで完結しない挙動（現状は Modal の開閉のみ）。配色・寸法を持たないため **light / dark 共用**で、テーマ別ディレクトリではなく `design-system/` 直下に置く。
+- `components.js` — CSSだけで完結しない挙動（Modal の開閉、Reveal、Disclosure）。配色・寸法を持たないため **light / dark 共用**で、テーマ別ディレクトリではなく `design-system/` 直下に置く。
 - `light-target.html` / `dark-target.html` — トークン化の元になった目標デザイン。原本にのみ存在。
 
 ### デザインシステム ＋ 個別対応 ＝ 運用サイト
 
-**デザインシステムには、そのテーマの中で汎用的に使える定義だけを置きます。** 外部サイトとの連携のように性質の違うものは**個別対応**とし、デザインシステムには入れず、案の直下の `custom.css` に書きます。
+**デザインシステムには、そのテーマの中で汎用的に使える定義だけを置きます。** 外部サイトとの連携のように性質の違うものは**個別対応**とし、デザインシステムには入れず、`custom.css` に書きます。
 
 | | 置き場所 | 例 |
 |---|---|---|
-| 汎用の定義 | `plan-<N>/design-system/` | ボタン、カード、モーダル、セクション見出し |
-| 個別対応 | `plan-<N>/custom.css` | 現行UCLサイトと揃えるための色・タイトル帯・共通フッター・サブヘッダー化した nav |
+| 汎用の定義 | `docs/design-system/` | ボタン、カード、モーダル、セクション見出し |
+| 個別対応 | `docs/custom.css` | 現行UCLサイトと揃えるための色・タイトル帯・共通フッター・サブヘッダー化した nav |
 
 - 読み込み順は **tokens.css → components.css → custom.css**（個別対応が最後）。
 - 判断基準: **他のページでも同じものが使えるか。** 使えるならデザインシステム、特定の連携先に依存するなら個別対応。
@@ -66,8 +69,9 @@ docs/
 
 ### ルール
 
-- **編集するのは対象の案の中の `design-system/` だけ。** 原本や他案のコピーには触らない。原本は新しい案を作るときのコピー元としてのみ使う（コピー後の同期は不要）。
-- 案のHTMLからの読み込みパスは `design-system/light/...`（**案ディレクトリを基準とした**相対パス）。挙動が必要なページは、加えて `</body>` 直前で `components.js` を読む。
+- **大原則: 編集するのは原本（`docs/design-system/`）だけ。** 汎用的に使えるものは必ず原本に入れる。運用サイトは原本を直接読み込むので、コピーも同期作業も発生しない。
+- **凍結された `plan-*/design-system/` には触らない。** そこは当時の見た目を保存するためのスナップショットであり、原本の更新を配って回る対象ではない（配ると凍結が壊れる）。
+- HTMLからの読み込みパスは `design-system/light/...`（**ページと同じ階層を基準とした**相対パス）。挙動が必要なページは、加えて `</body>` 直前で `components.js` を読む。
   ```html
   <link rel="stylesheet" href="design-system/light/tokens.css">
   <link rel="stylesheet" href="design-system/light/components.css">
@@ -76,13 +80,13 @@ docs/
   ```
 - 読み込み順は **tokens.css → components.css**（後者が前者のカスタムプロパティに依存）。
 - 挙動を足すときは、テーマ別の値を `components.js` に持ち込まない。見た目は各テーマの `components.css`、JSはデータ属性（`data-modal-open` 等）でのフックに留めることで共用を保つ。
-- `components.css` は1つの案の中で複数箇所が共有している。**既存クラスの定義を変えるとページ全体に波及する。** 一部だけ見た目を変えたいときは、既存クラスを書き換えるのではなく修飾クラスを追加する（例: `.figure` に対する `.figure-flush`、`nav` に対する `.nav-sub`）。
+- `components.css` はページ内の複数箇所が共有している。**既存クラスの定義を変えるとページ全体に波及する。** 一部だけ見た目を変えたいときは、既存クラスを書き換えるのではなく修飾クラスを追加する（例: `.figure` に対する `.figure-flush`、`nav` に対する `.nav-sub`）。
 - コンポーネントを追加・変更したら、同じディレクトリの `design-system.md`（仕様書）も更新する。
 - ブレークポイントは md（`max-width:820px`）のみ。修飾クラスを足すときは、メディアクエリ内で基底クラスが上書きしている値がないか確認する。
 
 ## 図版の作り方
 
-元データは drawio（例: [docs/plan-5/timeline.drawio](docs/plan-5/timeline.drawio)）。それを再構成したHTMLを**ページに直接埋め込みます**（PNGには焼きません）。拡大しても滲まず、テキストが選択・検索・読み上げできます。
+元データは drawio（[docs/timeline.drawio](docs/timeline.drawio)）。それを再構成したHTMLを**ページに直接埋め込みます**（PNGには焼きません）。拡大しても滲まず、テキストが選択・検索・読み上げできます。
 
 - マークアップはページの `<figure class="figure figure-flush">` の中に置く。図版自身が面と余白を持つため、`figure-flush` で枠・背景・paddingを外してセクション背景と地続きに見せる。
 - スタイルは図版専用のCSSファイル（例: `timeline.css`）に分け、**すべてのセレクタをルートのクラス配下にスコープする**（例: `.timeline .chip{...}`）。ページ側のコンポーネントと名前が重なっても衝突しない。カスタムプロパティも `:root` ではなくルートのクラスに置き、接頭辞（`--tl-*`）を付ける。
@@ -94,5 +98,6 @@ docs/
 ## 作業時の注意
 
 - ビルド・lint・テストの工程はありません。変更を確認するときは対象のHTMLをブラウザで直接開くか、`docs/` を任意の静的ファイルサーバーで配信してください。
-- コンテンツは日本語です。コピーを編集するときは、対応する `docs/plan-<N>-<theme>.md` とHTMLの両方を一致させてください。
-- 問い合わせ先は案によって異なります。`plan-1-*` はプレースホルダーのメールアドレス（`contact@example.com`）のままで、本番公開前の変更が必要です。`plan-2` 以降は問い合わせフォーム（`https://www.ucl-group.co.jp/contact`）へのリンクになっています。
+- コンテンツは日本語です。コピーを編集するときは、[docs/index.md](docs/index.md) と [docs/index.html](docs/index.html) の両方を一致させてください。
+- 問い合わせ先は問い合わせフォーム（`https://www.ucl-group.co.jp/contact`）へのリンクです。凍結された `plan-1-*` だけはプレースホルダーのメールアドレス（`contact@example.com`）のままですが、公開対象ではないため変更不要です。
+- ページ内の画像・図版・`SDD-Kit/` は `docs/assets/` にあります。`docs/index.html` からは `assets/...`（`../` を付けない）で参照します。

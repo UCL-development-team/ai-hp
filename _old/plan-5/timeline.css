@@ -1,0 +1,289 @@
+/*
+  図版「AI開発の世代と私たちの立ち位置」— スタイル
+
+  **マークアップは index.html の #tech セクションの <figure> 内が正。**
+  以前はこの図版をPNGに焼いて <img> で貼っていたが、現在はHTMLのまま
+  埋め込んでいる（拡大しても滲まず、テキストが選択・検索・読み上げできる）。
+
+  読み込み順は tokens.css → components.css → custom.css → timeline.css。
+  **すべてのセレクタを .timeline 配下に閉じてある**ので、ページ側の
+  コンポーネント（.card / .chip 等と名前が重なるもの）には影響しない。
+
+  ■ 全体の大きさは1か所で変える
+      .timeline { --timeline-scale: 1 }   ← この数字だけを触る（0.9 なら9割）
+    zoom で実装しているため、縮めた分だけ図版の占める高さも詰まる
+    （transform:scale だと見た目だけ縮んで余白が残る）。
+
+  配色は design-system/light/tokens.css のパレットに揃えている
+  （--p1 パープル = AI支援型開発 / --p2 ピンク = 仕様駆動型開発 /
+    --p3 アンバー = これから / --p4 シアン）。元データ: timeline.drawio
+*/
+
+.timeline{
+  /* ▼ 全体倍率。ここだけで図版全体の大きさが決まる */
+  --timeline-scale: 1;
+
+  --tl-bg:#ffffff;
+  --tl-line:#e7e3f7;
+  --tl-line2:#d9d3f0;
+  --tl-ink:#0d0b1f;
+  --tl-muted:#5b5776;
+  --tl-dim:#8a86a6;
+
+  --tl-p1:#7c3aed;  --tl-p1-soft:#f3edff;  --tl-p1-ink:#5b21b6;
+  --tl-p2:#ec4899;  --tl-p2-soft:#fdf0f7;  --tl-p2-ink:#b3266e;
+  --tl-p3:#f59e0b;  --tl-p3-soft:#fff7e8;  --tl-p3-ink:#a35f06;
+
+  --tl-radius:18px;
+  --tl-shadow-sm:0 1px 2px rgba(13,11,31,.05), 0 8px 22px -16px rgba(13,11,31,.30);
+  --tl-shadow-p2:0 1px 3px rgba(236,72,153,.14), 0 26px 50px -30px rgba(236,72,153,.75);
+
+  zoom: var(--timeline-scale);
+
+  /* 地色は持たない。掲載先セクションの背景（白でも --bg2 でも）に馴染ませる */
+  color:var(--tl-ink);
+  font-family:"Helvetica Neue","Hiragino Sans","Noto Sans JP",-apple-system,sans-serif;
+  font-feature-settings:"palt" 1;
+  line-height:1.7;
+  display:flex;
+  justify-content:center;
+}
+.timeline *{box-sizing:border-box;margin:0;padding:0}
+
+.timeline .canvas{width:100%; max-width:1112px}
+
+/* ---------- タイムライン本体 ---------- */
+.timeline .tl{
+  display:grid;
+  /* 最終列は minmax(0,1fr)。素の 1fr だと中身の最小幅で列が押し広げられ、
+     図版の右にチップを置いたときに全体がはみ出す */
+  grid-template-columns:126px 26px 296px minmax(0,1fr);
+  column-gap:22px;
+  row-gap:16px;
+  align-items:stretch;
+}
+
+/* 左：年次 */
+/* 右の領域カードが図版ぶん高くなるため、年次・ノード・世代カードは
+   行の高さに対して縦センターで揃える（上寄せだと下に大きな空白が出る） */
+.timeline .when{
+  display:flex; flex-direction:column; justify-content:center;
+  text-align:right;
+}
+.timeline .when .d{font-size:21px; font-weight:900; letter-spacing:-.5px; color:var(--tl-muted)}
+.timeline .when .t{
+  margin-top:6px; font-size:10.5px; font-weight:900; letter-spacing:.14em; color:var(--tl-dim);
+}
+.timeline .when.is-now .d{color:var(--tl-p2)}
+.timeline .when.is-now .t{color:var(--tl-p2)}
+.timeline .when.is-next .d{color:var(--tl-p3)}
+.timeline .when.is-next .t{color:var(--tl-p3-ink)}
+
+/* 中：軸レール＋ノード */
+.timeline .rail{position:relative}
+.timeline .rail::before{
+  content:""; position:absolute; left:50%; transform:translateX(-50%);
+  top:-8px; bottom:-8px; width:2px;
+  background:var(--tl-line2);
+}
+.timeline .rail::after{
+  content:""; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:12px; height:12px; border-radius:50%;
+  background:var(--tl-bg); border:2px solid var(--tl-line2);
+}
+.timeline .rail.is-now::before{background:linear-gradient(180deg,rgba(236,72,153,.85),rgba(236,72,153,.35))}
+.timeline .rail.is-now::after{border-color:var(--tl-p2); background:var(--tl-p2); box-shadow:0 0 0 5px rgba(236,72,153,.16)}
+.timeline .rail.is-next::before{background:linear-gradient(180deg,rgba(245,158,11,.55),rgba(245,158,11,0))}
+.timeline .rail.is-next::after{border-color:var(--tl-p3); background:var(--tl-bg)}
+
+/* 右1：世代カード */
+.timeline .gen{
+  border:1px solid var(--tl-line); border-radius:var(--tl-radius);
+  background:var(--tl-bg);
+  box-shadow:var(--tl-shadow-sm);
+  padding:18px 22px 20px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+.timeline .gen .no{
+  display:flex; align-items:center; gap:8px;
+  font-size:11px; font-weight:900; letter-spacing:.14em; color:var(--tl-dim);
+}
+.timeline .gen .no::before{content:""; width:14px; height:1px; background:currentColor; opacity:.7}
+.timeline .gen h3{margin-top:9px; font-size:21px; font-weight:900; line-height:1.35; letter-spacing:-.5px}
+.timeline .gen p{margin-top:6px; font-size:13.5px; color:var(--tl-muted)}
+
+.timeline .gen.is-now{
+  border-color:rgba(236,72,153,.55);
+  background:linear-gradient(180deg,var(--tl-p2-soft),#ffffff 70%);
+  box-shadow:var(--tl-shadow-p2);
+}
+.timeline .gen.is-now .no{color:var(--tl-p2-ink)}
+.timeline .gen.is-next{border-color:rgba(245,158,11,.48); background:linear-gradient(180deg,var(--tl-p3-soft),#ffffff 72%)}
+.timeline .gen.is-next .no{color:var(--tl-p3-ink)}
+
+/* 右2：領域ブラケット（AI支援型開発 / 仕様駆動型開発） */
+.timeline .area{
+  position:relative;
+  border:1px solid var(--tl-line2); border-radius:var(--tl-radius);
+  padding:20px 24px 22px 26px;
+  display:flex; flex-direction:column;
+}
+.timeline .area::before{
+  content:""; position:absolute; left:0; top:16px; bottom:16px; width:4px;
+  border-radius:0 4px 4px 0;
+}
+.timeline .area .cap{font-size:11px; font-weight:900; letter-spacing:.14em}
+/* 見出しは h3。掲載先セクションの h2 より1段下げてあるので、
+   本体UCLサイトの1ページとして読んでも見出しの階層が飛ばない */
+.timeline .area h3{margin-top:6px; font-size:26px; font-weight:900; letter-spacing:-.8px; line-height:1.25}
+.timeline .area .note{margin-top:8px; font-size:13.5px; color:var(--tl-muted); max-width:560px}
+/* 体制イメージ図（docs/assets/project/ の透過PNG）。
+   元画像は 1040×344px＝表示 520×172px なので、等倍のとき最も鮮明になる。
+   .extend の中では左パディングぶん幅が足りないため width:100% 側で縮む。 */
+.timeline .viz{display:block; width:100%; max-width:520px; height:auto; margin-top:16px}
+
+/* 図版と、その右の空きに置くチップ列を横に並べる行 */
+.timeline .area-row{display:flex; align-items:flex-end; gap:20px; margin-top:16px}
+/* flex の中では width:100% が行幅いっぱいを要求してチップを押し出すため、
+   幅は flex-basis で与えて縮められるようにする */
+.timeline .area-row .viz{margin-top:0; width:auto; flex:0 1 520px; min-width:0}
+
+.timeline .chips{margin-top:auto; padding-top:20px; display:flex; flex-wrap:wrap; gap:8px}
+/* 縦積み版。.area-row の中で右端に寄せる */
+.timeline .chips-col{
+  margin:0 0 0 auto; padding-top:0;
+  flex-direction:column; align-items:flex-end; flex-wrap:nowrap;
+}
+.timeline .chip{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:12.5px; font-weight:800; color:var(--tl-muted);
+  border:1px solid var(--tl-line2); background:var(--tl-bg);
+  border-radius:999px; padding:7px 14px;
+  white-space:nowrap;
+}
+
+.timeline .area-1{background:linear-gradient(115deg,var(--tl-p1-soft),rgba(255,255,255,.35) 62%); border-color:rgba(124,58,237,.34)}
+.timeline .area-1::before{background:var(--tl-p1)}
+.timeline .area-1 .cap{color:var(--tl-p1)}
+.timeline .area-1 .chip{border-color:rgba(124,58,237,.28); color:var(--tl-p1-ink); background:rgba(255,255,255,.8)}
+
+.timeline .area-2{background:linear-gradient(115deg,var(--tl-p2-soft),rgba(255,255,255,.35) 62%); border-color:rgba(236,72,153,.38)}
+.timeline .area-2::before{background:var(--tl-p2)}
+.timeline .area-2 .cap{color:var(--tl-p2-ink)}
+.timeline .area-2 .chip{border-color:rgba(236,72,153,.26); color:var(--tl-p2-ink); background:rgba(255,255,255,.82)}
+
+/* 自社フレームワークの強調チップ */
+.timeline .chip.own{
+  color:#fff; border-color:transparent;
+  background:linear-gradient(100deg,var(--tl-p1),var(--tl-p2));
+  box-shadow:0 8px 20px -10px rgba(236,72,153,.85);
+}
+.timeline .chip.own::before{content:"★"; font-size:11px}
+
+/* 右3：G4 への拡張ノート */
+.timeline .extend{
+  position:relative;
+  border:1px dashed rgba(245,158,11,.62);
+  border-radius:var(--tl-radius);
+  background:linear-gradient(100deg,rgba(245,158,11,.10),rgba(245,158,11,0) 66%);
+  padding:20px 24px 20px 76px;
+  display:flex; flex-direction:column; justify-content:center;
+}
+/* 上の「仕様駆動型開発」から降りてくる矢印 */
+.timeline .extend::before{
+  content:""; position:absolute; left:41px; top:-16px; width:2px; height:34px;
+  background:linear-gradient(180deg,rgba(236,72,153,.85),var(--tl-p3));
+}
+.timeline .extend::after{
+  content:""; position:absolute; left:36px; top:16px;
+  width:0; height:0;
+  border-top:9px solid var(--tl-p3);
+  border-left:6px solid transparent;
+  border-right:6px solid transparent;
+}
+.timeline .extend .cap{font-size:11px; font-weight:900; letter-spacing:.14em; color:var(--tl-p3-ink)}
+.timeline .extend p{margin-top:5px; font-size:15px; font-weight:700; line-height:1.6}
+.timeline .extend p b{color:var(--tl-p3-ink)}
+
+/* ---------- ホバー ----------
+   7つのボックス（世代カード4 ＋ 領域2 ＋ 拡張ノート1）を、ページ側のカードと
+   同じように浮かせる。影の色はそれぞれの枠色に合わせる */
+.timeline .gen,
+.timeline .area,
+.timeline .extend{
+  transition:transform var(--transition-base),box-shadow var(--transition-base),border-color var(--transition-fast);
+}
+.timeline .gen:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 28px -14px rgba(13,11,31,.42);
+  border-color:var(--tl-line2);
+}
+.timeline .gen.is-now:hover{
+  box-shadow:0 1px 3px rgba(236,72,153,.14), 0 32px 58px -28px rgba(236,72,153,.95);
+  border-color:rgba(236,72,153,.75);
+}
+.timeline .gen.is-next:hover{
+  box-shadow:0 14px 30px -16px rgba(245,158,11,.7);
+  border-color:rgba(245,158,11,.7);
+}
+.timeline .area-1:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 32px -16px rgba(124,58,237,.6);
+  border-color:rgba(124,58,237,.6);
+}
+.timeline .area-2:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 32px -16px rgba(236,72,153,.6);
+  border-color:rgba(236,72,153,.62);
+}
+.timeline .extend:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 32px -16px rgba(245,158,11,.55);
+  border-color:rgba(245,158,11,.9);
+}
+@media(prefers-reduced-motion:reduce){
+  .timeline .gen:hover,
+  .timeline .area:hover,
+  .timeline .extend:hover{transform:none}
+}
+
+/* ---------- レスポンシブ ---------- */
+/* デザインシステムの md（820px）ではなく、図版が破綻する幅で畳む。
+   グリッドを1カラムにし、軸レールと矢印は落とす。
+
+   ■ 畳む幅を --content-max-width（1140px）に合わせている理由
+     .wrap は max-width:1140px（内側は 1092px）で頭打ちになる。つまり横並びの
+     タイムラインが取れる幅は、ビューポートが 1140px を超えていれば常に 1092px で一定。
+     ここより狭い幅で横並びを維持すると、最終列（体制図＋チップ）だけが押し潰される
+     中途半端な状態が生まれる（1024×768 のプロジェクタがちょうどこの帯に入る）。
+     畳む幅を 1140px に置くことで、横並びは「常に 1092px」か「1カラム」かの
+     2状態だけになり、途中の潰れた状態を作らない。
+     **ブラウザズームでもこの境界をまたぐ**（1600px 画面の 150% ＝ 1067px 相当）ため、
+     客先で投影しながら拡大したときの見え方にも直結する。 */
+@media (max-width:1140px){
+  .timeline .tl{grid-template-columns:1fr; row-gap:14px}
+  .timeline .rail{display:none}
+  .timeline .when{text-align:left; flex-direction:row; justify-content:flex-start; align-items:baseline; gap:10px}
+  .timeline .gen{justify-content:flex-start}
+  /* 行番号（HTML側のインライン style="grid-row:N"）を全部の子で解除する。
+     .area/.extend だけ解除しても、.when と .gen には行番号が残るため、
+     1カラムのグリッドに同じ行番号の要素が2つ入り、暗黙の2列目が生成されて
+     横並びになってしまう（年次｜世代カード、さらに領域カードが半幅で2つ並ぶ）。
+     子をまとめて auto に戻せば、DOM順のとおりに縦一列で積まれる:
+       G1 → G2 → FOCUS AREA 01 → G3 → FOCUS AREA 02 → G4 → NEXT
+     stylesheet の !important は通常のインライン宣言に優先するため、
+     HTML を書き換えずにここで打ち消せる。 */
+  .timeline .tl > *{grid-row:auto !important}
+  .timeline .extend{padding-left:24px}
+  .timeline .extend::before,.timeline .extend::after{display:none}
+  /* 図版の右にチップを置く余白が無いので、下に回して左寄せに戻す */
+  .timeline .area-row{flex-direction:column; align-items:stretch; gap:12px}
+  /* **縦積みでは flex の主軸が縦になる。** 横並び用の flex:0 1 520px を残したままだと
+     520px が「幅」ではなく「高さ」の基準として解釈され、align-items:stretch で幅も
+     枠いっぱいに広がるため、画像が縦に引き伸ばされる。
+     .area-row を使っているのは FOCUS AREA 01 だけなので、ここだけ他の2つの図
+     （素の .viz が効く FOCUS AREA 02 / 拡張ノート）と違う見え方になっていた。
+     幅で決まる素の指定に戻す */
+  .timeline .area-row .viz{flex:none; width:100%; max-width:520px}
+  .timeline .chips-col{margin:0; flex-direction:row; flex-wrap:wrap; align-items:flex-start}
+}

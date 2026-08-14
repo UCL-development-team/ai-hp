@@ -15,6 +15,8 @@
   --bg2: #f4f2ff;     /* セクション背景・パネル面（淡いラベンダー） */
   --panel: #f4f2ff;   /* feature panel 等の面背景（= --bg2） */
   --line: #e7e3f7;    /* ボーダー・区切り線 */
+  --line-on-accent: rgba(255, 255, 255, .28);  /* アクセント面（カラーカード）上の区切り線 */
+  --panel-on-accent: rgba(255, 255, 255, .16); /* 同・面（ラベル等の地色） */
   --ink: #0d0b1f;     /* 反転ブロック（.big）の背景 */
   --overlay: rgba(13, 11, 31, .55); /* モーダルの背景（--ink の55%） */
 
@@ -42,7 +44,14 @@
   --accent2: var(--p2);
 
   /* --- Gradients --- */
-  --gradient-text: linear-gradient(100deg, var(--p1), var(--p2) 55%, var(--p3)); /* .gr（文字） */
+  /* 文字グラデーション（.gr / .gr2〜.gr5）。同じ配色が続くと単調になるため、
+     セクションごとに使い分ける。読みやすさのため、弱い色（--p3 / --p4）は
+     終端側にだけ置き、語の先頭には濃い --p1 / --p2 を置く */
+  --gradient-text: linear-gradient(100deg, var(--p1), var(--p2) 55%, var(--p3)); /* .gr（3色・ヒーロー） */
+  --gradient-text-2: linear-gradient(100deg, var(--p1), var(--p4));              /* .gr2 パープル→シアン */
+  --gradient-text-3: linear-gradient(100deg, var(--p2), var(--p1));              /* .gr3 ピンク→パープル */
+  --gradient-text-4: linear-gradient(100deg, var(--p2), var(--p4));              /* .gr4 ピンク→シアン */
+  --gradient-text-5: linear-gradient(100deg, var(--p1), var(--p4) 55%, var(--p2)); /* .gr5 3色・パープル→シアン→ピンク */
   --gradient-btn: linear-gradient(100deg, var(--p1), var(--p2));                 /* .btn-p */
   --gradient-cta: linear-gradient(110deg, var(--p1), var(--p2));                 /* .cta 面 */
   --gradient-card-1: linear-gradient(150deg, var(--p1), var(--p1-light));
@@ -59,6 +68,9 @@
   /* --- Shadow --- */
   --shadow-btn: 0 10px 30px rgba(124, 58, 237, .35);   /* --p1 の35% */
   --shadow-modal: 0 30px 90px rgba(13, 11, 31, .35);   /* --ink の35% */
+  --shadow-panel: 0 2px 14px -6px rgba(13, 11, 31, .16);        /* 白パネル（.cat-group）。白背景でも面が沈まないように */
+  --shadow-card: 0 14px 34px -14px rgba(13, 11, 31, .30);       /* カラーカードの接地感 */
+  --shadow-card-hover: 0 28px 54px -18px rgba(13, 11, 31, .38); /* 同・ホバー時 */
 
   /* --- Radius scale --- */
   --radius-sm: 14px;    /* 小さい面 */
@@ -73,6 +85,9 @@
   --content-padding-x: 24px;
   --section-padding-y: 100px;
   --nav-height: 70px;
+  /* sticky な要素（6.14 の .cat-nav 等）が張り付く位置。既定はナビの高さ。
+     ナビの高さを変えるページは、custom.css 側でこの値も上書きする */
+  --sticky-top: var(--nav-height);
   --gap-grid: 24px;   /* .cards */
   --gap-feat: 26px;   /* .why */
   --gap-stats: 40px;  /* .bigrow */

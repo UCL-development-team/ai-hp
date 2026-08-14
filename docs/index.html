@@ -3,14 +3,682 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Innovation 部 — デザイン案 一覧</title>
+<title>AI Innovation 部 | AIで、次を、つくる。</title>
+<meta name="description" content="AI Innovation 部（AI Innovation Division）は、受託開発とAI人材支援の2領域で、AIによる開発（支援型・仕様駆動型）と、AIを搭載するシステムの開発に取り組む新設部門です。">
+
+<!-- デザインシステム ＋ 個別対応 ＝ 運用サイト。読み込み順は tokens → components → custom
+     tokens.css     : 色・角丸・スペーシング・タイポグラフィ・モーションのトークン定義
+     components.css : nav / btn / card / big / figure / why / cta 等のコンポーネント実装
+     custom.css     : このページ固有の個別対応（現行UCLサイトとの連携部分）
+     仕様書         : design-system/light/design-system.md -->
+<link rel="stylesheet" href="design-system/light/tokens.css">
+<link rel="stylesheet" href="design-system/light/components.css">
+<link rel="stylesheet" href="custom.css">
+<!-- 図版「AI開発の世代と私たちの立ち位置」専用。セレクタは .timeline 配下に閉じてある。
+     図版全体の大きさは、このファイル冒頭の --timeline-scale 1か所で変えられる -->
+<link rel="stylesheet" href="timeline.css">
 </head>
 <body>
-    <a href="plan-1-dark/">1-dark</a><br/>
-    <a href="plan-1-light/">1-light</a><br/>
-    <a href="plan-2/">2-light</a><br/>
-    <a href="plan-3/">3-light</a><br/>
-    <a href="plan-4/">4-light</a><br/>
-    <a href="plan-5/">5-light</a><br/>
+
+<!-- 現行UCLサイトのヘッダー配下に差し込む前提のサブヘッダー。
+     .nav-sub で高さを詰め、問い合わせ導線（ヘッダー側にある）は持たせない -->
+<nav class="nav-sub">
+  <div class="wrap nav-in">
+    <div class="logo">AI <span>Innovation</span> 部</div>
+    <div class="nav-links">
+      <a href="#service">領域</a>
+      <a href="#tech">AIによる開発</a>
+      <a href="#ai-system">AIを搭載するシステム</a>
+      <a href="#values">価値観</a>
+      <a href="#why">強み</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ページタイトル帯 — 現行UCLサイトの各事業ページ（例: /ict-solutions）と同じ体裁。
+     ヘッダー配下に差し込んだときに本体サイトの1ページとして繋がって見えるようにする -->
+<div class="page-head">
+  <div class="wrap page-head-in">
+    <span class="page-head-badge"><span class="badge-dot" aria-hidden="true"></span><span class="badge-year">2026<span class="badge-unit">年</span></span><span class="badge-sep" aria-hidden="true"></span>新設</span>
+    <h1>AIイノベーション</h1>
+    <p class="page-head-en">AI Innovation</p>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <h2 class="hero-h">AIで、次を、<br><span class="gr">つくる。</span></h2>
+    <p class="lede">AIによる支援から、仕様駆動型による自律開発、そして人材として現場へ。AI Innovation 部は、先端技術を“実際に使える形”に変えていく部隊です。<button type="button" class="link-inline" data-modal-open="agile-modal">アジャイルの価値観</button>を重視し、試すだけで終わらせず、成果まで走り切ります。</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-p">一緒に始める →</a>
+      <a href="#service" class="btn btn-o">取り組みを見る</a>
+    </div>
+  </div>
+</header>
+
+<section id="service">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>Focus Areas</div>
+    <h2 class="s-title" data-reveal="1">やることは、<span class="gr2">2つ</span>。</h2>
+    <p class="s-sub" data-reveal="2">AI Innovation 部が担う領域。お客様・社内のフェーズに合わせて動きます。</p>
+    <div class="cards" data-reveal="3">
+      <div class="card c1">
+        <div class="n">01</div>
+        <h3>受託開発</h3>
+        <p>要件定義から設計・実装・運用まで、開発一式をお預かりします。<strong>AIを前提とした進め方</strong>で、動くものを早く出し、実物で確かめながら仕上げます。</p>
+        <div class="k"># 受託開発　# 持ち帰り開発　# 要件定義〜運用</div>
+      </div>
+      <div class="card c4">
+        <div class="n">02</div>
+        <h3>AI人材支援</h3>
+        <p>AI活用に強い人材が、SES的に現場へ。チームに入り込み、AIを前提とした開発を回しながら、内製化まで伴走します。</p>
+        <div class="k"># SES　# 常駐・伴走　# 内製化</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 図版はHTML（timeline.css）で地色を持たないため、このセクションの背景色は自由に変えられる
+     （PNGを貼っていた頃は --panel で焼いた地色に合わせて section-alt 固定だった） -->
+<section id="tech" class="section-alt">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>AI-driven Development</div>
+    <h2 class="s-title" data-reveal="1">AIで、<span class="gr3">つくり方</span>を変える。</h2>
+    <p class="s-sub" data-reveal="2">AI自体を道具にして、開発の進め方そのものを変える2つの技術。受託でも人材支援でも、案件のフェーズに合わせて使い分け、組み合わせます。</p>
+    <div class="cards" data-reveal="3">
+      <div class="card c1">
+        <span class="card-tag">AI-assisted</span>
+        <div class="n">01</div>
+        <h3>AIによる支援型開発</h3>
+        <p>コード生成、ドキュメント出力、自動テストなど、特定タスクをAIが強化。<strong>既存の開発フローを保ったまま</strong>、生産性を底上げします。</p>
+        <div class="k"># コード生成　# ドキュメント出力　# 自動テスト(E2E)</div>
+      </div>
+      <div class="card c2">
+        <span class="card-tag">AI-driven</span>
+        <div class="n">02</div>
+        <h3>AIによる仕様駆動型開発</h3>
+        <p>AIがより広い範囲を自律的に開発。弊社オリジナルFramework「SDD-Kit」を核に、設計＝コードの一貫性を保ちながら、<strong>仕様から実装まで一気に</strong>。<strong>設計とコードは双方向で同期</strong>し、どちらを更新しても乖離しない状態を保ちます。</p>
+        <div class="k"># SDD-Kit　# GitHub Spec Kit　# AWS Kiro</div>
+        <!-- モーダル（#sddkit-modal）で開く。JS無効時は href の遷移にフォールバック -->
+        <a href="assets/SDD-Kit/index.html" class="btn btn-w btn-sm card-cta" data-modal-open="sddkit-modal">弊社オリジナル Framework「SDD-Kit」を詳しく見る<span class="arw">→</span></a>
+      </div>
+    </div>
+    <figure class="figure figure-flush" data-reveal>
+      <!-- 図版の元データ: docs/plan-5/timeline.drawio
+           マークアップはここが正、スタイルは timeline.css（すべて .timeline 配下にスコープ済み）。
+           **全体の大きさは timeline.css の --timeline-scale 1か所で変えられる。**
+           caption は図版の導入文のため図版より前に置いている -->
+      <figcaption>プロンプト → コンテキスト → ハーネス → ループ。世代ごとに移り変わる主戦場の中で、私たちの活動が何処を担っているかを整理しました。</figcaption>
+      <div class="timeline">
+        <div class="canvas">
+          <!-- section ではなく div。section だとページ側の section{padding:100px 0} を拾う -->
+          <div class="tl">
+
+            <!-- 第1世代 -->
+            <div class="when" style="grid-row:1"><span class="d">〜2024</span><span class="t">PAST</span></div>
+            <div class="rail" style="grid-row:1"></div>
+            <article class="gen" style="grid-row:1">
+              <span class="no">第1世代 / G1</span>
+              <h3>プロンプト<br>エンジニアリング</h3>
+              <p>「どう聞くか」を最適化する</p>
+            </article>
+
+            <!-- 第2世代 -->
+            <div class="when" style="grid-row:2"><span class="d">2025</span><span class="t">RECENT</span></div>
+            <div class="rail" style="grid-row:2"></div>
+            <article class="gen" style="grid-row:2">
+              <span class="no">第2世代 / G2</span>
+              <h3>コンテキスト<br>エンジニアリング</h3>
+              <p>「何を渡すか」を設計する</p>
+            </article>
+
+            <!-- 領域①：AI支援型開発（G1〜G2 を包含） -->
+            <aside class="area area-1" style="grid-row:1 / span 2">
+              <span class="cap">FOCUS AREA 01</span>
+              <!-- 図版内の見出しは h3。セクション見出し（#tech の h2）より必ず1段下げる。
+                   本体UCLサイトの1ページとして差し込んだときに、見出しの階層が
+                   h1（ページタイトル帯）→ h2（セクション）→ h3（カード・図版）で通るようにするため -->
+              <h3>AI支援型開発</h3>
+              <p class="note">既存の開発フローを保ったまま、コード生成・ドキュメント出力・自動テストといった特定タスクをAIで底上げする領域。</p>
+              <!-- 図の右の空きに、この領域で強化できるタスクを縦に並べる -->
+              <div class="area-row">
+                <img class="viz" src="assets/project/AI-assisted/ai-assisted.png" alt="AI支援型開発の体制イメージ。エンジニアが個別にAIへ指示を出し、プロジェクト体制は従来と同じ">
+                <div class="chips chips-col">
+                  <span class="chip">コード生成</span>
+                  <span class="chip">ドキュメント出力</span>
+                  <span class="chip">自動テスト(E2E)</span>
+                </div>
+              </div>
+              <div class="chips">
+                <span class="chip">Claude Code</span>
+                <span class="chip">Codex</span>
+              </div>
+            </aside>
+
+            <!-- 第3世代（NOW）
+                 **第3・第4世代の年次は相対表現にしてある。** ここに具体的な年月を書くと、
+                 その時期を過ぎた瞬間に「更新が止まっているページ」に見えるため。
+                 過去（第1・第2世代）は事実として動かないので年次のままでよい -->
+            <div class="when is-now" style="grid-row:3"><span class="d">現在</span><span class="t">★ NOW</span></div>
+            <div class="rail is-now" style="grid-row:3"></div>
+            <article class="gen is-now" style="grid-row:3">
+              <span class="no">第3世代 / G3 ★</span>
+              <h3>ハーネス<br>エンジニアリング</h3>
+              <p>ルール・ツール・検証ゲートを設計する</p>
+            </article>
+
+            <!-- 領域②：仕様駆動型開発（G3） -->
+            <aside class="area area-2" style="grid-row:3">
+              <span class="cap">FOCUS AREA 02</span>
+              <h3>仕様駆動型開発</h3>
+              <p class="note">仕様から実装まで一気に。設計とコードを双方向で同期させ、乖離しない状態を仕組みで担保する領域。</p>
+              <img class="viz" src="assets/project/AI-driven/ai-driven.png" alt="仕様駆動型開発の体制イメージ。少数のアーキテクトが仕様・ルール・検証ゲートを設計し、AIが実装、ゲートで自動検証、増分ごとに人が承認して次の一周へ進む">
+              <div class="chips">
+                <span class="chip own">SDD-Kit</span>
+                <span class="chip">GitHub Spec Kit</span>
+                <span class="chip">AWS Kiro</span>
+              </div>
+            </aside>
+
+            <!-- 第4世代（NEXT） -->
+            <div class="when is-next" style="grid-row:4"><span class="d">これから</span><span class="t">NEXT</span></div>
+            <div class="rail is-next" style="grid-row:4"></div>
+            <article class="gen is-next" style="grid-row:4">
+              <span class="no">第4世代 / G4</span>
+              <h3>ループ<br>エンジニアリング</h3>
+              <p>AIが自律的に回し続ける仕組み</p>
+            </article>
+
+            <!-- G4 への拡張ノート -->
+            <aside class="extend" style="grid-row:4">
+              <span class="cap">NEXT — EXTENDING</span>
+              <p><b>SDD-Kit</b> は ループエンジニアリング対応できるように拡張を続けます。</p>
+              <img class="viz" src="assets/project/AI-loop/ai-loop.png" alt="ループエンジニアリングの体制イメージ。計画・実装・検証・修正をAIが自律的に回し、人が関与するのは終了条件と逸脱時だけ">
+            </aside>
+
+          </div>
+        </div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section id="ai-system">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>AI-powered Systems</div>
+    <h2 class="s-title" data-reveal="1"><span class="gr4">AI</span>を、つくるものに<span class="gr4">載せる</span>。</h2>
+    <p class="s-sub" data-reveal="2">つくり方だけでなく、つくるものにも。チャット、検索、要約、判定といったAIの働きを、システムの機能として実装します。</p>
+    <!-- 分類への目次。色（cat-p1〜4）と採番は各分類の見出しと対応させる -->
+    <!-- sticky なので data-reveal は付けない（フェードインの transform と競合する） -->
+    <div class="cat-nav">
+      <a class="cat-p1" href="#cat-01"><span class="n">01</span>探す・引き出す</a>
+      <a class="cat-p2" href="#cat-02"><span class="n">02</span>読み取る・仕分ける</a>
+      <a class="cat-p3" href="#cat-03"><span class="n">03</span>つくる</a>
+      <a class="cat-p4" href="#cat-04"><span class="n">04</span>応対する</a>
+      <a class="cat-p1" href="#cat-05"><span class="n">05</span>見抜く</a>
+      <a class="cat-p2" href="#cat-06"><span class="n">06</span>動かす</a>
+      <button type="button" class="cat-toggle" data-details-toggle="system-catalog"
+              data-label-open="全て開く" data-label-close="全て閉じる">全て閉じる</button>
+    </div>
+
+    <!-- 案件カタログ。AIで強化したい機能で6分類し、案件タイプごとに
+         「依頼内容 / 人材の系統 / 技術タグ」を並べる。実装は design-system の 6.14 Catalog -->
+    <div class="catalog" id="system-catalog">
+
+      <details class="cat-group cat-p1" id="cat-01" data-reveal open>
+        <summary class="cat-head"><span class="n">01</span><h3>探す・引き出す</h3><span class="sub">検索・知識活用系</span></summary>
+        <div class="cat-item">
+          <div>
+            <div class="name">RAG案件</div>
+            <div class="desc">社内文書・ナレッジの検索と根拠付き回答</div>
+          </div>
+          <div class="cat-tags"><span>ベクトル検索</span><span>埋め込み</span><span>チャンク設計</span><span>リランキング</span></div>
+          <div class="role">LLMアプリ</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">セマンティック検索／検索基盤刷新</div>
+            <div class="desc">既存の全文検索を意味検索に置換</div>
+          </div>
+          <div class="cat-tags"><span>OpenSearch／Elasticsearch</span><span>ハイブリッド検索</span><span>pgvector・Qdrant等</span></div>
+          <div class="role">検索エンジニア＋LLM</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">GraphRAG／ナレッジグラフ案件</div>
+            <div class="desc">関係性をたどる検索、構造化知識の構築</div>
+          </div>
+          <div class="cat-tags"><span>ナレッジグラフ</span><span>Cypher／RDF</span><span>エンティティリンキング</span></div>
+          <div class="role">データモデリング系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">レコメンド案件</div>
+            <div class="desc">商品・コンテンツの推薦、パーソナライズ</div>
+          </div>
+          <div class="cat-tags"><span>協調フィルタリング</span><span>埋め込み</span><span>A/Bテスト</span></div>
+          <div class="role">機械学習系</div>
+        </div>
+      </details>
+
+      <details class="cat-group cat-p2" id="cat-02" data-reveal>
+        <summary class="cat-head"><span class="n">02</span><h3>読み取る・仕分ける</h3><span class="sub">文書処理系</span></summary>
+        <div class="cat-item">
+          <div>
+            <div class="name">帳票OCR／IDP案件</div>
+            <div class="desc">請求書・申請書の読み取りと基幹システム投入</div>
+          </div>
+          <div class="cat-tags"><span>Azure Document Intelligence</span><span>Google Document AI</span><span>AWS Textract</span><span>レイアウト解析</span></div>
+          <div class="role">文書処理系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">契約書レビュー（リーガルテック）</div>
+            <div class="desc">条項抽出、リスク判定、差分比較</div>
+          </div>
+          <div class="cat-tags"><span>長文処理</span><span>条項分類</span><span>根拠の提示</span></div>
+          <div class="role">LLMアプリ＋ドメイン知識</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">自然言語処理案件（分類・抽出）</div>
+            <div class="desc">問い合わせ振り分け、固有表現抽出、タグ付け</div>
+          </div>
+          <div class="cat-tags"><span>分類モデル</span><span>固有表現抽出（NER）</span><span>出力スキーマ制御</span></div>
+          <div class="role">自然言語処理系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">議事録・通話の構造化</div>
+            <div class="desc">音声から文字起こしし、要約・タスク抽出まで</div>
+          </div>
+          <div class="cat-tags"><span>音声認識</span><span>話者分離</span><span>要約</span></div>
+          <div class="role">音声＋LLM</div>
+        </div>
+      </details>
+
+      <details class="cat-group cat-p3" id="cat-03" data-reveal>
+        <summary class="cat-head"><span class="n">03</span><h3>つくる</h3><span class="sub">生成系</span></summary>
+        <div class="cat-item">
+          <div>
+            <div class="name">文書生成案件</div>
+            <div class="desc">提案書・報告書・返信文の下書き自動化</div>
+          </div>
+          <div class="cat-tags"><span>プロンプト設計</span><span>テンプレート統合</span><span>トーン制御</span></div>
+          <div class="role">LLMアプリ</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">画像生成案件</div>
+            <div class="desc">商品画像、バナー、デザイン案の生成</div>
+          </div>
+          <div class="cat-tags"><span>拡散モデル</span><span>ControlNet</span><span>LoRA</span><span>商用利用・権利処理</span></div>
+          <div class="role">生成画像系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">音声合成・ナレーション</div>
+            <div class="desc">読み上げ、多言語吹き替え</div>
+          </div>
+          <div class="cat-tags"><span>音声合成（TTS）</span><span>話者クローン</span><span>権利処理</span></div>
+          <div class="role">音声系</div>
+        </div>
+      </details>
+
+      <details class="cat-group cat-p4" id="cat-04" data-reveal>
+        <summary class="cat-head"><span class="n">04</span><h3>応対する</h3><span class="sub">対話系</span></summary>
+        <div class="cat-item">
+          <div>
+            <div class="name">チャットボット案件</div>
+            <div class="desc">社内ヘルプデスク、カスタマーサポート</div>
+          </div>
+          <div class="cat-tags"><span>対話設計</span><span>状態管理</span><span>RAG連携</span><span>エスカレーション設計</span></div>
+          <div class="role">LLMアプリ</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">ボイスボット／AI電話応対</div>
+            <div class="desc">IVR置換、一次受付の自動化</div>
+          </div>
+          <div class="cat-tags"><span>リアルタイム音声</span><span>割り込み処理</span><span>低レイテンシ設計</span><span>CTI連携</span></div>
+          <div class="role">音声＋リアルタイム系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">コンタクトセンター支援</div>
+            <div class="desc">通話要約、応対品質分析、FAQ自動更新</div>
+          </div>
+          <div class="cat-tags"><span>音声認識</span><span>感情・品質スコアリング</span></div>
+          <div class="role">音声＋分析系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">多言語・翻訳案件</div>
+            <div class="desc">多言語サポート、ドキュメント翻訳</div>
+          </div>
+          <div class="cat-tags"><span>翻訳品質評価</span><span>用語集管理</span></div>
+          <div class="role">自然言語処理系</div>
+        </div>
+      </details>
+
+      <details class="cat-group cat-p1" id="cat-05" data-reveal>
+        <summary class="cat-head"><span class="n">05</span><h3>見抜く</h3><span class="sub">検知・予測系</span></summary>
+        <div class="cat-item">
+          <div>
+            <div class="name">画像認識（コンピュータビジョン）案件</div>
+            <div class="desc">外観検査、物体検出、人物・車両検知</div>
+          </div>
+          <div class="cat-tags"><span>物体検出</span><span>セグメンテーション</span><span>PyTorch</span><span>アノテーション設計</span></div>
+          <div class="role">画像認識系</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">エッジAI案件</div>
+            <div class="desc">現場カメラ・機器上での推論</div>
+          </div>
+          <div class="cat-tags"><span>モデル軽量化</span><span>量子化</span><span>組込デバイス</span><span>リアルタイム制約</span></div>
+          <div class="role">画像認識＋組込</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">異常検知／予兆保全</div>
+            <div class="desc">設備故障の予兆、ログ異常検知</div>
+          </div>
+          <div class="cat-tags"><span>時系列異常検知</span><span>センサーデータ処理</span><span>IoT基盤</span></div>
+          <div class="role">機械学習＋制御・IoT</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">需要予測案件</div>
+            <div class="desc">在庫・来客・電力の予測</div>
+          </div>
+          <div class="cat-tags"><span>時系列予測</span><span>勾配ブースティング</span><span>特徴量設計</span></div>
+          <div class="role">データサイエンス</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">不正検知・与信スコアリング</div>
+            <div class="desc">金融の審査、不正取引検知</div>
+          </div>
+          <div class="cat-tags"><span>分類モデル</span><span>不均衡データ</span><span>説明可能性</span><span>規制対応</span></div>
+          <div class="role">機械学習＋金融ドメイン</div>
+        </div>
+      </details>
+
+      <details class="cat-group cat-p2" id="cat-06" data-reveal>
+        <summary class="cat-head"><span class="n">06</span><h3>動かす</h3><span class="sub">自動化・エージェント系</span></summary>
+        <div class="cat-item">
+          <div>
+            <div class="name">AIエージェント案件</div>
+            <div class="desc">手順を任せた多段実行、社内システム操作</div>
+          </div>
+          <div class="cat-tags"><span>Function Calling</span><span>MCP</span><span>状態管理</span><span>承認ゲート</span></div>
+          <div class="role">LLMアプリ上位</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">業務自動化（RPA×AI）</div>
+            <div class="desc">既存RPAの判断部分をAI化</div>
+          </div>
+          <div class="cat-tags"><span>RPA連携</span><span>例外処理設計</span><span>冪等性</span></div>
+          <div class="role">業務システム＋LLM</div>
+        </div>
+        <div class="cat-item">
+          <div>
+            <div class="name">ワークフロー・オーケストレーション</div>
+            <div class="desc">複数AI・複数システムをつなぐ実行基盤</div>
+          </div>
+          <div class="cat-tags"><span>ジョブ制御</span><span>リトライ</span><span>トレース</span></div>
+          <div class="role">バックエンド＋LLM</div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section id="values">
+  <div class="wrap">
+    <div class="big" data-reveal>
+      <div class="eyebrow" data-reveal>Values</div>
+      <h2 class="s-title" data-reveal="1">大事にするもの</h2>
+      <p class="s-sub" data-reveal="2">私たちは、<button type="button" class="link-inline" data-modal-open="agile-modal">アジャイルの価値観</button>を軸に開発を進めます。作り込んでから一度に出すのではなく、小さく動くものを積み重ね、実物で対話しながら正解に近づけていきます。</p>
+      <div class="bigrow">
+        <!-- 項目名は h3。セクション見出し（h2「大事にするもの」）の1段下で、
+             「強み」の3枚（.why .w h3）やカードと同じ階層に揃えている -->
+        <div>
+          <div class="num gr">01</div>
+          <h3><button type="button" class="link-inline" data-modal-open="increment-modal">インクリメント</button></h3>
+          <p>全部を一度に作らず、動く単位で少しずつ届ける。早く価値を出し、得たフィードバックを次の一手に活かします。</p>
+        </div>
+        <div>
+          <div class="num gr">02</div>
+          <h3>動くものが正</h3>
+          <p>計画書や議論よりも、動くコードで判断する。プロトタイプと実物をベースに意思決定します。</p>
+        </div>
+        <div>
+          <div class="num gr">03</div>
+          <h3>変化を歓迎</h3>
+          <p>要件もAI技術も変わる前提で、方向転換できる余地を残して設計します。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" class="section-alt">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>Why us</div>
+    <h2 class="s-title" data-reveal="1">なぜ、<span class="gr2">私たち</span>なのか。</h2>
+    <div class="why" data-reveal="3">
+      <div class="w">
+        <div class="e">🎯</div>
+        <h3>実装まで、やり切る</h3>
+        <p>デモやPoCで満足しません。実際の開発・業務に組み込み、成果として残るところまで責任を持ちます。</p>
+      </div>
+      <div class="w">
+        <div class="e">📈</div>
+        <h3>成果で語る</h3>
+        <p>人月ではなく、実現した価値で評価いただく。AIによる加速されたアジャイル開発の効果を、そのままメリットとして還元します。</p>
+      </div>
+      <div class="w">
+        <div class="e">🔒</div>
+        <h3>セキュリティ前提</h3>
+        <p>弊社で使用するLLMは、<strong>全てお預かりしたデータが学習に利用されない設定</strong>で運用しています。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta" data-reveal>
+      <h2>AIの一歩目、<br>今日から。</h2>
+      <p>ご相談・提案のご依頼はお気軽にどうぞ。</p>
+      <div class="hero-cta">
+        <!-- 現行UCLサイトに埋め込む前提のため、問い合わせフォームへは同一タブで遷移する -->
+        <a href="https://www.ucl-group.co.jp/contact" class="btn btn-w">相談を申し込む</a>
+        <!-- モーダル（#sddkit-modal）で開く。JS無効時は href の遷移にフォールバック -->
+        <a href="assets/SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- フッター — 現行UCLサイト（www.ucl-group.co.jp）のフッターを移植。
+     本体サイトに埋め込む前提のため、リンクはすべて同一タブで本体サイトへ遷移する -->
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="foot-brand">
+        <div class="foot-logo">UCL Group</div>
+        <p class="foot-corp">株式会社 ユー・シー・エル</p>
+        <p class="foot-info">
+          <!-- lucide: map-pin（本体サイトと同じアイコン） -->
+          <svg class="foot-ico foot-ico-top" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>〒150-0043<br>東京都渋谷区道玄坂1-18-3<br>プレミア道玄坂ビル7階</span>
+        </p>
+        <p class="foot-info">
+          <!-- lucide: phone -->
+          <svg class="foot-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/>
+          </svg>
+          <span>03-6821-8886</span>
+        </p>
+      </div>
+      <div class="foot-col-1">
+        <h3 class="foot-h">企業情報</h3>
+        <ul class="foot-links">
+          <li><a href="https://www.ucl-group.co.jp/company"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>会社概要</a></li>
+          <li><a href="https://www.ucl-group.co.jp/message"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>社長挨拶</a></li>
+          <li><a href="https://www.ucl-group.co.jp/history"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>会社沿革</a></li>
+          <li><a href="https://www.ucl-group.co.jp/service"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>事業案内</a></li>
+        </ul>
+      </div>
+      <div class="foot-col-2">
+        <h3 class="foot-h">事業領域</h3>
+        <ul class="foot-links">
+          <li><a href="https://www.ucl-group.co.jp/ict-solutions"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>ソリューション</a></li>
+          <li><a href="https://www.ucl-group.co.jp/engineering"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>エンジニアリング</a></li>
+          <li><a href="https://www.ucl-group.co.jp/our-services"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>自社サービス</a></li>
+          <li><a href="https://www.ucl-group.co.jp/new-energy"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>新エネルギー事業</a></li>
+          <li><a href="https://www.ucl-group.co.jp/consulting"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>コンサルティング</a></li>
+        </ul>
+      </div>
+      <div class="foot-col-3">
+        <h3 class="foot-h">その他</h3>
+        <ul class="foot-links">
+          <li><a href="https://www.ucl-group.co.jp/sdgs"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>SDGsへの取り組み</a></li>
+          <li><a href="https://www.ucl-group.co.jp/recruit"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>採用情報</a></li>
+          <li><a href="https://www.ucl-group.co.jp/privacy"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>プライバシーポリシー</a></li>
+          <li><a href="https://www.ucl-group.co.jp/contact"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>お問い合わせ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-btm">&copy; 2026 UCL Group. All rights reserved.</div>
+  </div>
+</footer>
+
+<!-- 6.13 Modal — CTAの「SDD-Kitを詳しく見る」から開き、assets/SDD-Kit/index.html を iframe で表示する。
+     iframe の src は初回オープン時に data-src から設定される（components.js） -->
+<dialog id="sddkit-modal" class="modal" aria-labelledby="sddkit-modal-title">
+  <div class="modal-in">
+    <div class="modal-head">
+      <div class="modal-title" id="sddkit-modal-title">SDD-Kit</div>
+      <div class="modal-actions">
+        <a class="modal-link" href="assets/SDD-Kit/index.html" target="_blank" rel="noopener">新しいタブで開く ↗</a>
+        <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <iframe class="modal-frame" data-src="assets/SDD-Kit/index.html" title="SDD-Kit の詳細"></iframe>
+    </div>
+  </div>
+</dialog>
+
+<!-- 6.13 Modal（.modal-doc = 文章を直接入れる版）— 「大事にするもの」のリード文
+     「アジャイルの価値観」から開く。
+     掲載しているのは agilemanifesto.org の公式日本語訳の全文。
+     **宣言は「この注意書きも含めた形で全文を含めること」を条件に自由なコピーが許諾されている。**
+     したがって本文・署名者・注意書きのどれも省いたり書き換えたりしないこと。 -->
+<dialog id="agile-modal" class="modal modal-doc" aria-labelledby="agile-modal-title">
+  <div class="modal-in">
+    <div class="modal-head">
+      <div class="modal-title" id="agile-modal-title">アジャイルソフトウェア開発宣言</div>
+      <div class="modal-actions">
+        <a class="modal-link" href="https://agilemanifesto.org/iso/ja/manifesto.html" target="_blank" rel="noopener">原文を見る ↗</a>
+        <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="doc">
+
+        <h3>アジャイルソフトウェア開発宣言</h3>
+        <p>私たちは、ソフトウェア開発の実践<br>あるいは実践を手助けをする活動を通じて、<br>よりよい開発方法を見つけだそうとしている。<br>この活動を通して、私たちは以下の価値に至った。</p>
+
+        <ul class="doc-values">
+          <li>プロセスやツールよりも<b>個人と対話</b>を、</li>
+          <li>包括的なドキュメントよりも<b>動くソフトウェア</b>を、</li>
+          <li>契約交渉よりも<b>顧客との協調</b>を、</li>
+          <li>計画に従うことよりも<b>変化への対応</b>を、</li>
+        </ul>
+
+        <p>価値とする。すなわち、左記のことがらに価値があることを<br>認めながらも、私たちは右記のことがらにより価値をおく。</p>
+
+        <p class="doc-sign">Kent Beck ／ Mike Beedle ／ Arie van Bennekum ／ Alistair Cockburn ／ Ward Cunningham ／ Martin Fowler ／ James Grenning ／ Jim Highsmith ／ Andrew Hunt ／ Ron Jeffries ／ Jon Kern ／ Brian Marick ／ Robert C. Martin ／ Steve Mellor ／ Ken Schwaber ／ Jeff Sutherland ／ Dave Thomas</p>
+
+        <p class="doc-copy">&copy; 2001, 上記の著者たち<br>この宣言は、この注意書きも含めた形で全文を含めることを条件に自由にコピーしてよい。</p>
+
+        <h3>アジャイル宣言の背後にある原則</h3>
+        <p>私たちは以下の原則に従う:</p>
+
+        <ol class="doc-principles">
+          <li>顧客満足を最優先し、価値のあるソフトウェアを早く継続的に提供します。</li>
+          <li>要求の変更はたとえ開発の後期であっても歓迎します。変化を味方につけることによって、お客様の競争力を引き上げます。</li>
+          <li>動くソフトウェアを、2-3週間から2-3ヶ月というできるだけ短い時間間隔でリリースします。</li>
+          <li>ビジネス側の人と開発者は、プロジェクトを通して日々一緒に働かなければなりません。</li>
+          <li>意欲に満ちた人々を集めてプロジェクトを構成します。環境と支援を与え仕事が無事終わるまで彼らを信頼します。</li>
+          <li>情報を伝えるもっとも効率的で効果的な方法はフェイス・トゥ・フェイスで話をすることです。</li>
+          <li>動くソフトウェアこそが進捗の最も重要な尺度です。</li>
+          <li>アジャイル･プロセスは持続可能な開発を促進します。一定のペースを継続的に維持できるようにしなければなりません。</li>
+          <li>技術的卓越性と優れた設計に対する不断の注意が機敏さを高めます。</li>
+          <li>シンプルさ（ムダなく作れる量を最大限にすること）が本質です。</li>
+          <li>最良のアーキテクチャ・要求・設計は、自己組織的なチームから生み出されます。</li>
+          <li>チームがもっと効率を高めることができるかを定期的に振り返り、それに基づいて自分たちのやり方を最適に調整します。</li>
+        </ol>
+
+        <p class="doc-src">出典: <a href="https://agilemanifesto.org/iso/ja/manifesto.html" target="_blank" rel="noopener">アジャイルソフトウェア開発宣言</a> ／ <a href="https://agilemanifesto.org/iso/ja/principles.html" target="_blank" rel="noopener">アジャイル宣言の背後にある原則</a>（agilemanifesto.org 公式日本語訳）</p>
+
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- 6.13 Modal（.modal-doc）— 「大事にするもの」01 の「インクリメント」から開く用語解説。
+     こちらは引用ではなく弊社の説明文。出典リンクだけ添えている -->
+<dialog id="increment-modal" class="modal modal-doc" aria-labelledby="increment-modal-title">
+  <div class="modal-in">
+    <div class="modal-head">
+      <div class="modal-title" id="increment-modal-title">インクリメント</div>
+      <div class="modal-actions">
+        <button type="button" class="modal-close" data-modal-close autofocus aria-label="閉じる">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="doc">
+
+        <h3>インクリメント（Increment）とは</h3>
+        <p class="doc-lead">その回の開発で積み上がった、<b>動くソフトウェアの追加分</b>のこと。単体で動作を確かめられ、これまでの成果に統合されているものだけを指します。</p>
+        <p>アジャイルでは、開発の成果を「作業の進み具合」ではなく「動くものが増えたかどうか」で数えます。この“増えた分”がインクリメントです。</p>
+
+        <h3>インクリメントと呼べる条件</h3>
+        <ol class="doc-principles">
+          <li><b>動く</b> — 実際に触って確かめられる。設計書、仕様書、作りかけのコードはインクリメントではありません。</li>
+          <li><b>積み上がっている</b> — これまでのインクリメントと統合され、既にできていたことを壊していない。</li>
+          <li><b>完成の定義を満たす</b> — テスト・レビュー・ドキュメントなど、チームで決めた「終わり」の基準をクリアしている。</li>
+          <li><b>それだけで価値を説明できる</b> — 「これで何ができるようになったか」を一文で言い切れる。</li>
+        </ol>
+
+        <h3>動かないものは、評価されない</h3>
+        <p>進捗の尺度は動くソフトウェアです（アジャイル宣言の原則7）。<b>「9割できています」は、動かない限り0として扱います。</b>作りかけを積み上げると、統合と検証が最後にまとめて来ることになり、残り1割のはずだった作業でスケジュールが崩れます。動く単位で刻むのは、このリスクを毎回小さく潰すためです。</p>
+
+        <h3>よくある間違い — 横に切ると増えない</h3>
+        <p>「今回はDB、次はAPI、最後に画面」と<b>層で切る</b>と、最後まで何も動きません。<b>「1件登録できる」のように縦に薄く切る</b>と、毎回動くものが出て、実物で判断できるようになります。</p>
+
+        <h3>私たちの進め方</h3>
+        <p>数週間以内で動く単位に切り、実物を見ながら次の一手を決めます。早く出すこと自体が目的ではなく、<b>早く間違いに気づくため</b>にそうしています。</p>
+
+        <p class="doc-src">参考: <a href="https://agilemanifesto.org/iso/ja/principles.html" target="_blank" rel="noopener">アジャイル宣言の背後にある原則</a> ／ <a href="https://scrumguides.org/" target="_blank" rel="noopener">スクラムガイド</a>（インクリメント・完成の定義）。本ページの説明文は弊社によるものです。</p>
+
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script src="design-system/components.js" defer></script>
+
 </body>
 </html>

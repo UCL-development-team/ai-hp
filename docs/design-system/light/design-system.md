@@ -5,9 +5,8 @@
 
 実装時の共有トークンは [tokens.css](tokens.css) を、コンポーネントの実装は [components.css](components.css) を参照してください。
 
-> **このフォルダ（`docs/design-system/`）は原本です。どのページからも直接参照されません。**
-> 各デザイン案は `docs/plan-<N>/design-system/` に**このフォルダごとコピーしたもの**を持ち、自分のコピーだけを読み込みます。
-> 新しい案を作るときはここからコピーしてください。コピー後は案ごとに独立して育てる前提のため、**原本への同期は不要**です（ある案の変更が他案に波及しないようにするための構成）。
+> **このフォルダは `docs/plan-5/` 専用のコピーです。**原本は `docs/design-system/` にあり、`plan-5` はこのコピーだけを読み込みます。
+> ここを編集しても他の案には影響しません。逆に、原本や他案の変更もここには入ってきません。
 
 ### ファイル構成
 
@@ -54,6 +53,8 @@
 | `--bg2` | `#f4f2ff` | セクション背景・pill背景（淡いラベンダー） |
 | `--panel` | `#f4f2ff` | feature panel（`.w`）の面背景（= `--bg2`） |
 | `--line` | `#e7e3f7` | ボーダー・区切り線 |
+| `--line-on-accent` | `rgba(255,255,255,.28)` | カラーカード上の区切り線（`.card .k` の上罫）・ラベルの枠 |
+| `--panel-on-accent` | `rgba(255,255,255,.16)` | カラーカード上の面（`.card-tag` の地色） |
 | `--ink` | `#0d0b1f` | 反転ブロック（`.big`）の背景 |
 
 ### テキスト
@@ -82,7 +83,11 @@
 
 | 変数名 | 値 | 用途 |
 |---|---|---|
-| `--gradient-text` | `linear-gradient(100deg, p1, p2 55%, p3)` | `.gr`（`background-clip:text` の文字グラデーション） |
+| `--gradient-text` | `linear-gradient(100deg, p1, p2 55%, p3)` | `.gr`（`background-clip:text` の文字グラデーション。ヒーロー専用） |
+| `--gradient-text-2` | `linear-gradient(100deg, p1, p4)` | `.gr2` パープル→シアン |
+| `--gradient-text-3` | `linear-gradient(100deg, p2, p1)` | `.gr3` ピンク→パープル |
+| `--gradient-text-4` | `linear-gradient(100deg, p2, p4)` | `.gr4` ピンク→シアン |
+| `--gradient-text-5` | `linear-gradient(100deg, p1, p4 55%, p2)` | `.gr5` パープル→シアン→ピンク（3色） |
 | `--gradient-btn` | `linear-gradient(100deg, p1, p2)` | `.btn-p` の面 |
 | `--gradient-cta` | `linear-gradient(110deg, p1, p2)` | `.cta` の面 |
 | `--gradient-card-1`〜`-4` | `linear-gradient(150deg, pN, pN-light)` | `.c1`〜`.c4` のカード面 |
@@ -115,9 +120,9 @@
 | `.card h3` | `26px` | 900 | `letter-spacing:-.5px` |
 | `.card p` | `15.5px` | 400 | `opacity:.95` |
 | `.card .n` / `.card .k` | `15px` / `13px` | 900 / 800 | `opacity:.75` / `.9` |
-| `.big b` | `20px` | 900 | 反転ブロック内の見出し |
-| `.big small` | `15px` | 600 | color: `--muted-on-ink` |
-| `.why .w h4` | `20px` | 900 | `letter-spacing:-.3px` |
+| `.bigrow h3` | `20px` | 900 | 反転ブロック内の項目名 |
+| `.bigrow p` | `15px` | 600 | color: `--muted-on-ink` |
+| `.why .w h3` | `20px` | 900 | `letter-spacing:-.3px` |
 | `.why .w p` | `15px` | 400 | color: `--muted` |
 | `.nav-links a` | `15px` | 600 | color: `--muted` |
 | `.logo` | `20px` | 900 | `letter-spacing:-.5px`（footerは `.logo-sm` で17px） |
@@ -133,6 +138,8 @@
 - **セクション垂直パディング**: `section { padding:100px 0 }`
 - **ヒーロー**: `padding:110px 0 90px`
 - **ナビ高さ**: `70px`（`--nav-height`）
+- **sticky の張り付き位置**: `--sticky-top`（既定は `--nav-height`）。`.cat-nav` の `top` と `.cat-group` の `scroll-margin-top` がこの値を基準にする。**ナビの高さを変えるページは `custom.css` でこの値も上書きする**（`plan-5` はサブヘッダー化で `--host-header-height` + 52px）
+- **外部サイトへの差し込み**: 差し込み先にもヘッダーがある場合、`nav{top:0}` のままだと重なる。`plan-5` は `custom.css` で `--host-header-height`（既定 `0px`）を用意し、`nav` の `top` と `--sticky-top` の両方をそこから算出している。**単体で開くときと差し込んだときの両方を1つの値で切り替えられるようにする**のが、この種の個別対応の作法
 - **グリッド間隔**: `.cards` = 24px（`--gap-grid`） / `.why` = 26px（`--gap-feat`） / `.bigrow` = 40px（`--gap-stats`）
 - **内側パディング**: card `40px 34px` / `.big` `70px 48px` / `.why .w` `32px` / `.cta` `72px 40px` / `.btn` `13px 26px`
 - **モーダル**: 四方 `24px`（`--modal-gap` = `--content-padding-x`）を空けた領域に、幅上限 `1180px`（`--modal-max-width`）。高さは無制限（`--modal-max-height: none`）で縦を使い切る。詳細は [6.13 Modal](#613-modaldialog)
@@ -170,11 +177,15 @@
 ## 5. シャドウ & エフェクト
 
 - **プライマリボタンの浮遊感**: `--shadow-btn: 0 10px 30px rgba(124,58,237,.35)`（`--p1` の35%）
+- **白パネルの接地感**: `--shadow-panel: 0 2px 14px -6px rgba(13,11,31,.16)`（`.cat-group`。白背景のセクション上でも面が沈まないように）
+- **カラーカードの接地感**: `--shadow-card: 0 14px 34px -14px rgba(13,11,31,.30)` ／ ホバー時 `--shadow-card-hover: 0 28px 54px -18px rgba(13,11,31,.38)`。広がりを抑えた負のスプレッドで、面の直下だけを落とす
 - **ホバー時の動き**:
   - `.btn-p:hover { transform:translateY(-2px) scale(1.02) }`
   - `.btn-o:hover { background:var(--txt); color:var(--bg) }`（反転）
-  - `.card:hover { transform:translateY(-6px) }`
+  - `.card:hover { transform:translateY(-6px) }` ＋ 影を `--shadow-card-hover` に
   - `a.mtag:hover { transform:translateY(-2px) }`
+  - `.bigrow > *:hover { transform:translateY(-6px) }` ＋ `.num` が1.05倍＋発光
+  - `.cat-item:hover` / `.cat-nav a:hover { transform:translateY(-2px) }` ＋ 枠が分類色に
 - **backdrop blur**: `nav { background:rgba(255,255,255,.8); backdrop-filter:blur(12px) }`
 - **トランジション速度**: ボタン `.2s`（`--transition-fast`）／カード `.25s`（`--transition-base`）
 - 本テーマにグロー（`box-shadow` による発光）やアニメーションはありません（ダーク版の `pulse` に相当するものは持たない）。
@@ -190,19 +201,22 @@
 | 節 | コンポーネント | 主なクラス |
 |---|---|---|
 | 6.1 | Navigation | `nav` / `.nav-in` / `.nav-links` / `.logo`（`.logo-sm`） |
-| 6.2 | Buttons | `.btn` / `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` |
+| 6.2 | Buttons | `.btn`（`.btn-sm`）/ `.btn-p` / `.btn-o` / `.btn-w` / `.btn-wo` / `.arw` / `.card-cta` / `.link-inline` |
 | 6.3 | Pill | `.pill` |
-| 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `b` `small`） |
-| 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k`） |
+| 6.4 | Inverted block | `.big` / `.bigrow`（`.num` `h3` `p`） |
+| 6.5 | Card | `.cards`（`.cards-3`）/ `.card` + `.c1`〜`.c4`（`.n` `.k` `.card-tag` `.card-cta`） |
 | 6.6 | Marquee tag | `.marquee` / `.mtag` + `.m1`〜`.m4` |
 | 6.7 | Feature panel | `.why` / `.w`（`.e` `.n`） |
 | 6.8 | CTA | `.cta` |
 | 6.9 | Footer | `footer` / `.foot-in` |
 | 6.10 | Section header | `.eyebrow` / `.s-title` / `.s-sub` |
 | 6.12 | Figure（図版パネル） | `.figure`（`.figure-flush` / `img` / `figcaption`） |
-| 6.13 | Modal（`<dialog>`） | `.modal` / `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
+| 6.14 | Catalog（分類＋一覧） | `.catalog` / `.cat-group` / `.cat-head`（`.n` `.sub`）/ `.cat-item`（`.name` `.desc` `.role` `.k`）/ `.cat-nav` |
+| 6.15 | Reveal（フェードイン） | `[data-reveal]`（`="1"`〜`="4"` で遅延）/ `.is-visible` / `html.js-reveal` |
+| 6.16 | Disclosure（開閉） | `<details class="cat-group">` / `<summary class="cat-head">`（6.14 と同じクラスで実装）/ `.cat-toggle`（一括開閉） |
+| 6.13 | Modal（`<dialog>`） | `.modal`（`.modal-doc`）/ `.modal-in` / `.modal-head` / `.modal-title` / `.modal-actions` / `.modal-link` / `.modal-close` / `.modal-body` / `.modal-frame` |
 | — | Hero | `.hero` / `.lede` / `.hero-cta` |
-| — | Utility | `.wrap` / `.gr` / `.section-alt` / `.section-flush` |
+| — | Utility | `.wrap` / `.gr`〜`.gr5` / `.section-alt` / `.section-flush` |
 
 ### 6.1 Navigation (`nav`)
 - position:sticky, top:0, z-index:50、高さ70px（`--nav-height`）
@@ -211,10 +225,18 @@
 - ロゴ: 900ウェイトのテキストのみ。`<span>` で囲んだ語だけ `--p1` に着色（例: `AI <span>Innovation</span> 部`）。フッターでは `.logo-sm` で17pxに縮小
 
 ### 6.2 Buttons
-- `.btn`: 基本形（padding `13px 26px`、`--radius-pill`、15px/800）
+- `.btn`: 基本形（`inline-flex`、padding `13px 26px`、`--radius-pill`、15px/800）
+- `.btn-sm`: 小サイズ（padding `9px 18px`、13.5px）。カードやパネルの中に置くとき用
 - `.btn-p`: グラデーション面（`--gradient-btn`）・白文字・紫の影。ホバーで2px上昇＋1.02倍
 - `.btn-o`: 2pxの `--txt` ボーダー。ホバーで地色と文字色が反転
-- `.btn-w` / `.btn-wo`: CTA（濃色面）上で使う白ボタン／白アウトラインボタン
+- `.btn-w` / `.btn-wo`: アクセント面（CTA・カラーカード）上で使う白ボタン／白アウトラインボタン。`.btn-w` は影付きでホバーすると2px浮き、`.btn-wo` はホバーで白16%が乗る
+- `.arw`: ラベル末尾の矢印を `<span class="arw">→</span>` で囲むと、ホバーで3px前に出る
+- `.card-cta`: カラーカード（6.5）の中にボタンを置くときの位置調整（`.k` の下に18px）
+- `.link-inline`: 本文中のインラインリンク。`<a>` でも `<button>` でも同じ見た目になる（`font:inherit` + `border:0`）。900ウェイト＋`--p2` の下線＋末尾に `↗`。`.big`（濃色ブロック）の中では自動で白抜きになる。モーダルを開くボタンにも使う
+
+```html
+<a href="…" class="btn btn-w btn-sm card-cta" data-modal-open="sddkit-modal">詳しく見る<span class="arw">→</span></a>
+```
 
 ### 6.3 Pill（ステータスラベル）
 - ピル型、`--bg2` 背景 + `--line` ボーダー、文字は `--p1`（14px/800）
@@ -222,14 +244,18 @@
 
 ### 6.4 Inverted block (`.big`)
 - `--ink` の濃色面、`--radius-xl`、padding `70px 48px`、中央揃え
-- `.bigrow` で3カラム。各カラムは `.num`（大数値、`.gr` を併用してグラデーション化）→ `b`（見出し・任意）→ `small`（説明）の縦構成
+- `.bigrow` で3カラム。各カラムは `.num`（大数値、`.gr` を併用してグラデーション化）→ `h3`（項目名）→ `p`（説明）の縦構成。**項目名は `<b>` ではなく `<h3>`**（セクション見出し `h2` の1段下。`.card h3` / `.why .w h3` と同じ階層）。説明も `<small>` ではなく `<p>`
+- セレクタを `.big p` ではなく `.bigrow p` に閉じてあるのは、同じ `.big` の中にあるリード文（`.s-sub`）も `<p>` のため。`.big p` にすると `.s-sub` の `font-size` が上書きされる
+- カラムはホバーで6px浮き、`.num` が1.05倍＋ピンクの `drop-shadow` で発光する。面や枠は持たないので、静止時の見た目は変わらない
 - 内部に 6.10 のセクション見出しパターンを置く場合、`.eyebrow` は `--p3`、`.s-sub` は `--muted-on-ink` に自動で切り替わる
 
 ### 6.5 Card（カラーカード）
-- 4色のグラデーション面（`.c1`〜`.c4`）に白文字。ボーダーなし、`--radius-lg`、padding `40px 34px`
-- `.n`（採番）→ `h3`（タイトル）→ `p`（説明）→ `.k`（メタ情報）の縦構成
-- `.k` は `# タグA　# タグB` のように `#` 区切りの1行テキストで表現する
-- ホバーで6px浮き上がり
+- 4色のグラデーション面（`.c1`〜`.c4`）に白文字。ボーダーなし、`--radius-lg`、padding `40px 34px`、`--shadow-card`
+- `::before` で右上に白の放射グラデーション（26%）を敷き、平坦なグラデーション面に奥行きを与える。装飾のため内容は持たず、本文は `.card > *` の `z-index:1` で前面に置く
+- `.n`（採番・13px/900・トラッキング1.5px）→ `h3`（タイトル）→ `p`（説明）→ `.k`（メタ情報）の縦構成
+- `.card-tag`（任意）— 右上に置くラベル（英語の呼称など）。白16%（`--panel-on-accent`）＋白28%の枠（`--line-on-accent`）＋`blur(6px)` のガラス調ピル。`.n` と同じ高さに揃うよう、カードの padding から逆算した位置に絶対配置している
+- `.k` は `# タグA　# タグB` のように `#` 区切りの1行テキストで表現する。**細字（400）**とし、上に `--line-on-accent` の1px罫を入れて本文と分ける
+- ホバーで6px浮き上がり、影が `--shadow-card-hover` に深まる
 - 3枚構成のときは `.cards.cards-3`。色は連続を避けて `c1 / c2 / c4` のように選ぶ
 
 ### 6.6 Marquee tag (`.mtag`)
@@ -237,8 +263,11 @@
 - ヒーロー下部のキーワード列に使用。`<a>` にするとホバーで2px上昇
 
 ### 6.7 Feature panel (`.why` / `.w`)
-- `--panel` 背景 + `--line` ボーダー、`--radius-md`、padding 32px
-- 先頭に絵文字アイコン（`.e`、34px）または採番ラベル（`.n`、`--p1`）、その下に `h4` と `p`
+- **`--bg`（白）背景** + `--line` ボーダー、`--radius-md`、padding `34px 32px`、`--shadow-panel`。`--panel`（= `--bg2`）だと `.section-alt` 上で地色と同化して埋もれるため、面は白で固定する
+- パネルごとにアクセント色を持つ（`--acc`。1枚目 `--p1` / 2枚目 `--p2` / 3枚目 `--p4` を `:nth-child` で割り当て）
+- 先頭に絵文字アイコン（`.e`）または採番ラベル（`.n`、`--acc`）、その下に `h3` と `p`（セクション見出しの `h2` の1段下。`.card h3` と同じ階層に揃える）
+- `.e` は54pxの角丸枠（`--radius-sm`）に**アクセント色14%のティント**を敷き、その上に絵文字26pxを中央配置する。絵文字を裸で置くと他の要素と質感が合わないため
+- ホバーで4px浮き、影が `--shadow-card` に深まり、枠がアクセント色になる
 
 ### 6.8 CTA セクション
 - `--gradient-cta` の濃色面に白文字、`--radius-2xl`、padding `72px 40px`、中央揃え
@@ -251,8 +280,24 @@
 ### 6.10 Section header pattern
 全セクション共通で以下の3点セット構成:
 1. `.eyebrow` — 小さいラベル（英語・uppercase・`--p2`）
-2. `.s-title` — セクションの主見出し
+2. `.s-title` — セクションの主見出し。**中の要語を `<span class="gr2">` 等で囲んでグラデーション文字にする**（例:「AIで、<u>つくり方</u>を変える。」「<u>AI</u>を、つくるものに<u>載せる</u>。」）。囲むのは主題を担う語だけに絞り、多くても2箇所まで。**同じ見出しの中では同じクラスを使う**（1見出し＝1配色）
+
+   配色はセクションごとに変える。全部が同じだと単調に見えるため、そのセクションのカード色に近いものを選ぶ:
+
+   | セクション | クラス | 配色 | 対応するカード |
+   |---|---|---|---|
+   | ヒーロー | `.gr` | パープル→ピンク→アンバー | — |
+   | `#service` | `.gr2` | パープル→シアン | `.c1` / `.c4` |
+   | `#tech` | `.gr3` | ピンク→パープル | `.c1` / `.c2` |
+   | `#ai-system` | `.gr4` | ピンク→シアン | カタログの4色 |
+   | `#why` | `.gr2` | パープル→シアン | — |
+
+   `.gr5`（パープル→シアン→ピンク）は現在どのセクションでも未使用。セクションを増やすときの予備。
+
+   グラデーションは**要素ごとに引き直される**ため、1つの見出しに2つの `<span>` を置いても1本の帯にはつながらない。それぞれが独立した色の流れになる。
 3. `.s-sub` — 補足説明（`--muted`、max-width制限で読みやすい行長に）
+
+濃色面（`.big` / `.cta`）の見出しでは `.gr` を使わない（`--p1` が背景に沈むため）。
 
 ### 6.11 セクション背景のパターン
 ヒーローは `--hero-bg`、通常セクションは `--bg`。変化をつけたいセクションに `.section-alt`（`--bg2`）を付与します。`.big`（濃色ブロック）を挟むセクションには `.section-flush` を付けて上パディングを詰め、直前のセクションと地続きに見せます。
@@ -260,10 +305,48 @@
 ### 6.12 Figure（図版パネル）
 - 図版（PNG/SVG）をページ内に置くための枠。`--panel` 背景 + `--line` ボーダー、`--radius-lg`、padding 28px（md以下は16px）
 - `<figure class="figure">` に `img` を入れる。`img` は `width:100%` / `height:auto` で枠に追従し、`--radius-sm` で角を丸める
-- 説明を添える場合は `figcaption`（14px/800、`--muted`、中央揃え）を `img` の後ろに置く
+- 説明を添える場合は `figcaption`（**`.s-sub` と同じ17px / `--muted`**、中央揃え）。図版の後ろに置くと上に18px、**図版より前に置く（導入文として読ませる）ときは下に56px**取り、`.figure` の `margin-top` と対称にしてカード群と図版のあいだの余白の中央に置く
 - `alt` は必須。図が伝える内容を文章で説明する
 - 6.10 のセクション見出しパターンの直下に置く想定（`margin-top:56px`）
 - `.figure-flush` を併記すると枠・背景・角丸・padding を外す。図版自身が面（背景色）と余白を持っていて、セクション背景と地続きに見せたい場合に使う。padding が無くなる分、図版はコンテンツ幅いっぱいに広がる
+
+### 6.14 Catalog（分類＋一覧）
+
+カード（6.5）に収まらない量の項目を、分類ごとに一覧で見せるための構成。1項目あたり「名称＋説明 / タグ / ラベル」の3カラムを持ちます。
+
+- `.catalog` — 全体の器（`margin-top:56px`。6.10 のセクション見出しパターンの直下に置く想定）
+- `.cat-group` — 分類ひとかたまり（**`<details>`**）。`--bg` の白パネル（`--line` ボーダー、`--radius-md`、`--shadow-panel`）で、**畳んだ状態でも枠が残る**ため見出しだけが並んでも境界が見える。影は白背景（`--bg`）のセクション上でも面が沈まないようにするためのもので、`.section-alt` 上でも成立する。2つ目以降は上に12pxのマージン。`.cat-p1`〜`.cat-p4` でパレット4色のどれかを割り当て、配下のバッジ・タグ・ラベル・ホバー枠がすべてその色（`--cat` / `--cat-2`）を参照する。初期表示で開いておくものにだけ `open` を付ける
+- `.cat-head` — 分類見出し（**`<summary>`**＝開閉のトグル）。`.n`（採番。分類色のグラデーションを敷いたピル）→ `h3`（23px/900）→ `.sub`（補足・`--muted`）→ 右端に開閉シェブロン（`::after`）の順（padding `18px 24px`）。ホバーで地色が `--bg2` になり、パネルの枠が分類色に変わる（`:has`）。標準の三角マーカーは `list-style:none` と `::-webkit-details-marker` で消している
+- `.cat-nav` — 分類への目次リンク列（`.catalog` の前、`.s-sub` の下に置く）。`<a>` にも `.cat-p1`〜`.cat-p4` を付けて、採番バッジの色と着地先の分類を揃える。ピルの面は `--bg2`。**`position:sticky`（`top: --sticky-top` / `z-index:40`）** で、カタログをスクロールする間だけ画面上部に残る。器は `.wrap` なので、セクションを抜ければ自然に外れる。下を通る内容が透けないよう、面は白85%＋`blur(10px)`（`nav` と同じ処理）。**`data-reveal` は付けない**（フェードインの `transform` と競合する）。`.cat-group` には `scroll-margin-top:100px` を入れてあり、sticky な `nav` の下に見出しが潜らない
+- `.cat-item` — 1項目。パネル内の行として `--line` の上罫だけで区切る（padding `18px 24px`。面と枠は持たない）。中身は「`.name` + `.desc` を入れた `div`」／`.cat-tags`／`.role` の3カラム。ホバーで地色が `--bg2` になる
+- `.cat-tags` — 技術タグのチップ列。分類色13%のティント地（`color-mix`。非対応環境は `--bg2` にフォールバック）
+- `.role` — 右端のラベル（人材の系統など）。分類色のグラデーション面に白文字
+- md以下では1カラムに畳み、`.role` は左寄せに戻る
+
+### 6.15 Reveal（スクロール連動のフェードイン）
+
+要素が画面に入ったら下から20pxだけ持ち上げながらフェードインさせます。挙動は [../components.js](../components.js)（light / dark 共用）が担当し、このファイルは初期状態・遷移・遅延だけを定義します。
+
+- 出したい要素に `data-reveal` を付ける。`data-reveal="1"`〜`"4"` にすると `.08s` 刻みで遅延し、eyebrow → 見出し → 補足 → 本体の順に出せる
+- JSは `<html>` に `js-reveal` を付け、画面に入った要素へ `.is-visible` を足すだけ。初期状態（`opacity:0`）は `.js-reveal` 配下に限定してあるので、**JSが無効な環境では最初から見えたまま**になる
+- `prefers-reduced-motion: reduce` の環境ではJSが何もしない（＝アニメーションなしで常時表示）
+- 一度出た要素は監視を外すため、戻りのアニメーションは起きない
+- 使用ページは `</body>` 直前で `components.js` を読み込むこと（6.13 Modal と同じファイル）
+
+### 6.16 Disclosure（開閉）
+
+項目数の多い一覧を畳んでおくための構成。**開閉そのものは `<details>`/`<summary>` の標準挙動**なので、JSは「ページ内リンクの飛び先が閉じていたら開く」ためだけに使います（[../components.js](../components.js)）。
+
+- マークアップは 6.14 Catalog と同じクラスのまま、器を `<details class="cat-group">`、見出しを `<summary class="cat-head">` に置き換える
+- 初期表示で開くものにだけ `open` を付ける。複数開いたままにできる（アコーディオンのように他を閉じたりはしない）
+- 目次（`.cat-nav`）のリンクを押すと、閉じていた分類も開いてからその位置へスクロールする。`#cat-03` のようなURL直打ち・ブラウザバックでも同じ
+- 開いたときだけ中身が `cat-open`（6px上からのフェードイン）で表示される。閉じるときは即時。`prefers-reduced-motion: reduce` では無効
+- **一括開閉ボタン**（`.cat-toggle`）: 器の `id` を `data-details-toggle` に指定すると、その中の `<details>` をまとめて開閉する。1つでも開いていれば「全て閉じる」、全部閉じていれば「全て開く」とラベルが切り替わり（`data-label-close` / `data-label-open`）、`aria-expanded` も追従する。見出しを個別にクリックした場合も `toggle` イベントで同期される
+  ```html
+  <button type="button" class="cat-toggle" data-details-toggle="talent-catalog"
+          data-label-open="全て開く" data-label-close="全て閉じる">全て閉じる</button>
+  ```
+- **JSが無効でも開閉は動く**（標準機能のため）。効かなくなるのは目次リンクからの自動オープンと一括開閉ボタンだけ
 
 ### 6.13 Modal（`<dialog>`）
 
@@ -345,11 +428,20 @@ max-height:var(--modal-max-height); /* none  — 高さは制限しない */
   - `data-modal-close` — クリックで、自分が属する `<dialog>` を閉じる
   - `<iframe>` の `src` は書かず `data-src` に置く。初回オープン時にだけ `src` へ移されるので、ページ表示時に読み込まれない
   - `aria-labelledby` で `.modal-title` を参照し、`<iframe>` には `title` を必ず付ける
+
+#### `.modal-doc` — 文章を直接入れる版
+
+外部ページではなく**テキストを読ませる**モーダル。`<iframe>` の代わりに `.modal-body` の中へ `<div class="doc">` を置きます。
+
+- 幅は `--modal-max-width: 820px`、本文は `.doc` で600pxに絞る（読みやすい行長）。`.modal-body` は `overflow-y:auto` でスクロールし、面は `--bg`
+- `h3`（22px/900＋下罫）／`p`（15.5px・`--muted`）／`.doc-values`（罫で区切った大きめの箇条書き）／`.doc-principles`（`01`〜 のゼロ埋め採番・`--p1`）／`.doc-sign`・`.doc-copy`・`.doc-src`（小さめの補足）
+- きっかけは本文中の `.link-inline` を使う（`<button type="button" data-modal-open="…">`）
+- **複数のモーダルが同居するページでは、個別対応（`custom.css`）の上書きを `#<id>` に閉じること。** `.modal` で当てると他のモーダルまで色が変わる
   - `.modal-close` に `autofocus` を付ける。付けないと `showModal()` の初期フォーカスが `.modal-link` に落ち、リンクに既定のフォーカスリング（角枠）が出てしまう。`:focus-visible` のリングは `--p1` の2px アウトラインに整えている
 - 閉じ方は3通り: `.modal-close` のクリック／背景（`::backdrop`）のクリック／Esc キー（`<dialog>` の標準挙動）
 - `<dialog>` 非対応ブラウザでは components.js が何もしないため、きっかけの `<a href>` がそのまま効いて同じページへ遷移する
 
-適用例: `docs/plan-2/index.html` / `plan-3/index.html` / `plan-4/index.html` の CTA（`docs/assets/SDD-Kit/index.html` を表示）
+適用例: `docs/plan-5/index.html` の CTA（`docs/assets/SDD-Kit/index.html` を表示）
 
 ---
 
@@ -358,7 +450,7 @@ max-height:var(--modal-max-height); /* none  — 高さは制限しない */
 絵文字をアイコンとして直接使用（外部アイコンライブラリ非依存）:
 - 🎯 実装まで、やり切る / 🔒 セキュリティ前提 / 📈 成果で語る
 
-軽量な単一HTMLファイル構成を維持する方針と一致します（[CLAUDE.md](../../../CLAUDE.md) 参照）。
+軽量な単一HTMLファイル構成を維持する方針と一致します（[CLAUDE.md](../../../../CLAUDE.md) 参照）。
 
 ---
 
