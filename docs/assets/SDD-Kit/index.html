@@ -76,7 +76,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.85);backdrop-f
 .term{background:#0a0e13;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:var(--mono);font-size:13.5px;margin-top:56px}
 .term-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--line);color:var(--muted);font-size:12px}
 .dot{width:10px;height:10px;border-radius:50%}
-.term-body{padding:20px 22px;line-height:2}
+.term-body{padding:20px 22px;line-height:2;white-space:pre-wrap;word-break:break-word}
 .term-body .p{color:var(--accent2)}
 .term-body .c{color:var(--muted)}
 .term-body .ok{color:var(--accent)}
@@ -305,16 +305,14 @@ footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-s
         <span style="margin-left:8px">sdd-kit ~ terminal</span>
         <span style="margin-left:auto;color:var(--accent)">● live</span>
       </div>
-      <div class="term-body">
-<span class="p">❯</span> /sdd:story 会員が注文履歴を検索できるようにしたい
+      <div class="term-body"><span class="p">❯</span> /sdd:story 会員が注文履歴を検索できるようにしたい
 <span class="c">→ ストーリー ST-101 起票 / INVEST合格 / 受け入れ基準 3件（Gherkin）生成</span>
 <span class="p">❯</span> /sdd:screen ST-101
 <span class="c">→ screens/SCR-0042.ts 生成（defineScreen / storyRefs: ST-101 / 型検証 OK）</span>
 <span class="p">❯</span> /sdd:gen SCR-0042
 <span class="c">→ src/pages/OrderHistory/ 生成・モックストア接続・typecheck 0 errors</span>
 <span class="p">❯</span> /sdd:test SCR-0042
-<span class="ok">✓ 受け入れ基準 → E2E 3本 生成 / 3 passed — スプリントレビューでデモ可能</span>
-      </div>
+<span class="ok">✓ 受け入れ基準 → E2E 3本 生成 / 3 passed — スプリントレビューでデモ可能</span></div>
     </div>
   </div>
 </section>
