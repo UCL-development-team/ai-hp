@@ -14,6 +14,10 @@
     <!-- 開くきっかけ。href はフォールバック先（＝モーダルで見せるページ） -->
     <a href="SDD-Kit/index.html" class="btn btn-wo" data-modal-open="sddkit-modal">SDD-Kitを詳しく見る</a>
 
+    <!-- iframe の src は data-src に置く。開いたときに毎回 src へ入れ直されるので、
+         ページ表示時には読み込まれず、かつ開くたびに初期状態から表示される -->
+
+
     <dialog id="sddkit-modal" class="modal" aria-labelledby="sddkit-modal-title">
       <div class="modal-in">
         <div class="modal-head">
@@ -49,9 +53,12 @@
       var dialog = document.getElementById(opener.getAttribute('data-modal-open'));
       if (!dialog) return; // 対象が無ければリンクの遷移に任せる
       ev.preventDefault();
-      // iframe は初回オープン時にだけ読み込む（ページ表示時のコストを避ける）
+      // iframe はオープン時に読み込む（ページ表示時のコストを避ける）。
+      // 2回目以降も毎回 src を入れ直して読み込み直す。閉じたときの状態
+      // （スクロール位置、中のページで閉じたバナー等）を持ち越さず、
+      // 開くたびに必ず初期状態から見せるため
       var frame = dialog.querySelector('iframe[data-src]');
-      if (frame && !frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-src'));
+      if (frame) frame.setAttribute('src', frame.getAttribute('data-src'));
       dialog.showModal();
       return;
     }

@@ -426,7 +426,7 @@ max-height:var(--modal-max-height); /* none  — 高さは制限しない */
 
   - `data-modal-open="<dialogのid>"` — クリックで対象を開く。`<a>` に付けるのが基本（`.btn` の見た目をそのまま使え、JS無効時は `href` の遷移にフォールバックする）
   - `data-modal-close` — クリックで、自分が属する `<dialog>` を閉じる
-  - `<iframe>` の `src` は書かず `data-src` に置く。初回オープン時にだけ `src` へ移されるので、ページ表示時に読み込まれない
+  - `<iframe>` の `src` は書かず `data-src` に置く。**開くたびに** `src` へ入れ直されるので、ページ表示時には読み込まれず、かつ2回目以降も前回の状態（スクロール位置や中のページで閉じた表示）を持ち越さずに初期状態から表示される
   - `aria-labelledby` で `.modal-title` を参照し、`<iframe>` には `title` を必ず付ける
 
 #### `.modal-doc` — 文章を直接入れる版

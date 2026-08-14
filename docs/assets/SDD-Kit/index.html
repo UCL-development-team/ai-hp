@@ -148,6 +148,27 @@ footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-s
   backdrop-filter:blur(2px) saturate(.55);
   -webkit-backdrop-filter:blur(2px) saturate(.55)}
 
+/* 先に中身を見たい人向けの×。オーバーレイ自体は pointer-events:none なので、
+   このボタンだけ auto に戻して押せるようにする */
+.cs-close{position:absolute;top:12px;right:12px;
+  pointer-events:auto;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:42px;height:42px;padding:0;border-radius:50%;
+  background:rgb(42 61 87 / 88%);border:1px solid var(--line);color:var(--muted);
+  font-family:var(--mono);font-size:0;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:color .2s,border-color .2s,background .2s}
+.cs-close b{font-size:17px;line-height:1;font-weight:400;transition:transform .25s}
+.cs-close:hover{color:var(--text);border-color:var(--accent);background:rgb(56 82 115 / 94%)}
+.cs-close:hover b{transform:rotate(90deg)}
+.cs-close:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* 閉じた状態。cs-in が opacity を保持しているので animation も切る */
+.cs.is-off{animation:none;opacity:0;visibility:hidden;
+  transition:opacity .45s ease,visibility 0s linear .45s}
+@media(max-width:860px){
+  .cs-close{width:38px;height:38px}
+}
+
 .cs-core{position:relative;text-align:center;padding:52px clamp(24px,6vw,72px)}
 /* 四隅のブラケット */
 .cs-c{position:absolute;width:34px;height:34px;border:1px solid rgba(61,220,151,.5)}
@@ -217,6 +238,10 @@ footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-s
   <div class="cs-core">
     <span class="cs-c tl"></span><span class="cs-c tr"></span>
     <span class="cs-c bl"></span><span class="cs-c br"></span>
+
+    <button type="button" class="cs-close" aria-label="開発中の表示を閉じる" title="閉じる（Esc）">
+      <b aria-hidden="true">✕</b>
+    </button>
 
     <div class="cs-status"><i></i>STATUS : IN DEVELOPMENT</div>
 
@@ -524,6 +549,20 @@ footer{border-top:1px solid var(--line);padding:48px 0;color:var(--muted);font-s
     <div>© SDD-Kit. All rights reserved.</div>
   </div>
 </footer>
+
+<!-- COMING SOON オーバーレイの開閉。先に中身を確認したい人向けに閉じられるようにする。
+     閉じるのはその場限りで、再読み込みすればまた表示される -->
+<script>
+(function(){
+  var cs = document.querySelector('.cs');
+  if(!cs) return;
+  function close(){ cs.classList.add('is-off'); }
+  cs.querySelector('.cs-close').addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') close();
+  });
+})();
+</script>
 
 </body>
 </html>
