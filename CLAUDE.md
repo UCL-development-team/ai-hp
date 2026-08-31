@@ -18,7 +18,7 @@ docs/
   timeline.drawio     図版の元データ
   timeline.css        図版のスタイル（マークアップは index.html の中）
   design-system/      デザインシステム（原本。index.html がここを直接参照する）
-  assets/             画像・図版、`SDD-Kit/` の紹介ページ
+  assets/             画像・図版・ロゴ、`SDD-Kit/` の紹介ページ
   plan-1-dark/        ┐
   plan-1-light/       │ 過去の検討履歴（凍結。下記の構成）
   plan-2/ … plan-5/   ┘
@@ -32,7 +32,6 @@ docs/
 その他:
 
 - [README.md](README.md) — リポジトリの入口。
-- `assets/`（リポジトリ直下） — ロゴの原本（`ucl-logo.svg`/`.png`、ダーク背景用の `ucl-logo-black.svg`/`.png`）。ページから参照する場合は `docs/assets/` 側にコピーして使う。
 
 **`plan-1`〜`plan-5` は過去の検討履歴として凍結されており、変更してはいけません。** 各案は自分のディレクトリの中に当時のデザインシステムのコピーを抱えており、それによって当時の見た目のまま固定されています。文言の統一などリポジトリ全体に関わる指摘であっても、反映先は `docs/` 直下の運用サイトだけです。
 
@@ -100,4 +99,5 @@ docs/
 - ビルド・lint・テストの工程はありません。変更を確認するときは対象のHTMLをブラウザで直接開くか、`docs/` を任意の静的ファイルサーバーで配信してください。
 - コンテンツは日本語です。コピーを編集するときは、[docs/index.md](docs/index.md) と [docs/index.html](docs/index.html) の両方を一致させてください。
 - 問い合わせ先は問い合わせフォーム（`https://www.ucl-group.co.jp/contact`）へのリンクです。凍結された `plan-1-*` だけはプレースホルダーのメールアドレス（`contact@example.com`）のままですが、公開対象ではないため変更不要です。
-- ページ内の画像・図版・`SDD-Kit/` は `docs/assets/` にあります。`docs/index.html` からは `assets/...`（`../` を付けない）で参照します。
+- ページ内の画像・図版・ロゴ・`SDD-Kit/` は `docs/assets/` にあります。`docs/index.html` からは `assets/...`（`../` を付けない）で参照します。
+- ヘッダーのロゴは `docs/assets/ucl-logo.png`（本体サイトと同じPNG）です。リポジトリ直下に原本のコピーは置きません。過去に手起こしのSVG版（`ucl-logo.svg` / `ucl-logo-black.svg`）がありましたが、ロゴアイコン部の再現が不正確で社名がアウトライン化されていない（`<text>` のまま）ため廃止しました。
