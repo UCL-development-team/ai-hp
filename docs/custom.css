@@ -31,6 +31,158 @@
   --ucl-lime: #65a30d;        /* energy-lime。「事業領域」列のアクセント */
   --ucl-purple: #7c3aed;      /* it-purple。「その他」列のアクセント */
   --ucl-blue: #2563eb;        /* blue-600。タイトル帯グラデーションの終端 */
+  --ucl-slate-700: #334155;   /* text-slate-700。ヘッダーのナビ文字 */
+  --ucl-slate-600: #475569;   /* text-slate-600。ドロップダウン／モバイルメニューの文字 */
+  --ucl-slate-200: #e2e8f0;   /* border-slate-200。ドロップダウンの外枠 */
+  --ucl-slate-100: #f1f5f9;   /* border-slate-100。ドロップダウン内の区切り線 */
+  --ucl-slate-500: #64748b;   /* text-slate-500。モバイルメニューの子リンク */
+  --ucl-slate-50: #f8fafc;    /* bg-slate-50。モバイルメニューのホバー地色 */
+}
+
+/* =========================================================
+   UCL header（本体サイトのヘッダーを移植）
+   本体サイト（React + Tailwind）のヘッダーを、ビルドなしの生CSSに
+   書き起こしたもの。要素の対応:
+     bg-white/80 backdrop-blur-md（既定）→ .ucl-header
+     bg-white/95 backdrop-blur-xl（20pxスクロール後）→ .ucl-header.is-scrolled
+     hidden lg:flex（1024px以上でだけ横並びナビ）→ .ucl-nav / .ucl-burger-wrap
+     企業情報・環境エネルギー・ソリューション事業のドロップダウン→ ホバー（:hover/:focus-within）
+   スクロール検知・実高さの反映・モバイルメニューの自動クローズだけは
+   CSSで完結しないため、index.html 側の <header> 直後のインラインスクリプトが行う。
+   ========================================================= */
+/* 本体サイトの実測（py-4=16px を <header> に、h-12=48px の行を内側の div に）に
+   合わせて、垂直パディングと行の高さを別の要素に分ける。両方を同じ要素に
+   乗せると border-box の下で行の高さが潰れ、ヘッダー全体が本体より低くなる */
+.ucl-header{
+  position:sticky;top:0;z-index:60;padding:16px 0;
+  background:rgba(255,255,255,.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid transparent;
+  transition:background var(--transition-base),border-color var(--transition-base),box-shadow var(--transition-base),padding var(--transition-base);
+}
+.ucl-header.is-scrolled{
+  padding-top:8px;padding-bottom:8px;
+  background:rgba(255,255,255,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom-color:var(--line);box-shadow:var(--shadow-panel);
+}
+/* 器幅（1280px/32px）は本体サイトの実測値のまま、意図的にデザインシステムの
+   .wrap（1140px/24px）とは揃えていない。本体サイトへの実装統合を見据えて
+   ヘッダーは実物に忠実に複製する方針のため。ロゴ左端とサブヘッダー／本文
+   （.wrap 側）の左端が62pxずれるのは、このトレードオフの結果であり不具合ではない */
+.ucl-header-in{
+  max-width:1280px;height:48px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+
+.ucl-brand{flex:none;display:flex;align-items:center;height:40px}
+.ucl-brand img{display:block;height:100%;width:auto}
+
+/* デスクトップナビ（1280px以上）。本体サイトの lg:flex（1024px）とは
+   ブレークポイントを変えている（下の @media(max-width:1279px) を参照） */
+.ucl-nav{
+  position:static;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:0;
+  display:flex;align-items:center;gap:24px;
+}
+.ucl-nav > a,.ucl-nav-btn{
+  position:relative;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;
+  padding:8px 0;background:none;border:0;cursor:pointer;font:inherit;
+  font-size:14px;font-weight:700;letter-spacing:.35px;
+  color:var(--ucl-slate-700);transition:color var(--transition-fast);
+}
+.ucl-nav > a:hover,.ucl-nav-btn:hover{color:var(--ucl-cyan)}
+/* ホバーで左から右へ伸びる下線（本体サイトの from-it-cyan to-energy-lime） */
+.ucl-nav > a::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
+  background:linear-gradient(90deg,var(--ucl-cyan),var(--ucl-lime));
+  transition:width var(--transition-base);
+}
+.ucl-nav > a:hover::after{width:100%}
+.ucl-chevron{width:12px;height:12px;flex:none;transition:transform var(--transition-fast)}
+.ucl-nav-item:hover .ucl-chevron,.ucl-nav-item:focus-within .ucl-chevron,
+.ucl-nav-item.is-open .ucl-chevron{transform:rotate(180deg)}
+
+/* ドロップダウン（企業情報／環境エネルギー／ソリューション事業） */
+.ucl-nav-item{position:relative}
+.ucl-dropdown{
+  position:absolute;top:100%;left:0;margin-top:8px;width:192px;
+  background:#fff;border:1px solid var(--ucl-slate-200);border-radius:12px;
+  /* 本体サイトの shadow-xl 相当。--shadow-panel より濃く・広い二重シャドウ */
+  box-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);
+  overflow:hidden;
+  opacity:0;visibility:hidden;transform:translateY(6px);
+  transition:opacity var(--transition-base),transform var(--transition-base),visibility var(--transition-base);
+}
+.ucl-nav-item:hover .ucl-dropdown,.ucl-nav-item:focus-within .ucl-dropdown,
+.ucl-nav-item.is-open .ucl-dropdown{
+  opacity:1;visibility:visible;transform:translateY(0);
+}
+.ucl-dropdown a{
+  display:block;padding:12px 16px;font-size:14px;font-weight:400;line-height:20px;color:var(--ucl-slate-600);
+  border-bottom:1px solid var(--ucl-slate-100);transition:background var(--transition-fast),color var(--transition-fast);
+}
+.ucl-dropdown a:last-child{border-bottom:0}
+.ucl-dropdown a:hover{background:var(--ucl-cyan);color:#fff}
+
+/* ハンバーガー（1024px未満でだけ表示）。開閉は <details> のネイティブ挙動 */
+.ucl-burger-wrap{display:none}
+.ucl-burger{
+  list-style:none;position:relative;display:block;width:22px;height:16px;cursor:pointer;color:var(--ucl-slate-700);
+}
+.ucl-burger::-webkit-details-marker{display:none}
+.ucl-burger::before,.ucl-burger::after,.ucl-burger-bar{
+  content:"";position:absolute;left:0;width:100%;height:2px;background:currentColor;border-radius:1px;
+  transition:transform var(--transition-fast),opacity var(--transition-fast),top var(--transition-fast);
+}
+.ucl-burger::before{top:0}
+.ucl-burger-bar{top:7px}
+.ucl-burger::after{top:14px}
+.ucl-burger-wrap[open] .ucl-burger::before{top:7px;transform:rotate(45deg)}
+.ucl-burger-wrap[open] .ucl-burger-bar{opacity:0}
+.ucl-burger-wrap[open] .ucl-burger::after{top:7px;transform:rotate(-45deg)}
+
+/* 本体サイトのモバイルメニューは <header> の直下いっぱいに広がる帯（w-full、
+   角丸なし、border-bはslate-200、shadow-lg）。.ucl-burger-wrap に position を
+   持たせず static のままにして、絶対配置の基準を .ucl-header（sticky）まで
+   持ち上げることで、.ucl-burger-wrap の中に居ながら全幅に広げている */
+.ucl-mobile-nav{
+  position:absolute;top:100%;left:0;width:100%;
+  /* .ucl-header 自身が既にbackdrop-filterを持ち、その子孫であるここでの
+     backdrop-filterは実質効かない（親のフィルタ結果を透かす形にしかならない）ため持たせない。
+     地色を95%不透明にしているので見た目には影響しない */
+  background:rgba(255,255,255,.95);
+  border-bottom:1px solid var(--ucl-slate-200);
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);
+  padding:16px;display:flex;flex-direction:column;gap:4px;
+  max-height:80vh;overflow-y:auto;
+}
+.ucl-mobile-nav > a{
+  padding:12px 16px;border-radius:8px;
+  font-size:16px;font-weight:500;color:var(--ucl-slate-700);transition:background var(--transition-fast),color var(--transition-fast);
+}
+.ucl-mobile-nav > a:hover{background:var(--ucl-slate-50);color:var(--ucl-cyan)}
+
+.ucl-mobile-group summary{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;border-radius:8px;cursor:pointer;
+  font-size:16px;font-weight:500;color:var(--ucl-slate-700);list-style:none;
+  transition:background var(--transition-fast);
+}
+.ucl-mobile-group summary:hover{background:var(--ucl-slate-50)}
+.ucl-mobile-group summary::-webkit-details-marker{display:none}
+.ucl-chevron-r{width:16px;height:16px;flex:none;transition:transform var(--transition-fast)}
+.ucl-mobile-group[open] .ucl-chevron-r{transform:rotate(90deg)}
+.ucl-mobile-sub{display:flex;flex-direction:column;gap:4px;padding-left:16px;margin-top:4px}
+.ucl-mobile-sub a{
+  display:block;padding:10px 16px;border-radius:8px;
+  font-size:14px;font-weight:500;color:var(--ucl-slate-500);transition:background var(--transition-fast),color var(--transition-fast);
+}
+.ucl-mobile-sub a:hover{background:var(--ucl-slate-50);color:var(--ucl-cyan)}
+
+@media(max-width:1279px){
+  .ucl-nav{display:none}
+  .ucl-burger-wrap{display:block}
+}
+@media(max-width:480px){
+  .ucl-header-in{padding-left:20px;padding-right:20px}
 }
 
 /* =========================================================
@@ -39,23 +191,20 @@
    高さを詰め、右のCTAボタンは持たせない（問い合わせ導線は本体ヘッダー側にある）。
    ========================================================= */
 /* ---------------------------------------------------------
-   単体で開くときと、本体サイトに差し込むときの両方で成立させる
-
    デザインシステムの nav は position:sticky; top:0 なので、素のまま差し込むと
-   本体サイトのヘッダー（こちらも sticky）と同じ位置を取り合って重なる。
-   本体ヘッダーの高さを --host-header-height の1か所に持たせ、
+   .ucl-header（こちらも sticky）と同じ位置を取り合って重なる。
+   .ucl-header の高さを --host-header-height の1か所に持たせ、
    このページの sticky はすべてそこから積み上げる形にしてある。
 
-     素のまま開く   : --host-header-height:0px（既定）→ 従来どおり最上段に貼り付く
-     本体に差し込む : 実際のヘッダー高に変えるだけ。nav も .cat-nav も
-                      アンカーの着地点（.cat-group の scroll-margin-top）も追従する
-
-   差し込み側での指定例（どちらでもよい）:
-     <html style="--host-header-height:80px">
-     :root{--host-header-height:80px}   ← 埋め込み先のCSSで上書き
+   .ucl-header はスクロールや画面幅で実際の高さが変わる（py-4⇄py-2、
+   モバイルでの折り返しなど）ため、固定値ではなく index.html 側のスクリプトが
+   .ucl-header の実高さを常にここへ書き戻す（ResizeObserver＋スクロール時）。
+   下の値は JS が走る前・非対応環境向けの初期フォールバックにすぎない。
+   外部からの上書き（<html style="..."> 等）は、このスクリプトが毎回
+   .style.setProperty() で上書きするため効かない。
    --------------------------------------------------------- */
 :root{
-  --host-header-height:0px;
+  --host-header-height:81px;
   --sub-nav-height:52px;
   /* sticky な要素（.cat-nav）は、本体ヘッダー＋このサブヘッダーの下に張り付く */
   --sticky-top:calc(var(--host-header-height) + var(--sub-nav-height));

@@ -20,7 +20,184 @@
 </head>
 <body>
 
-<!-- 現行UCLサイトのヘッダー配下に差し込む前提のサブヘッダー。
+<!-- 現行UCLサイト（www.ucl-group.co.jp）のヘッダーをそのまま移植したもの。
+     元は React + Tailwind（bg-white/80 backdrop-blur-md、スクロールで
+     bg-white/95 backdrop-blur-xl + py-2 に変わる、企業情報/環境エネルギー/
+     ソリューション事業はホバーでドロップダウン）。ビルドなしの生CSSで
+     同じ見た目・挙動に書き起こしてある。
+     スクロール検知とハンバーガーの開閉補助だけはCSSで完結しないため、
+     </header> 直後のインラインスクリプトで行う -->
+<header class="ucl-header" id="ucl-header">
+  <div class="ucl-header-in">
+    <a class="ucl-brand" href="https://www.ucl-group.co.jp/" aria-label="UCL Corporation トップ">
+      <img alt="株式会社 ユー・シー・エル" src="assets/ucl-logo.png" width="350" height="70">
+    </a>
+
+    <!-- リンク項目は下の .ucl-mobile-nav（モバイル用）と全く同じ内容を二重管理している。
+         項目の追加・削除・文言変更・href変更は、両方のnavに同時に反映すること
+         （過去に AI INNOVATION の aria-current が片方だけ漏れた実例あり） -->
+    <nav class="ucl-nav" aria-label="UCLメインナビゲーション">
+      <a href="https://www.ucl-group.co.jp/">トップ</a>
+
+      <div class="ucl-nav-item">
+        <button type="button" class="ucl-nav-btn" aria-haspopup="true" aria-expanded="false">企業情報<svg class="ucl-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></button>
+        <div class="ucl-dropdown">
+          <a href="https://www.ucl-group.co.jp/company">企業情報</a>
+          <a href="https://www.ucl-group.co.jp/message">社長挨拶</a>
+          <a href="https://www.ucl-group.co.jp/history">会社沿革</a>
+          <a href="https://www.ucl-group.co.jp/service">事業案内</a>
+        </div>
+      </div>
+
+      <a href="https://ucl-development-team.github.io/ai-hp/" aria-current="page">AI INNOVATION</a>
+
+      <div class="ucl-nav-item">
+        <button type="button" class="ucl-nav-btn" aria-haspopup="true" aria-expanded="false">環境エネルギー<svg class="ucl-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></button>
+        <div class="ucl-dropdown">
+          <a href="https://www.ucl-group.co.jp/new-energy">新エネルギー</a>
+          <a href="https://www.ucl-group.co.jp/consulting">コンサルティング</a>
+        </div>
+      </div>
+
+      <div class="ucl-nav-item">
+        <button type="button" class="ucl-nav-btn" aria-haspopup="true" aria-expanded="false">ソリューション事業<svg class="ucl-chevron" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></button>
+        <div class="ucl-dropdown">
+          <a href="https://www.ucl-group.co.jp/ict-solutions">ソリューション</a>
+          <a href="https://www.ucl-group.co.jp/engineering">エンジニアリング</a>
+          <a href="https://www.ucl-group.co.jp/our-services">自社サービス</a>
+          <a href="https://leondou.com/e-learning/" target="_blank" rel="noopener noreferrer">E-Learning(自社ブログ)</a>
+        </div>
+      </div>
+
+      <a href="https://www.ucl-group.co.jp/sdgs">SDGs</a>
+      <a href="https://www.ucl-group.co.jp/recruit">採用情報</a>
+      <a href="https://www.ucl-group.co.jp/privacy">プライバシー</a>
+      <a href="https://www.ucl-group.co.jp/contact">お問い合わせ</a>
+    </nav>
+
+    <!-- 1280px未満はここに折りたたむ。開閉は <details> のネイティブ挙動そのままで、
+         中身の見た目だけ custom.css で作る（.cat-group と同じ考え方） -->
+    <details class="ucl-burger-wrap">
+      <summary class="ucl-burger" aria-label="メニューを開く"><span class="ucl-burger-bar" aria-hidden="true"></span></summary>
+      <!-- 上の .ucl-nav（デスクトップ用）と全く同じ内容を二重管理している。
+           項目の追加・削除・文言変更・href変更は、両方のnavに同時に反映すること
+           （過去に AI INNOVATION の aria-current が片方だけ漏れた実例あり） -->
+      <nav class="ucl-mobile-nav" aria-label="UCLメインナビゲーション（モバイル）">
+        <a href="https://www.ucl-group.co.jp/">トップ</a>
+
+        <details class="ucl-mobile-group">
+          <summary>企業情報<svg class="ucl-chevron-r" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></summary>
+          <div class="ucl-mobile-sub">
+            <a href="https://www.ucl-group.co.jp/company">企業情報</a>
+            <a href="https://www.ucl-group.co.jp/message">社長挨拶</a>
+            <a href="https://www.ucl-group.co.jp/history">会社沿革</a>
+            <a href="https://www.ucl-group.co.jp/service">事業案内</a>
+          </div>
+        </details>
+
+        <a href="https://ucl-development-team.github.io/ai-hp/" aria-current="page">AI INNOVATION</a>
+
+        <details class="ucl-mobile-group">
+          <summary>環境エネルギー<svg class="ucl-chevron-r" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></summary>
+          <div class="ucl-mobile-sub">
+            <a href="https://www.ucl-group.co.jp/new-energy">新エネルギー</a>
+            <a href="https://www.ucl-group.co.jp/consulting">コンサルティング</a>
+          </div>
+        </details>
+
+        <details class="ucl-mobile-group">
+          <summary>ソリューション事業<svg class="ucl-chevron-r" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></summary>
+          <div class="ucl-mobile-sub">
+            <a href="https://www.ucl-group.co.jp/ict-solutions">ソリューション</a>
+            <a href="https://www.ucl-group.co.jp/engineering">エンジニアリング</a>
+            <a href="https://www.ucl-group.co.jp/our-services">自社サービス</a>
+            <a href="https://leondou.com/e-learning/" target="_blank" rel="noopener noreferrer">E-Learning(自社ブログ)</a>
+          </div>
+        </details>
+
+        <a href="https://www.ucl-group.co.jp/sdgs">SDGs</a>
+        <a href="https://www.ucl-group.co.jp/recruit">採用情報</a>
+        <a href="https://www.ucl-group.co.jp/privacy">プライバシー</a>
+        <a href="https://www.ucl-group.co.jp/contact">お問い合わせ</a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+(function () {
+  'use strict';
+  var header = document.getElementById('ucl-header');
+  if (!header) return;
+
+  // ヘッダーの実高さを --host-header-height に反映し続ける。
+  // スクロールで py-4→py-2 に縮む／モバイルで行数が変わる、をハードコードせず追従させる
+  function syncHeight() {
+    document.documentElement.style.setProperty('--host-header-height', header.offsetHeight + 'px');
+  }
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(syncHeight).observe(header);
+  } else {
+    window.addEventListener('resize', syncHeight);
+  }
+  syncHeight();
+
+  // 20px超スクロールで白背景を濃く・ぼかしを強く（本体サイトと同じしきい値）。
+  // is-scrolled は padding だけを変え、ResizeObserver の既定（content-box）は
+  // 動かないため発火しない。ここで明示的に syncHeight() も呼んで追従させる
+  function onScroll() {
+    header.classList.toggle('is-scrolled', window.scrollY > 20);
+    syncHeight();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // モバイルメニュー: リンクを押す／外側をクリック／1280px以上に広がったら閉じる
+  var burgerWrap = header.querySelector('.ucl-burger-wrap');
+  if (burgerWrap) {
+    document.addEventListener('click', function (ev) {
+      if (!burgerWrap.open) return;
+      var closedByLink = ev.target.closest('.ucl-mobile-nav > a, .ucl-mobile-sub a');
+      var closedByOutside = !burgerWrap.contains(ev.target);
+      if (closedByLink || closedByOutside) burgerWrap.open = false;
+    });
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 1280) burgerWrap.open = false;
+    });
+  }
+
+  // デスクトップのドロップダウン（企業情報／環境エネルギー／ソリューション事業）:
+  // CSSのhover/focus-withinに加えて、クリック（マウス操作を伴わないタッチ環境など）
+  // でも開閉できるようにし、aria-expandedを状態に合わせて更新する
+  var navItems = header.querySelectorAll('.ucl-nav-item');
+  Array.prototype.forEach.call(navItems, function (item) {
+    var btn = item.querySelector('.ucl-nav-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var willOpen = !item.classList.contains('is-open');
+      Array.prototype.forEach.call(navItems, function (other) {
+        other.classList.remove('is-open');
+        var otherBtn = other.querySelector('.ucl-nav-btn');
+        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+      });
+      if (willOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.addEventListener('click', function (ev) {
+    if (!(ev.target instanceof Element)) return;
+    Array.prototype.forEach.call(navItems, function (item) {
+      if (item.contains(ev.target)) return;
+      item.classList.remove('is-open');
+      var btn = item.querySelector('.ucl-nav-btn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+})();
+</script>
+
+<!-- 本体サイトのヘッダー配下に置くサブヘッダー。
      .nav-sub で高さを詰め、問い合わせ導線（ヘッダー側にある）は持たせない -->
 <nav class="nav-sub">
   <div class="wrap nav-in">
@@ -541,6 +718,7 @@
       <div class="foot-col-2">
         <h3 class="foot-h">事業領域</h3>
         <ul class="foot-links">
+          <li><a href="https://ucl-development-team.github.io/ai-hp/" aria-current="page"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>AI INNOVATION</a></li>
           <li><a href="https://www.ucl-group.co.jp/ict-solutions"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>ソリューション</a></li>
           <li><a href="https://www.ucl-group.co.jp/engineering"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>エンジニアリング</a></li>
           <li><a href="https://www.ucl-group.co.jp/our-services"><svg class="foot-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>自社サービス</a></li>
